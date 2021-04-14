@@ -1,0 +1,44 @@
+body{
+    margin: 0;
+}
+/* CABECERA */
+#cab{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+#login h2{
+    margin: 0;
+    font-size: 20px;
+}
+#login form label{
+    display: block;
+}
+h1{
+    margin: 0;
+    padding: 0;
+}
+#menu, ul{
+    margin: 0;
+    padding:0;
+    list-style-type: none;
+    background-color: tomato;
+    position: relative;
+}
+
+#menu li{
+    display: inline-block;
+    padding: 10px;
+    background-color: teal;
+}
+li > ul{
+    display: flex;
+    position:absolute;
+    top:38.2px;
+    
+}
+/*li:hover > ul{
+    display: block;
+    position:absolute;
+    top:38.2px; 
+}*/
