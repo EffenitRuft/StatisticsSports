@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <title>Directo - StatisticSports</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>StatisticSports</h1>
+            <div id="login">
+                <form action="#" method="post">
+                    <label for="Usuario">Usuario</label>
+                    <input type="text" name="usu">
+                    <label for="Contraseña">Contraseña</label>
+                    <input type="password" name="pass">
+                    <input type="submit" name="log" value="Entrar">
+                </form>
+            </div>
+            <a href="./registro.php">Registrarse</a>
+            <!-- Crear formulario para registrar-->
+            <a href="#">No recuerdo contraseña</a>
+            <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
+        </div>
+        <nav>
+            <ul>
+                <li>Inicio</li>
+                <li>CATEGORIAS
+                    <ul>
+                        <li>FEMENINO
+                            <ul>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </li>
+                        <li>MASCULINO
+                            <ul>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>ENCUENTROS</li>
+                <li><a href="./directo.html">DIRECTO</a></li>
+            </ul>
+        </nav>
+    </header>
+    <hr>
+    <main>
+        <script>
+            /*  PARTE ALEX
+            -   Pedir al servidor un jugador
+            -   Cada vez que le presione le salga un formulario
+            que tiene que rellenar con 3 valores
+            */
+
+            //PARTE MARTA
+            var array = [1, 'C', 3]
+    
+            function peticionArray() {
+                var req
+                if (window.XMLHttpRequest) {
+                    req = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    req = ActiveXObject("Microsoft.XMLHTTP");
+                }
+                req.onreadystatechange = function () {
+                    if (req.readyState == 4) {
+                        if (req.status == 200) {
+                            console.log("DATOS MANDADOS CON ÉXITO")
+                        }
+                    }
+                }
+                req.open("GET", "servidor.php?array="+JSON.stringify(array));
+                req.send()
+            }
+    
+            window.addEventListener("load", function () {
+                peticionArray()
+            })
+        </script>
+    </main>
+    <hr>
+    <footer>
+        <p>Web creada por Bea, Alexandru y Marta</p>
+    </footer>
+</body>
+
+</html>
