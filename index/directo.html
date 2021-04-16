@@ -12,9 +12,10 @@
 
 <body>
     <header>
-        <div>
+        <div id="cab">
             <h1>StatisticSports</h1>
             <div id="login">
+                <h2>Inicio de sesion</h2>
                 <form action="#" method="post">
                     <label for="Usuario">Usuario</label>
                     <input type="text" name="usu">
@@ -22,51 +23,67 @@
                     <input type="password" name="pass">
                     <input type="submit" name="log" value="Entrar">
                 </form>
+                <a href="./registro.php">Registrarse</a>
+                <!-- Crear formulario para registrar-->
+                <a href="#">No recuerdo contraseña</a>
+                <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
             </div>
-            <a href="./registro.php">Registrarse</a>
-            <!-- Crear formulario para registrar-->
-            <a href="#">No recuerdo contraseña</a>
-            <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
         </div>
         <nav>
-            <ul>
-                <li>Inicio</li>
-                <li>CATEGORIAS
+            <ul class="nav">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">CATEGORIAS</a>
                     <ul>
-                        <li>FEMENINO
+                        <li><a href="#">FEMENINO</a>
                             <ul>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
+                                <li><a href="">FEM1</a></li>
+                                <li>FEM2</li>
+                                <li>FEM3</li>
+                                <li>FEM4</li>
                             </ul>
                         </li>
-                        <li>MASCULINO
+                        <li><a href="#">MASCULINO</a>
                             <ul>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
+                                <li><a href="">MASC1</a></li>
+                                <li>MASC2</li>
+                                <li>MASC3</li>
+                                <li>MASC4</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li>ENCUENTROS</li>
+                <li><a href="#">ENCUENTROS</a></li>
                 <li><a href="./directo.html">DIRECTO</a></li>
             </ul>
         </nav>
     </header>
     <hr>
     <main>
+        <div id="directo">
+            <input type="text" name="in-p" id="in-p">
+            <button id="bt-coger">COGER</button>
+        </div>
         <script>
             /*  PARTE ALEX
             -   Pedir al servidor un jugador
             -   Cada vez que le presione le salga un formulario
             que tiene que rellenar con 3 valores
             */
+            let bt_p = document.getElementById("bt-coger")
+            bt_p.addEventListener('click', recogerPersona)
+            function recogerPersona(){
+                let persona = document.getElementById("in-p").value
+                console.log(persona);
+                
+                let doc = document.getElementById('directo')
+                let bt_env = document.createElement('button')
+                bt_env.setAttribute('id','env-datos')
+                bt_env.innerHTML = "ENVIAR DATOS"
 
+                doc.appendChild(bt_env)
+            }
             //PARTE MARTA
-            var array = [1, 'C', 3]
+            var array = ["persona", 'C', 3]
     
             function peticionArray() {
                 var req

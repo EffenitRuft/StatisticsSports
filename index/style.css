@@ -18,27 +18,44 @@ h1{
     margin: 0;
     padding: 0;
 }
-#menu, ul{
-    margin: 0;
-    padding:0;
-    list-style-type: none;
-    background-color: tomato;
-    position: relative;
+
+ul {
+    list-style:none;
+    padding: 0;
+    background-color: #000;
 }
 
-#menu li{
-    display: inline-block;
-    padding: 10px;
-    background-color: teal;
+.nav > li {
+    display:inline-block;
 }
-li > ul{
-    display: flex;
-    position:absolute;
-    top:38.2px;
-    
+
+.nav li a {
+    background-color:#000;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 12px;
+    display:block;
 }
-/*li:hover > ul{
-    display: block;
+
+.nav li a:hover {
+    background-color:#434343;
+}
+
+.nav li ul {
+    display:none;
     position:absolute;
-    top:38.2px; 
-}*/
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:relative;
+}
+
+.nav li ul li ul {
+    right:-140px;
+    top:0px;
+}
