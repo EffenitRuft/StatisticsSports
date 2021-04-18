@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CLIENTE PRUEBA</title>
+    <script>
+        var array = [1, 'C', 3]
+
+        function peticionArray() {
+            var req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log("DATOS MANDADOS CON ÉXITO")
+                    }
+                }
+            }
+            req.open("GET", "servidor.php?array="+JSON.stringify(array));
+            req.send()
+        }
+
+        window.addEventListener("load", function () {
+            peticionArray()
+        })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
