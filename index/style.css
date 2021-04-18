@@ -19,6 +19,7 @@ h1{
     padding: 0;
 }
 
+/* MENU */
 ul {
     list-style:none;
     padding: 0;
@@ -58,4 +59,29 @@ ul {
 .nav li ul li ul {
     right:-140px;
     top:0px;
+}
+/* DIRECTO */
+#directo {
+    text-align: center;
+    
+}
+#d-ficha{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+#d-ficha p{
+    margin: 0;
+}
+#d-valores{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
