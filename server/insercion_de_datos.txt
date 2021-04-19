@@ -1,0 +1,209 @@
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('1', 'CVTERUEL', 'masculino', 'superliga1', 'senior', 'MIGUEL RIVERA');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'MANUEL PARRES', '1', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'VICTOR RODRIGUEZ', '1', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'PEDRO JUKOSKI', '1', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'JORDI RAMON', '1', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'CESAR MARTIN', '1', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'PABLO BURGALLO', '1', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'DANIEL RUIZ', '1', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'ARNAU CAPARROS', '1', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'PABLO MARTINEZ', '1', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'FABIAN PLAK', '1', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'JAVIER IGUAL', '1', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'AARON GAMIZ', '1', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('19', 'FILIP GAVENDA', '1', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('21', 'THOMAS EREU', '1', 'receptor');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('2', 'VECINDARIO', 'masculino', 'superliga1', 'senior', 'FRANCISCO JAVIER');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'ALEJANDRO MENA', '2', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'CARLOS MANUEL DE CARVALHO', '2', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'RUIMAN ARTILES', '2', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'MOISES DOS SANTOS', '2', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'EBEN EZAR SANTANA', '2', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'JAVIER SANCHEZ', '2', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'AARON SOCORRO', '2', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'ALEKSANDER KHRIPUN', '2', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'JAVIER MONFORT', '2', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'CRISTIAN CARABALLI', '2', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'ARABISEN RODRIGUEZ', '2', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'MATIAS OCAMPO', '2', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'LUCA BILIATO', '2', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'MARCELO HISTER', '2', 'receptor');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('3', 'ARENAL EMEVE', 'masculino', 'superliga1', 'senior', 'DIEGO TABOADA');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'JAVIER GARCIA', '3', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'LUIS LINARES', '3', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'VICTOR BOUZA', '3', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'FELIPE DE MELLO', '3', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'JORDI HERRERO', '3', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'RUBEN LOPEZ', '3', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'MARIO DOVALE', '3', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'PABLO VILLAR', '3', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'ADRIAN GARCIA', '3', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'MATTHEW KNIGGE', '3', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'JOSE MARIA GIMENEZ', '3', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('19', 'LUIS MARTIN', '3', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'UNAI LARRAÑAGA', '3', 'libero');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('4', 'ARENAL EMEVE', 'femenino', 'superliga1', 'senior', 'JOSE VALLE');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'CAROLINA CAMINO', '4', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'JULIA PARADELA', '4', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'NATASHA VALIENTE', '4', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'IRENE YAÑEZ', '4', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'FATIMA VALLE', '4', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'MARIE ALFORD', '4', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'INMACULADA LAVADO', '4', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'MARIA RODRIGUEZ', '4', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'SARA URREA', '4', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'PAULA REIJA', '4', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'CARLA JIMENEZ', '4', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'LUCIA PROL', '4', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('16', 'MARIA JOSE GARRIDO', '4', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'INES RIVAS', '4', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'ATHANASIA LIAGKI', '4', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('19', 'AINARA BURGO', '4', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'MARTA OTERO', '4', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('21', 'LIDIA FIGUEIRA', '4', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('22', 'LEANN BUJAN', '4', 'libero');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('5', 'CAJASOL JUVASA', 'femenino', 'superliga1', 'senior', 'JOSE MANUEL GONZALEZ');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'CANDELA BERNANDINO', '5', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'JIMENA FERNANDEZ', '5', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'JUDITH PORRAS', '5', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'WINDERLYS GISEL MEDINA', '5', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'FLORENCIA WOLKOWYSKI', '5', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'ELIANA AYLEN GONZALEZ', '5', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'CARLA MOREIRA', '5', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'MARIA RODRIGUEZ', '5', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'MERIYEN VICTORIA SERRANO', '5', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'MARIA ZAMBRANO', '5', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'ANDREA SILVA', '5', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'ALBA ORTIZ', '5', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('16', 'JULIANA DE ACHARAN', '5', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'VICTORIA VAN ECK', '5', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'ROCIO ANA RUIZ', '5', 'receptor');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('6', 'FEEL VOLLEY ALCOBENDAS', 'femenino', 'superliga1', 'senior', 'GUILLERMO GALLARDO');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'CARMEN UNZUE', '6', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'TERESA MAS', '6', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'ADRIANA ALONSO', '6', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'SOFIA ELIZAGA', '6', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'AILEEN CUNNINGHAM', '6', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'MARGALIDA PIZA', '6', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'ELIZABETH CLARK', '6', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'CANDELA ALONSO', '6', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'MARIA ALEJANDRA ALVAREZ', '6', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'ALICIA SANCHEZ', '6', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'CLAUDIA FITA', '6', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'LUISA DE MIRANDA', '6', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('22', 'LYDIA ALONSO', '6', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('21', 'LINDSAY MALLOY', '6', 'opuesto');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('7', 'CVLEGANES', 'masculino', 'superliga2', 'senior', 'ILDEFONSO GARCIA');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'DIEGO MENDOZA', '7', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'JAVIER HERRERA', '7', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'CYRIL CEDRIC', '7', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'GUILLERMO GOMEZ', '7', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'RAUL GOMEZ', '7', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'AUGUSTO DIAZ', '7', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'JOSE MARIA HERNANDEZ', '7', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'JOSE ANGEL PARADA', '7', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'MIGUEL TEJADO', '7', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'CARLOS BAOS', '7', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('16', 'KEFREN BRAVO', '7', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'YAINEL CHAVEZ', '7', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'MANUEL MICO', '7', 'central');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('8', 'CVPINTO', 'masculino', 'superliga2', 'senior', 'MIGUEL ANGEL SANCHEZ');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'PABLO VIECO', '8', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'BORJA MARTINEZ', '8', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'ALVARO JURADO', '8', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'MARCOS ABAD', '8', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'MARCOS LOPEZ', '8', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'VICTOR CASARES', '8', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'ADRIAN PINO', '8', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'JORDI MARTINEZ', '8', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'ALBERTO DE MIGUEL', '8', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'NEFTALI HERNANDEZ', '8', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'ALEJANDRO PEREZ', '8', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'RAFAEL MORENO', '8', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'DANIEL PINO', '8', 'receptor');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('9', 'CVPIZARRA', 'masculino', 'superliga2', 'senior', 'JOSE MANUEL PANIAGUA');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'GUILLERMO REYES', '9', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'IVAN CORRALES', '9', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'SALAH ATIQUI', '9', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'JAVIER GARCIA', '9', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'FRANCISCO VERA', '9', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'JOAN DURAN', '9', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'ENRIQUE GABRIEL MARTIN', '9', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'MANUEL DE AMO', '9', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'FRANCISCO AVILA', '9', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'JOSE LUIS MONTERROSO', '9', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'IGNACIO COSTA', '9', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('16', 'GUILLERMO VAZQUEZ', '9', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'ANTONIO CUENCA', '9', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'JAIME MONTERROSO', '9', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('21', 'FRANCISCO GARCIA', '9', 'libero');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('10', 'VPMADRID', 'femenino', 'superliga2', 'senior', 'DAVID GONZALEZ');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'ALBA HERNANDEZ', '10', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'VIOLETA GOMEZ', '10', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'AURORA TUR', '10', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'LUA BOVIO', '10', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'ISABEL WEGMANN', '10', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'ANE CENGOTITABENGOA', '10', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'RAQUEL DIAZ', '10', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'LUISA RODRIGUEZ', '10', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'ANA MARTIN', '10', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'ESTHER IGLESIAS', '10', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'LIDYA ORTEGA', '10', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('26', 'AINARA SAUCA', '10', 'libero');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('11', 'CVTORREJON', 'femenino', 'superliga2', 'senior', 'CARLOS PONCELA');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'PAULA ALFARO', '11', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('3', 'PAULA ALVAREZ', '11', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'MARIA APARICIO', '11', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'VERONICA FERNANDEZ', '11', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'CRISTINA GARCIA', '11', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'GUADALUPE SOL ROSELL', '11', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'PAULA MORALES', '11', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'ALBA MARIN', '11', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('13', 'PAULA LOPEZ', '11', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'CELIA GOMEZ', '11', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('16', 'EVA DUARTE', '11', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'NATALIA TOBON', '11', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'LAURA USERO', '11', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('22', 'OMAIRA PERDOMO', '11', 'central');
+
+INSERT INTO `statisticssports`.`equipo` (`id_equipo`, `nombre_equipo`, `genero`, `liga`, `categoria`, `entrenador`) VALUES ('12', 'MINTONETTE ALMERIA', 'femenino', 'superliga2', 'senior', 'ANGEL GARCIA');
+
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('1', 'ISABEL MIRAS', '12', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('2', 'ALEJANDRA VICIANA', '12', 'liero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('4', 'LAURA GAZQUEZ', '12', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('5', 'IRIS ALVAREZ', '12', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('6', 'PAULA GARCIA', '12', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('7', 'JULIA VAQUERO', '12', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('8', 'VIRGINIA CAPEL', '12', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('9', 'MARIA DEL MAR MARTINEZ', '12', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('10', 'LIA LLEDO', '12', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('11', 'CRISTINA ORTEGA', '12', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('12', 'ELIA RUIPEREZ', '12', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('14', 'ROCIO NAVEA', '12', 'opuesto');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('15', 'MARINA CARRUE', '12', 'colocador');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('17', 'INAS ALUBUDI', '12', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('18', 'MARIOLA GONZALEZ', '12', 'central');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('19', 'CAROLINA MARTINEZ', '12', 'receptor');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('20', 'LUISA ORTEGA', '12', 'libero');
+INSERT INTO `statisticssports`.`jugador` (`id_jugador`, `nombre`, `id_equipo`, `puesto`) VALUES ('22', 'INES MARIA BENITEZ', '12', 'central');
