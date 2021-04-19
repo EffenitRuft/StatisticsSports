@@ -1,0 +1,34 @@
+CREATE SCHEMA statisticssports;
+CREATE TABLE statisticssports.equipo (
+  id_equipo INT NOT NULL,
+  nombre_equipo VARCHAR(60) NOT NULL,
+  genero ENUM('femenino', 'masculino') NOT NULL,
+  liga ENUM('autonomica', 'nacional', 'superliga1', 'superliga2') NOT NULL,
+  categoria ENUM('alevin', 'infantil', 'juvenil', 'cadete', 'senior') NOT NULL,
+  entrenador VARCHAR(60) NOT NULL,
+  PRIMARY KEY (id_equipo),
+  UNIQUE INDEX id_equipo_UNIQUE (id_equipo ASC));
+CREATE TABLE statisticssports.jugador (
+  id_jugador INT NOT NULL,
+  nombre VARCHAR(60) NULL,
+  id_equipo INT NOT NULL,
+  puesto ENUM('libero', 'central', 'opuesto', 'receptor', 'colocador') NOT NULL,
+  numcolocaciones INT NULL DEFAULT 0,
+  mediacolocaciones DOUBLE NULL DEFAULT 0,
+  numrecibir INT NULL DEFAULT 0,
+  mediarecibir DOUBLE NULL DEFAULT 0,
+  numerodefender INT NULL DEFAULT 0,
+  mediadefender DOUBLE NULL DEFAULT 0,
+  numeroataque INT NULL DEFAULT 0,
+  mediaataque DOUBLE NULL DEFAULT 0,
+  numerobloquear INT NULL DEFAULT 0,
+  mediabloquear DOUBLE NULL DEFAULT 0,
+  numsaques INT NULL DEFAULT 0,
+  mediasaques DOUBLE NULL DEFAULT 0,
+  PRIMARY KEY (id_jugador, id_equipo);
+ALTER TABLE statisticssports.jugador 
+ADD CONSTRAINT id_equipo
+  FOREIGN KEY (id_equipo)
+  REFERENCES statisticssports.equipo (id_equipo)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
