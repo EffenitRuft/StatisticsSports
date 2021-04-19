@@ -169,7 +169,8 @@
                 }
             }
             function darValor(datos, v2, v3) {
-                let array = [datos[1], v2, v3]
+                console.log(datos);
+                let array = [parseInt(datos[2]),parseInt(datos[0]),v2,parseInt(v3)]
                 var req
                 if (window.XMLHttpRequest) {
                     req = new XMLHttpRequest();
@@ -183,7 +184,7 @@
                         }
                     }
                 }
-                req.open("GET", "basedatos.php?array=" + JSON.stringify(array));
+                req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array));
                 req.send()
             }
         </script>
