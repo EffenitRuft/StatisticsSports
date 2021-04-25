@@ -23,10 +23,6 @@
                     <input type="password" name="pass">
                     <input type="submit" name="log" value="Entrar">
                 </form>
-                <a href="./registro.php">Registrarse</a>
-                <!-- Crear formulario para registrar-->
-                <a href="#">No recuerdo contraseña</a>
-                <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
             </div>
         </div>
         <nav>
@@ -85,6 +81,7 @@
         });*/
         //JUGADORES
         let array = [v1 = 2,v2 = 1]
+        var array2 = array.slice()
         let jug1 = document.getElementById('jug-1')
         let jug2 = document.getElementById('jug-2')
         let jug3 = document.getElementById('jug-3')
@@ -100,6 +97,9 @@
         jug6.addEventListener("click", tablaAcciones)
 
         function tablaAcciones() {
+            if (document.getElementById("d-accion")) {
+                document.getElementById("d-accion").remove()
+            } 
             let d_padre = document.createElement('div')
             d_padre.setAttribute('id', "d-accion")
             let p1 = document.createElement('p')
@@ -153,6 +153,7 @@
             d_padre.appendChild(va2)
             d_padre.appendChild(va3)
             d_padre.appendChild(va4)
+            array2 = array.slice()
             d_padre.childNodes.forEach(element => {
                 if (element.nodeName == "BUTTON") {
                     if (element.getAttribute('id').includes('acc')) {
@@ -169,135 +170,51 @@
 
         function accion(e){
             e.preventDefault()
+            let doc = document.getElementById("d-accion")
+            if (document.getElementById("p-acc")) {
+                var p = document.getElementById("p-acc")
+            }else{
+                var p = document.createElement("p")
+                p.setAttribute("id","p-acc")
+            }
             pulsado = this.getAttribute("id").split("-")[1]
             v3 = pulsado
+            p.innerHTML= "ACCION = " + v3
             //OPCION 1 - DEVOLVER EL VALOR V3 E INTENTAR METERLO EN EL ARRAY
             //OPCION 2 - DIRECTAMENTE METER EL VALOR EN EL ARRAY
-            array[2] = v3
-            if (array.length > 3) {
-                array.splice(2,1)
+            array2[2] = v3
+            if (array2.length > 3) {
+                array2.splice(2,1)
             }
-            console.log(array);
+            console.log(array2);
+            doc.appendChild(p)
         }
         function valor(e){
             e.preventDefault()
+            let doc = document.getElementById("d-accion")
+            if (document.getElementById("p-val")) {
+                var pv = document.getElementById("p-val")
+            }else{
+                var pv = document.createElement("p")
+                pv.setAttribute("id","p-val")
+            }
             pulsado = this.getAttribute("id").split("-")[1]
             v4 = pulsado
-            array[3] = parseInt(v4)
-            if (array.length > 4) {
-                array.splice(4,1)
+            pv.innerHTML= "PUNTUAJE = " + v4
+            array2[3] = parseInt(v4)
+            if (array2.length > 4) {
+                array2.splice(4,1)
             }
-            console.log(array);
-        }
-    </script>
-    <!--<script>
-        let bt_p = document.getElementById("bt-coger")
-        bt_p.addEventListener('click', recogerPersona)
-
-        function recogerPersona() {
-            let persona = document.getElementById("in-p").value
-
-            // Recogemos persona pedido por input
-            let req
-            if (window.XMLHttpRequest) {
-                req = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                req = ActiveXObject("Microsoft.XMLHTTP");
-            }
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        let id = req.responseText
-                        let datos = id.split(",")
-                        // Si la persona introducida existe creara la ficha sino te pedira otra vez datos
-                        if (datos[0] != "") {
-                            crearFicha(datos)
-                        } else {
-                            alert("No has seleccionado a nadie.")
-                        }
-                    }
-                }
-            }
-            req.open("GET", "basedatos.php?p=" + persona + "&bt=bla");
-            req.send()
-        }
-
-        function crearFicha(datos) {
-            let doc = document.getElementById('main')
-            doc.innerHTML = ''
-
-            let ficha = document.createElement("div")
-            ficha.setAttribute("id", "d-ficha")
-
-            let d1 = document.createElement("p")
-            d1.innerHTML = "ID_JUGADOR: " + datos[0]
-            let d2 = document.createElement("p")
-            d2.innerHTML = "NOMBRE: " + datos[1]
-            let d3 = document.createElement("p")
-            d3.innerHTML = "ID_EQUIPO: " + datos[2]
-            let d4 = document.createElement("p")
-            d4.innerHTML = "PUESTO: " + datos[3]
-            let p = document.createElement("p")
-            p.setAttribute('class', "p-adv")
-            p.innerHTML = "Pulsa 'ESPACIO' para escribir datos."
-
-            ficha.appendChild(d1)
-            ficha.appendChild(d2)
-            ficha.appendChild(d3)
-            ficha.appendChild(d4)
-            ficha.appendChild(p)
-            doc.appendChild(ficha)
-
-            window.onkeydown = function (e) {
-                if (e.keyCode == 32) {
-                    console.log("Has presionado espacio")
-                    cRec(datos, doc)
-                }
-            }
-        }
-
-        function cRec(datos) {
-            let doc = document.body
-            let div = document.createElement("div")
-                div.setAttribute('id', "d-valores")
-            let p1 = document.createElement("p")
-                p1.innerHTML = "Introduce tipo de accion:"
-            let in1 = document.createElement("input")
-                in1.setAttribute('type', "text")
-                in1.setAttribute("name", "v2")
-                in1.setAttribute("id", "i-v2")
-            let p2 = document.createElement("p")
-                p2.innerHTML = "Introduce valor de la accion:"
-            let in2 = document.createElement("input")
-                in2.setAttribute('type', "text")
-                in2.setAttribute("name", "v3")
-                in2.setAttribute("id", "i-v3")
-            let p = document.createElement("p")
-            p.setAttribute('class', "p-adv")
-            p.innerHTML = "Pulsa 'ENTER' para enviar datos."
-
-            div.appendChild(p1)
-            div.appendChild(in1)
-            div.appendChild(p2)
-            div.appendChild(in2)
-            div.appendChild(p)
-            doc.insertBefore(div,document.body.firstChild)
-            in1.focus()
-
-            window.onkeydown = function (e) {
-                if (e.keyCode == 13) {
-                    console.log("Has presionado enter")
-                    let v2 = in1.value.trim().toUpperCase()
-                    let v3 = in2.value.trim()
-                    darValor(datos, v2, v3)
-                    doc.removeChild(div)
-                    crearFicha(datos)
-                }
-            }
-        }
-        function darValor(datos, v2, v3) {
-            console.log(datos);
-            let array = [parseInt(datos[2]),parseInt(datos[0]),v2,parseInt(v3)]
+            console.log(array2);
+            let env = document.createElement("button")
+            env.innerHTML = "ENVIAR DATOS"
+            env.addEventListener("click", enviarDatos)
+            doc.appendChild(pv)
+            doc.appendChild(env)
+        }     
+        function enviarDatos(e) {
+            e.preventDefault()
+            document.getElementById("d-accion").remove()
             var req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -307,14 +224,15 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
+                        console.log(req.response)
                         console.log("DATOS MANDADOS CON ÉXITO")
                     }
                 }
             }
-            req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array));
+            req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array2));
             req.send()
         }
-    </script>-->
+    </script>
 </body>
 
 </html>
