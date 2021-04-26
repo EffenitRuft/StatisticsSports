@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="./style.css">-->
+    <title>Muestra datos - StatisticSports</title>
+</head>
+
+<body>
+    <header>
+        <div id="cab">
+            <h1><a href="./index.html">StatisticSports</a></h1>
+            <div id="login">
+                <h2>Inicio de sesion</h2>
+                <form action="#" method="post">
+                    <label for="Usuario">Usuario</label>
+                    <input type="text" name="usu">
+                    <label for="Contraseña">Contraseña</label>
+                    <input type="password" name="pass">
+                    <input type="submit" name="log" value="Entrar">
+                </form>
+                <a href="./registro.php">Registrarse</a>
+                <!-- Crear formulario para registrar-->
+                <a href="#">No recuerdo contraseña</a>
+                <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
+            </div>
+        </div>
+        <nav>
+            <ul class="nav">
+                <li><a href="#">INICIO</a></li>
+                <li><a href="#">CATEGORIAS</a>
+                    <ul>
+                        <li><a href="#">FEMENINO</a>
+                            <ul>
+                                <li><a href="">FEM1</a></li>
+                                <li><a href="">FEM2</a></li>
+                                <li><a href="">FEM3</a></li>
+                                <li><a href="">FEM4</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">MASCULINO</a>
+                            <ul>
+                                <li><a href="">MASC1</a></li>
+                                <li><a href="">MASC2</a></li>
+                                <li><a href="">MASC3</a></li>
+                                <li><a href="">MASC4</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">ENCUENTROS</a></li>
+                <li><a href="./directo.html">DIRECTO</a></li>
+                <li><a href="./muestraDatos.html">ESTADISTICAS</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="directo">
+        <select name="in-p" id="in-p">
+            <option value="TODO">TODO</option>
+            <option value="SM">SM</option>
+            <option value="SF">SF</option>
+            <option value="SM2">SM2</option>
+            <option value="SF2">SF2</option>
+        </select>
+        <button id="bt-filtrar">FILTRAR</button>
+    </div>
+    <br><br><br>
+    <div id="divTabla">
+
+    </div>
+    <footer>
+
+    </footer>
+
+</body>
+<script>
+    let bt_p = document.getElementById("bt-filtrar")
+    bt_p.addEventListener('click', filtrarDatos)
+
+    function filtrarDatos() {
+        let filtro = document.getElementById("in-p").value
+        if (filtro == "") {
+            filtro = "TODO"
+        }
+        // Recogemos el filtro pedido por input
+        let req
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            req = ActiveXObject("Microsoft.XMLHTTP");
+        }
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    let id = JSON.parse(req.responseText)
+                    //let datos = id.split(",")
+                    //console.log(datos[0])
+                    if (id[0] != "") {
+                        //AQUI IMPRIMIR LA TABLA SEGUN LOS DATOS FILTRADOS-------------------------------
+                        //NECESITO QUE EL SERVIDOR FILTRE POR SF,SM,SF2,SM2, TODO
+                        imprimirTabla(id)
+                    } else {
+                        alert("Introduce un filtro válido")
+                    }
+                    //console.log(id);
+                }
+            }
+        }
+        req.open("GET", "../server/servidor.php?filtro="+filtro);
+        req.send()
+    }
+
+    function imprimirTabla(datos) {
+
+        let doc = document.getElementById('divTabla')
+        doc.innerHTML = ''
+
+        // Crea un elemento <table> y un elemento <tbody>
+        var tabla = document.createElement("table");
+        var tblBody = document.createElement("tbody");
+        tabla.setAttribute("id", "tabla")
+
+        //Creo la fila de titulos
+        var fila = document.createElement("tr");
+        fila.setAttribute("bgcolor", "666666")
+        titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
+        for (var j = 0; j < 16; j++) {
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(titulos[j]);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);
+        }
+        tblBody.appendChild(fila);
+        tabla.appendChild(tblBody);
+        doc.appendChild(tabla);
+        tabla.setAttribute("border", "1");
+        tabla.setAttribute("cellspacing","0");
+        tabla.setAttribute("cellpadding","10");
+        tabla.setAttribute("align","center");
+        
+
+        //CREO EL RESTO DE FILAS
+        for (var i = 0; i < datos.length; i++) {
+            var fila = document.createElement("tr");
+            fila.setAttribute("align","center");
+            fila.setAttribute("bgcolor","aaaaaa");
+            for (var j = 0; j < 16; j++) {
+                var celda = document.createElement("td");
+                var textoCelda = document.createTextNode(datos[i][j]);
+                celda.appendChild(textoCelda);
+                fila.appendChild(celda);
+            }
+            tblBody.appendChild(fila);
+        }
+    }
+
+    window.onload = function () {
+        filtrarDatos();
+    }
+    
+</script>
+
+</html>
