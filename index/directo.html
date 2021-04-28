@@ -72,13 +72,8 @@
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
+    <script src="./jugadores.js"></script>
     <script>
-        // JUGADORES VERSION 2
-        /*document.getElementById("campo").childNodes.forEach(element => {
-            if (element.nodeName == "DIV") {
-                element.addEventListener("click", tablaAcciones)
-            }
-        });*/
         //JUGADORES
         let array = [v1 = 2,v2 = 1]
         var array2 = array.slice()
@@ -89,12 +84,20 @@
         let jug5 = document.getElementById('jug-5')
         let jug6 = document.getElementById('jug-6')
 
+        // Primer estado. No tiene jugador se le asigna
+        document.getElementById("campo").childNodes.forEach(element => {
+            if (element.nodeName == "DIV") {
+                element.addEventListener("click", jugadorBase)
+            }
+        });
+
+        /*
         jug1.addEventListener("click", tablaAcciones)
         jug2.addEventListener("click", tablaAcciones)
         jug3.addEventListener("click", tablaAcciones)
         jug4.addEventListener("click", tablaAcciones)
         jug5.addEventListener("click", tablaAcciones)
-        jug6.addEventListener("click", tablaAcciones)
+        jug6.addEventListener("click", tablaAcciones)*/
 
         function tablaAcciones() {
             if (document.getElementById("d-accion")) {

@@ -10,11 +10,13 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 	or die ('Could not connect to the database server' . mysqli_connect_error());
 
 if (isset($_REQUEST['bt'])) {
-    $p = $_REQUEST['p'];
-    $que = mysqli_query($con,"SELECT * FROM jugador WHERE nombre = '$p' and id_equipo = '2'");
+    $jugadores = array();
+    $equipo = intval($_REQUEST['equip']);
+    $que = mysqli_query($con,"SELECT id_jugador,nombre FROM jugador WHERE id_equipo = '$equipo'");
     while ($f = mysqli_fetch_assoc($que)) {
-        echo $f["id_jugador"].",".$f["nombre"].",".$f["id_equipo"].",".$f["puesto"];
+        $jugadores[] = $f;
     }
+    print json_encode($jugadores);
     $con->close();
 }
 if (isset($_REQUEST["array"])){
