@@ -75,7 +75,8 @@
     <script src="./jugadores.js"></script>
     <script>
         //JUGADORES
-        let array = [v1 = 2,v2 = 1]
+        // EQUIPO, JUGADOR, ACCION, VALOR
+        let array = [v1 = 2]
         var array2 = array.slice()
         let jug1 = document.getElementById('jug-1')
         let jug2 = document.getElementById('jug-2')
@@ -91,18 +92,23 @@
             }
         });
 
-        /*
-        jug1.addEventListener("click", tablaAcciones)
-        jug2.addEventListener("click", tablaAcciones)
-        jug3.addEventListener("click", tablaAcciones)
-        jug4.addEventListener("click", tablaAcciones)
-        jug5.addEventListener("click", tablaAcciones)
-        jug6.addEventListener("click", tablaAcciones)*/
-
         function tablaAcciones() {
             if (document.getElementById("d-accion")) {
                 document.getElementById("d-accion").remove()
-            } 
+            }
+            let idjug = this.childNodes[0].innerHTML
+            console.log(idjug);
+            array2[1] = parseInt(idjug)
+            if (array2.length > 2) {
+                array2.splice(1,1)
+            }
+            console.log(array2);
+
+            let bt_editar = document.createElement("button")
+            bt_editar.setAttribute("id", "bt-editar-" + this.getAttribute("id").split("-")[1])
+            bt_editar.innerHTML = "CAMBIAR JUGADOR"
+            bt_editar.addEventListener('click',jugadorBase)
+
             let d_padre = document.createElement('div')
             d_padre.setAttribute('id', "d-accion")
             let p1 = document.createElement('p')
@@ -143,6 +149,8 @@
             va4.setAttribute('id', "va-4")
             va4.innerHTML = 4
 
+
+            d_padre.appendChild(bt_editar)
             d_padre.appendChild(p1)
             d_padre.appendChild(bt_a1)
             d_padre.appendChild(bt_a2)
@@ -170,7 +178,6 @@
             });
             document.body.appendChild(d_padre)
         }
-
         function accion(e){
             e.preventDefault()
             let doc = document.getElementById("d-accion")
