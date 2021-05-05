@@ -96,13 +96,8 @@
             if (document.getElementById("d-accion")) {
                 document.getElementById("d-accion").remove()
             }
-            let idjug = this.childNodes[0].innerHTML
+            var idjug = this.childNodes[0].innerHTML
             console.log(idjug);
-            array2[1] = parseInt(idjug)
-            if (array2.length > 2) {
-                array2.splice(1,1)
-            }
-            console.log(array2);
 
             let bt_editar = document.createElement("button")
             bt_editar.setAttribute("id", "bt-editar-" + this.getAttribute("id").split("-")[1])
@@ -165,6 +160,15 @@
             d_padre.appendChild(va3)
             d_padre.appendChild(va4)
             array2 = array.slice()
+            
+            array2[1] = parseInt(idjug)
+            if (array2.length > 2) {
+                array2.splice(1,1)
+                console.log("PASA POR AQUI");
+            }
+            console.log(array2);
+
+
             d_padre.childNodes.forEach(element => {
                 if (element.nodeName == "BUTTON") {
                     if (element.getAttribute('id').includes('acc')) {
