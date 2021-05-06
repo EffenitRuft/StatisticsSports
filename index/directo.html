@@ -64,6 +64,12 @@
                 <div class="jug" id="jug-5"></div>
                 <div class="jug" id="jug-6"></div>
             </div>
+            <!-- PARTE MARTA -->
+            <input type="text" name="puntos" value="0" id="puntos">
+            <button id="punto">Sumar punto</button>
+            <button id="puntoR">Restar punto</button>
+            <button id="puntoReset">Final de set</button>
+            <button id="setG">Set Ganado</button>
             <!--<input type="text" name="in-p" id="in-p">
             <button id="bt-coger">COGER</button>-->
         </div>
@@ -244,6 +250,95 @@
                 }
             }
             req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array2));
+            req.send()
+        }
+        // PARTE MARTA
+
+        var set_juego = 'J';
+        var num_set=1;
+        let bt_p = document.getElementById("punto")
+        bt_p.addEventListener('click', resultadoPartido)
+        function resultadoPartido() {
+            let puntos= parseInt(document.getElementById("puntos").value)+1
+            document.getElementById("puntos").setAttribute("value",puntos.toString())
+            //[numPartido,equipo(1o2),set]
+            if(set_juego=='F'){
+                num_set=num_set+1;
+                set_juego='J';
+            }
+            var arrayp1=[1,1,num_set]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?puntosMas="+JSON.stringify(arrayp1));
+            req.send()
+        }
+        let bt_pRest = document.getElementById("puntoR")
+        bt_pRest.addEventListener('click', resultadoPartido2)
+        function resultadoPartido2() {
+            let puntos= parseInt(document.getElementById("puntos").value)-1
+            document.getElementById("puntos").setAttribute("value",puntos.toString())
+            //[numPartido,equipo(1o2),set]
+            if(set_juego=='F'){
+                num_set=num_set+1;
+                set_juego='J';
+            }
+            var arrayp1=[1,1,num_set]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?puntosMenos="+JSON.stringify(arrayp1));
+            req.send()
+        }
+
+
+        let bt_pr= document.getElementById("puntoReset")
+        bt_pr.addEventListener('click', function(){
+            let puntos= 0
+            document.getElementById("puntos").setAttribute("value",puntos.toString())
+            set_juego='F';
+        });
+
+        let bt_sg= document.getElementById("setG")
+        bt_sg.addEventListener('click', sumarset);
+        
+        function sumarset() {
+            //[numPartido,equipo(1o2)]
+            var arrayp1=[1,1]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?setMas="+JSON.stringify(arrayp1));
             req.send()
         }
     </script>
