@@ -18,15 +18,11 @@
                 <h2>Inicio de sesion</h2>
                 <form action="#" method="post">
                     <label for="Usuario">Usuario</label>
-                    <input type="text" name="usu">
+                    <input type="text" name="usu" id="usu">
                     <label for="Contraseña">Contraseña</label>
-                    <input type="password" name="pass">
-                    <input type="submit" name="log" value="Entrar">
+                    <input type="password" name="pass" id="pass">
+                    <input type="submit" name="log" value="Entrar" id="log">
                 </form>
-                <a href="./registro.php">Registrarse</a>
-                <!-- Crear formulario para registrar-->
-                <a href="#">No recuerdo contraseña</a>
-                <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
             </div>
         </div>
         <nav>
@@ -54,6 +50,7 @@
                 </li>
                 <li><a href="#">ENCUENTROS</a></li>
                 <li><a href="./directo.html">DIRECTO</a></li>
+                <li><a href="./muestraDatos.html">ESTADISTICAS</a></li>
             </ul>
         </nav>
     </header>
@@ -61,6 +58,71 @@
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
+    <script>
+/**
+    * LO DE LOCALSTORAGE
+    *
+    **/
+    miStorage = window.localStorage;
+    var botonUsuario = document.getElementById("log");
+    var usuario = []
+
+    botonUsuario.onclick = function (b) {
+        b.preventDefault();
+        usuario[0] = document.getElementById("usu").value;
+        usuario[1] = document.getElementById("pass").value;
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        var arrayCodificado = localStorage.getItem("usuario");
+        if (arrayCodificado != null) {
+            usuario = JSON.parse(arrayCodificado);
+            console.log(usuario);
+        }
+    }
+
+
+
+    function consultarUsuario() {
+        var arrayCodificado = localStorage.getItem("usuario");
+        if (arrayCodificado != null) {
+            usuario = JSON.parse(arrayCodificado);
+            console.log(usuario);
+        }
+    }
+    ///////////////////////////////////////////////////////////////
+
+        function enviarDatos() {
+            let usuario = document.getElementById("usu").value;
+            let contra = document.getElementById("pass").value;
+            let array1=[usuario,contra];
+            var req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        if(req.response=="ERROR"){
+                            console.log("Contraseña incorrecta")
+                        }else if (req.response=="CORRECTO"){
+                            console.log("Validado con exito")
+                        }
+                    }
+                }
+            }
+            req.open("POST", "../server/servidor.php");
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            req.send("login="+ JSON.stringify(array1))
+        }
+        window.onload = function() {
+            let log = document.getElementById("log");
+            log.addEventListener("click", function(){
+                enviarDatos()
+                consultarUsuario()
+            })
+        } 
+    </script>
 </body>
 
 </html>

@@ -23,10 +23,6 @@
                     <input type="password" name="pass">
                     <input type="submit" name="log" value="Entrar">
                 </form>
-                <a href="./registro.php">Registrarse</a>
-                <!-- Crear formulario para registrar-->
-                <a href="#">No recuerdo contraseña</a>
-                <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
             </div>
         </div>
         <nav>
@@ -60,139 +56,292 @@
     <hr>
     <main id="main">
         <div id="directo">
-            <input type="text" name="in-p" id="in-p">
-            <button id="bt-coger">COGER</button>
+            <div id="campo">
+                <div class="jug" id="jug-1"></div>
+                <div class="jug" id="jug-2"></div>
+                <div class="jug" id="jug-3"></div>
+                <div class="jug" id="jug-4"></div>
+                <div class="jug" id="jug-5"></div>
+                <div class="jug" id="jug-6"></div>
+            </div>
+            <!-- PARTE MARTA -->
+            <input type="text" name="puntos" value="0" id="puntos">
+            <button id="punto">Sumar punto</button>
+            <button id="puntoR">Restar punto</button>
+            <button id="puntoReset">Final de set</button>
+            <button id="setG">Set Ganado</button>
+            <!--<input type="text" name="in-p" id="in-p">
+            <button id="bt-coger">COGER</button>-->
         </div>
-        <script>
-            let bt_p = document.getElementById("bt-coger")
-            bt_p.addEventListener('click', recogerPersona)
-
-            function recogerPersona() {
-                let persona = document.getElementById("in-p").value
-
-                // Recogemos persona pedido por input
-                let req
-                if (window.XMLHttpRequest) {
-                    req = new XMLHttpRequest();
-                } else if (window.ActiveXObject) {
-                    req = ActiveXObject("Microsoft.XMLHTTP");
-                }
-                req.onreadystatechange = function () {
-                    if (req.readyState == 4) {
-                        if (req.status == 200) {
-                            let id = req.responseText
-                            let datos = id.split(",")
-                            // Si la persona introducida existe creara la ficha sino te pedira otra vez datos
-                            if (datos[0] != "") {
-                                crearFicha(datos)
-                            } else {
-                                alert("No has seleccionado a nadie.")
-                            }
-                        }
-                    }
-                }
-                req.open("GET", "basedatos.php?p=" + persona + "&bt=bla");
-                req.send()
-            }
-
-            function crearFicha(datos) {
-                let doc = document.getElementById('main')
-                doc.innerHTML = ''
-
-                let ficha = document.createElement("div")
-                ficha.setAttribute("id", "d-ficha")
-
-                let d1 = document.createElement("p")
-                d1.innerHTML = "ID_JUGADOR: " + datos[0]
-                let d2 = document.createElement("p")
-                d2.innerHTML = "NOMBRE: " + datos[1]
-                let d3 = document.createElement("p")
-                d3.innerHTML = "ID_EQUIPO: " + datos[2]
-                let d4 = document.createElement("p")
-                d4.innerHTML = "PUESTO: " + datos[3]
-                let p = document.createElement("p")
-                p.setAttribute('class', "p-adv")
-                p.innerHTML = "Pulsa 'ESPACIO' para escribir datos."
-
-                ficha.appendChild(d1)
-                ficha.appendChild(d2)
-                ficha.appendChild(d3)
-                ficha.appendChild(d4)
-                ficha.appendChild(p)
-                doc.appendChild(ficha)
-
-                window.onkeydown = function (e) {
-                    if (e.keyCode == 32) {
-                        console.log("Has presionado espacio")
-                        cRec(datos, doc)
-                    }
-                }
-            }
-
-            function cRec(datos) {
-                let doc = document.body
-                let div = document.createElement("div")
-                    div.setAttribute('id', "d-valores")
-                let p1 = document.createElement("p")
-                    p1.innerHTML = "Introduce tipo de accion:"
-                let in1 = document.createElement("input")
-                    in1.setAttribute('type', "text")
-                    in1.setAttribute("name", "v2")
-                    in1.setAttribute("id", "i-v2")
-                let p2 = document.createElement("p")
-                    p2.innerHTML = "Introduce valor de la accion:"
-                let in2 = document.createElement("input")
-                    in2.setAttribute('type', "text")
-                    in2.setAttribute("name", "v3")
-                    in2.setAttribute("id", "i-v3")
-                let p = document.createElement("p")
-                p.setAttribute('class', "p-adv")
-                p.innerHTML = "Pulsa 'ENTER' para enviar datos."
-
-                div.appendChild(p1)
-                div.appendChild(in1)
-                div.appendChild(p2)
-                div.appendChild(in2)
-                div.appendChild(p)
-                doc.insertBefore(div,document.body.firstChild)
-                in1.focus()
-
-                window.onkeydown = function (e) {
-                    if (e.keyCode == 13) {
-                        console.log("Has presionado enter")
-                        let v2 = in1.value.trim().toUpperCase()
-                        let v3 = in2.value.trim()
-                        darValor(datos, v2, v3)
-                        doc.removeChild(div)
-                        crearFicha(datos)
-                    }
-                }
-            }
-            function darValor(datos, v2, v3) {
-                console.log(datos);
-                let array = [parseInt(datos[2]),parseInt(datos[0]),v2,parseInt(v3)]
-                var req
-                if (window.XMLHttpRequest) {
-                    req = new XMLHttpRequest();
-                } else if (window.ActiveXObject) {
-                    req = ActiveXObject("Microsoft.XMLHTTP");
-                }
-                req.onreadystatechange = function () {
-                    if (req.readyState == 4) {
-                        if (req.status == 200) {
-                            console.log("DATOS MANDADOS CON ÉXITO")
-                        }
-                    }
-                }
-                req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array));
-                req.send()
-            }
-        </script>
     </main>
     <hr>
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
+    <script src="./jugadores.js"></script>
+    <script>
+        //JUGADORES
+        // EQUIPO, JUGADOR, ACCION, VALOR
+        let array = [v1 = 2]
+        var array2 = array.slice()
+        let jug1 = document.getElementById('jug-1')
+        let jug2 = document.getElementById('jug-2')
+        let jug3 = document.getElementById('jug-3')
+        let jug4 = document.getElementById('jug-4')
+        let jug5 = document.getElementById('jug-5')
+        let jug6 = document.getElementById('jug-6')
+
+        // Primer estado. No tiene jugador se le asigna
+        document.getElementById("campo").childNodes.forEach(element => {
+            if (element.nodeName == "DIV") {
+                element.addEventListener("click", jugadorBase)
+            }
+        });
+
+        function tablaAcciones() {
+            if (document.getElementById("d-accion")) {
+                document.getElementById("d-accion").remove()
+            }
+            var idjug = this.childNodes[0].innerHTML
+            console.log(idjug);
+
+            let bt_editar = document.createElement("button")
+            bt_editar.setAttribute("id", "bt-editar-" + this.getAttribute("id").split("-")[1])
+            bt_editar.innerHTML = "CAMBIAR JUGADOR"
+            bt_editar.addEventListener('click',jugadorBase)
+
+            let d_padre = document.createElement('div')
+            d_padre.setAttribute('id', "d-accion")
+            let p1 = document.createElement('p')
+            p1.innerHTML = "Acciones"
+            let bt_a1 = document.createElement('button')
+            bt_a1.setAttribute('id', "acc-C")
+            bt_a1.innerHTML = "C"
+            let bt_a2 = document.createElement('button')
+            bt_a2.setAttribute('id', "acc-R")
+            bt_a2.innerHTML = "R"
+            let bt_a3 = document.createElement('button')
+            bt_a3.setAttribute('id', "acc-D")
+            bt_a3.innerHTML = "D"
+            let bt_a4 = document.createElement('button')
+            bt_a4.setAttribute('id', "acc-A")
+            bt_a4.innerHTML = "A"
+            let bt_a5 = document.createElement('button')
+            bt_a5.setAttribute('id', "acc-B")
+            bt_a5.innerHTML = "B"
+            let bt_a6 = document.createElement('button')
+            bt_a6.setAttribute('id', "acc-S")
+            bt_a6.innerHTML = "S"
+            let p2 = document.createElement('p')
+            p2.innerHTML = "Puntuaje"
+            let va0 = document.createElement('button')
+            va0.setAttribute('id', "va-0")
+            va0.innerHTML = 0
+            let va1 = document.createElement('button')
+            va1.setAttribute('id', "va-1")
+            va1.innerHTML = 1
+            let va2 = document.createElement('button')
+            va2.setAttribute('id', "va-2")
+            va2.innerHTML = 2
+            let va3 = document.createElement('button')
+            va3.setAttribute('id', "va-3")
+            va3.innerHTML = 3
+            let va4 = document.createElement('button')
+            va4.setAttribute('id', "va-4")
+            va4.innerHTML = 4
+
+
+            d_padre.appendChild(bt_editar)
+            d_padre.appendChild(p1)
+            d_padre.appendChild(bt_a1)
+            d_padre.appendChild(bt_a2)
+            d_padre.appendChild(bt_a3)
+            d_padre.appendChild(bt_a4)
+            d_padre.appendChild(bt_a5)
+            d_padre.appendChild(bt_a6)
+            d_padre.appendChild(p2)
+            d_padre.appendChild(va0)
+            d_padre.appendChild(va1)
+            d_padre.appendChild(va2)
+            d_padre.appendChild(va3)
+            d_padre.appendChild(va4)
+            array2 = array.slice()
+            
+            array2[1] = parseInt(idjug)
+            if (array2.length > 2) {
+                array2.splice(1,1)
+                console.log("PASA POR AQUI");
+            }
+            console.log(array2);
+
+
+            d_padre.childNodes.forEach(element => {
+                if (element.nodeName == "BUTTON") {
+                    if (element.getAttribute('id').includes('acc')) {
+                        element.setAttribute('class', "bt-acciones")
+                        element.addEventListener("click", accion)
+                    }else if(element.getAttribute('id').includes('va')){
+                        element.setAttribute('class', "bt-valores")
+                        element.addEventListener("click", valor)
+                    }
+                }
+            });
+            document.body.appendChild(d_padre)
+        }
+        function accion(e){
+            e.preventDefault()
+            let doc = document.getElementById("d-accion")
+            if (document.getElementById("p-acc")) {
+                var p = document.getElementById("p-acc")
+            }else{
+                var p = document.createElement("p")
+                p.setAttribute("id","p-acc")
+            }
+            pulsado = this.getAttribute("id").split("-")[1]
+            v3 = pulsado
+            p.innerHTML= "ACCION = " + v3
+            //OPCION 1 - DEVOLVER EL VALOR V3 E INTENTAR METERLO EN EL ARRAY
+            //OPCION 2 - DIRECTAMENTE METER EL VALOR EN EL ARRAY
+            array2[2] = v3
+            if (array2.length > 3) {
+                array2.splice(2,1)
+            }
+            console.log(array2);
+            doc.appendChild(p)
+        }
+        function valor(e){
+            e.preventDefault()
+            let doc = document.getElementById("d-accion")
+            if (document.getElementById("p-val")) {
+                var pv = document.getElementById("p-val")
+            }else{
+                var pv = document.createElement("p")
+                pv.setAttribute("id","p-val")
+            }
+            pulsado = this.getAttribute("id").split("-")[1]
+            v4 = pulsado
+            pv.innerHTML= "PUNTUAJE = " + v4
+            array2[3] = parseInt(v4)
+            if (array2.length > 4) {
+                array2.splice(4,1)
+            }
+            console.log(array2);
+            let env = document.createElement("button")
+            env.innerHTML = "ENVIAR DATOS"
+            env.addEventListener("click", enviarDatos)
+            doc.appendChild(pv)
+            doc.appendChild(env)
+        }     
+        function enviarDatos(e) {
+            e.preventDefault()
+            document.getElementById("d-accion").remove()
+            var req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.response)
+                        console.log("DATOS MANDADOS CON ÉXITO")
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array2));
+            req.send()
+        }
+        // PARTE MARTA
+
+        var set_juego = 'J';
+        var num_set=1;
+        let bt_p = document.getElementById("punto")
+        bt_p.addEventListener('click', resultadoPartido)
+        function resultadoPartido() {
+            let puntos= parseInt(document.getElementById("puntos").value)+1
+            document.getElementById("puntos").setAttribute("value",puntos.toString())
+            //[numPartido,equipo(1o2),set]
+            if(set_juego=='F'){
+                num_set=num_set+1;
+                set_juego='J';
+            }
+            var arrayp1=[1,1,num_set]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?puntosMas="+JSON.stringify(arrayp1));
+            req.send()
+        }
+        let bt_pRest = document.getElementById("puntoR")
+        bt_pRest.addEventListener('click', resultadoPartido2)
+        function resultadoPartido2() {
+            let puntos= parseInt(document.getElementById("puntos").value)-1
+            document.getElementById("puntos").setAttribute("value",puntos.toString())
+            //[numPartido,equipo(1o2),set]
+            if(set_juego=='F'){
+                num_set=num_set+1;
+                set_juego='J';
+            }
+            var arrayp1=[1,1,num_set]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?puntosMenos="+JSON.stringify(arrayp1));
+            req.send()
+        }
+
+
+        let bt_pr= document.getElementById("puntoReset")
+        bt_pr.addEventListener('click', function(){
+            let puntos= 0
+            document.getElementById("puntos").setAttribute("value",puntos.toString())
+            set_juego='F';
+        });
+
+        let bt_sg= document.getElementById("setG")
+        bt_sg.addEventListener('click', sumarset);
+        
+        function sumarset() {
+            //[numPartido,equipo(1o2)]
+            var arrayp1=[1,1]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?setMas="+JSON.stringify(arrayp1));
+            req.send()
+        }
+    </script>
 </body>
 
 </html>

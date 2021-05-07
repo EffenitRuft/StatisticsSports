@@ -2,6 +2,7 @@
     class jugador{       
         private $id_jugador;
         private $nombre;
+        private $nombreEquipo;
         private $id_equipo;
         private $puesto;
         private $numcolocaciones;
@@ -18,66 +19,67 @@
         private $mediasaques;
 
         
-        function __construct($idjug,$ideq,$base) {
+        function __construct($idjug,$ideq,$nombreEquipo,$base) {
             $this->id_jugador=$idjug;
+            $this->nombreEquipo=$nombreEquipo;
             $this->id_equipo=$ideq;
-            $base->consulta("SELECT * FROM jugador where ID_JUGADOR='$idjug' and ID_EQUIPO='$ideq';");
+            $base->consulta("SELECT * FROM statisticssports.jugador where ID_JUGADOR='$idjug' and ID_EQUIPO='$ideq';");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
                     //Guardamos el NOMBRE
-                    if($indice=="NOMBRE"){
+                    if($indice=="nombre"){
                         $this->nombre=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="PUESTO"){
+                    if($indice=="puesto"){
                         $this->puesto=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="NUMCOLOCACIONES"){
+                    if($indice=="numcolocaciones"){
                         $this->numcolocaciones=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="MEDIACOLOCACIONES"){
+                    if($indice=="mediacolocaciones"){
                         $this->mediacolocaciones=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="NUMRECIBIR"){
+                    if($indice=="numrecibir"){
                         $this->numrecibir=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="MEDIARECIBIR"){
+                    if($indice=="mediarecibir"){
                         $this->mediarecibir=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="NUMERODEFENDER"){
+                    if($indice=="numerodefender"){
                         $this->numerodefender=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="MEDIADEFENDER"){
+                    if($indice=="mediadefender"){
                         $this->mediadefender=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="NUMEROATAQUE"){
+                    if($indice=="numeroataque"){
                         $this->numeroataque=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="MEDIATAQUE"){
+                    if($indice=="mediaataque"){
                         $this->mediataque=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="NUMEROBLOQUEAR"){
+                    if($indice=="numerobloquear"){
                         $this->numerobloquear=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="MEDIABLOQUEAR"){
+                    if($indice=="mediabloquear"){
                         $this->mediabloquear=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="NUMSAQUES"){
+                    if($indice=="numsaques"){
                         $this->numsaques=$valor;
                     }
                     //Guardamos el puesto
-                    if($indice=="MEDIASAQUES"){
+                    if($indice=="mediasaques"){
                         $this->mediasaques=$valor;
                     }
                 }
@@ -134,6 +136,26 @@
                 $numero = 'NUMSAQUES';
                 $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq);
             }
+        }
+
+        public function getJugador(){
+            $array[0] = $this->id_jugador;
+            $array[1] = $this->nombre;
+            $array[2] = $this->nombreEquipo;
+            $array[3] = $this->puesto;
+            $array[4] = $this->numcolocaciones;
+            $array[5] = $this->mediacolocaciones;
+            $array[6] = $this->numrecibir;
+            $array[7] = $this->mediarecibir;
+            $array[8] = $this->numerodefender;
+            $array[9] = $this->mediadefender;
+            $array[10] = $this->numeroataque;
+            $array[11] = $this->mediataque;
+            $array[12] = $this->numerobloquear;
+            $array[13] = $this->mediabloquear;
+            $array[14] = $this->numsaques;
+            $array[15] = $this->mediasaques;
+            return $array;
         }
     }  
 ?>
