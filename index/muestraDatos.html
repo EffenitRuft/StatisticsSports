@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="./style.css">-->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="./style.css">
     <title>Muestra datos - StatisticSports</title>
 </head>
 
@@ -14,25 +14,11 @@
     <header>
         <div id="cab">
             <h1><a href="./index.html">StatisticSports</a></h1>
-            <div id="login">
-                <h2>Inicio de sesion</h2>
-                <form action="#" method="post">
-                    <label for="Usuario">Usuario</label>
-                    <input type="text" name="usu" id="usu">
-                    <label for="Contraseña">Contraseña</label>
-                    <input type="password" name="pass" id="pass">
-                    <input type="submit" name="log" value="Entrar" id="log">
-                </form>
-                <a href="./registro.php">Registrarse</a>
-                <!-- Crear formulario para registrar-->
-                <a href="#">No recuerdo contraseña</a>
-                <!-- Crear formulario para que mediante el correo pueda recuperar contraseña-->
-            </div>
         </div>
         <nav>
-            <ul class="nav">
-                <li><a href="#">INICIO</a></li>
-                <li><a href="#">CATEGORIAS</a>
+            <ul id="barra-nav" class="nav">
+                <li><a href="./index.html">INICIO</a></li>
+                <li><a href="#">RANKING</a>
                     <ul>
                         <li><a href="#">FEMENINO</a>
                             <ul>
@@ -53,12 +39,12 @@
                     </ul>
                 </li>
                 <li><a href="#">ENCUENTROS</a></li>
-                <li><a href="./directo.html">DIRECTO</a></li>
+                <!--Futuro-->
                 <li><a href="./muestraDatos.html">ESTADISTICAS</a></li>
             </ul>
         </nav>
     </header>
-    <div id="directo">
+    <div>
         <select name="in-p" id="in-p">
             <option value="TODO">TODO</option>
             <option value="SM">SM</option>
@@ -68,7 +54,6 @@
         </select>
         <button id="bt-filtrar">FILTRAR</button>
     </div>
-    <br><br><br>
     <div id="divTabla">
 
     </div>
@@ -77,26 +62,29 @@
     </footer>
 
 </body>
+<script src="login.js"></script>
 <script>
  /**
     * LO DE LOCALSTORAGE
     *
     **/
     miStorage = window.localStorage;
-    var botonUsuario = document.getElementById("log");
     var usuario = []
 
-    botonUsuario.onclick = function (b) {
-        b.preventDefault();
-        usuario[0] = document.getElementById("usu").value;
-        usuario[1] = document.getElementById("pass").value;
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        var arrayCodificado = localStorage.getItem("usuario");
-        if (arrayCodificado != null) {
-            usuario = JSON.parse(arrayCodificado);
-            console.log(usuario);
+    if (localStorage.getItem("usuario") == null) {
+            var botonUsuario = document.getElementById("log");
+
+            botonUsuario.onclick = function () {
+                usuario[0] = document.getElementById("usu").value;
+                usuario[1] = document.getElementById("pass").value;
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                var arrayCodificado = localStorage.getItem("usuario");
+                if (arrayCodificado != null) {
+                    usuario = JSON.parse(arrayCodificado);
+                    console.log(usuario);
+                }
+            }
         }
-    }
 
 
 
@@ -192,7 +180,10 @@
 
     window.onload = function () {
         filtrarDatos();
-        consultarUsuario();
+        if(localStorage.getItem("usuario") == null){
+            consultarUsuario();
+        }
+
     }
     
 </script>

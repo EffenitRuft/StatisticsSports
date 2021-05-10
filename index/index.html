@@ -14,21 +14,11 @@
     <header>
         <div id="cab">
             <h1><a href="./index.html">StatisticSports</a></h1>
-            <div id="login">
-                <h2>Inicio de sesion</h2>
-                <form action="#" method="post">
-                    <label for="Usuario">Usuario</label>
-                    <input type="text" name="usu" id="usu">
-                    <label for="Contraseña">Contraseña</label>
-                    <input type="password" name="pass" id="pass">
-                    <input type="submit" name="log" value="Entrar" id="log">
-                </form>
-            </div>
         </div>
         <nav>
-            <ul class="nav">
-                <li><a href="#">INICIO</a></li>
-                <li><a href="#">CATEGORIAS</a>
+            <ul id="barra-nav" class="nav">
+                <li><a href="./index.html">INICIO</a></li>
+                <li><a href="#">RANKING</a>
                     <ul>
                         <li><a href="#">FEMENINO</a>
                             <ul>
@@ -49,7 +39,7 @@
                     </ul>
                 </li>
                 <li><a href="#">ENCUENTROS</a></li>
-                <li><a href="./directo.html">DIRECTO</a></li>
+                <!--Futuro-->
                 <li><a href="./muestraDatos.html">ESTADISTICAS</a></li>
             </ul>
         </nav>
@@ -58,42 +48,43 @@
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
+    <script src="./login.js"></script>
     <script>
-/**
-    * LO DE LOCALSTORAGE
-    *
-    **/
-    miStorage = window.localStorage;
-    var botonUsuario = document.getElementById("log");
-    var usuario = []
+        /**
+            * LO DE LOCALSTORAGE
+            *
+            **/
+        miStorage = window.localStorage;
+        var usuario = []
 
-    botonUsuario.onclick = function (b) {
-        b.preventDefault();
-        usuario[0] = document.getElementById("usu").value;
-        usuario[1] = document.getElementById("pass").value;
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        var arrayCodificado = localStorage.getItem("usuario");
-        if (arrayCodificado != null) {
-            usuario = JSON.parse(arrayCodificado);
-            console.log(usuario);
+        if (localStorage.getItem("usuario") == null) {
+            var botonUsuario = document.getElementById("log");
+
+            botonUsuario.onclick = function () {
+                usuario[0] = document.getElementById("usu").value;
+                usuario[1] = document.getElementById("pass").value;
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                var arrayCodificado = localStorage.getItem("usuario");
+                if (arrayCodificado != null) {
+                    usuario = JSON.parse(arrayCodificado);
+                    console.log(usuario);
+                }
+            }
         }
-    }
 
-
-
-    function consultarUsuario() {
-        var arrayCodificado = localStorage.getItem("usuario");
-        if (arrayCodificado != null) {
-            usuario = JSON.parse(arrayCodificado);
-            console.log(usuario);
+        function consultarUsuario() {
+            var arrayCodificado = localStorage.getItem("usuario");
+            if (arrayCodificado != null) {
+                usuario = JSON.parse(arrayCodificado);
+                console.log(usuario);
+            }
         }
-    }
-    ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
 
         function enviarDatos() {
             let usuario = document.getElementById("usu").value;
             let contra = document.getElementById("pass").value;
-            let array1=[usuario,contra];
+            let array1 = [usuario, contra];
             var req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -103,9 +94,9 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        if(req.response=="ERROR"){
+                        if (req.response == "ERROR") {
                             console.log("Contraseña incorrecta")
-                        }else if (req.response=="CORRECTO"){
+                        } else if (req.response == "CORRECTO") {
                             console.log("Validado con exito")
                         }
                     }
@@ -113,15 +104,17 @@
             }
             req.open("POST", "../server/servidor.php");
             req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            req.send("login="+ JSON.stringify(array1))
+            req.send("login=" + JSON.stringify(array1))
         }
-        window.onload = function() {
-            let log = document.getElementById("log");
-            log.addEventListener("click", function(){
-                enviarDatos()
-                consultarUsuario()
-            })
-        } 
+        if (localStorage.getItem("usuario") == null) {
+            window.onload = function () {
+                let log = document.getElementById("log");
+                log.addEventListener("click", function () {
+                    enviarDatos()
+                    consultarUsuario()
+                })
+            }
+        }
     </script>
 </body>
 
