@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Muestra datos - StatisticSports</title>
 </head>
 
@@ -22,24 +22,19 @@
                     <ul>
                         <li><a href="#">FEMENINO</a>
                             <ul>
-                                <li><a href="">FEM1</a></li>
-                                <li><a href="">FEM2</a></li>
-                                <li><a href="">FEM3</a></li>
-                                <li><a href="">FEM4</a></li>
+                                <li><a href="">Liga hiberdrola</a></li>
+                                <li><a href="">Superliga 2</a></li>
                             </ul>
                         </li>
                         <li><a href="#">MASCULINO</a>
                             <ul>
-                                <li><a href="">MASC1</a></li>
-                                <li><a href="">MASC2</a></li>
-                                <li><a href="">MASC3</a></li>
-                                <li><a href="">MASC4</a></li>
+                                <li><a href="">Superliga 1</a></li>
+                                <li><a href="">Superliga 2</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li><a href="#">ENCUENTROS</a></li>
-                <!--Futuro-->
                 <li><a href="./muestraDatos.html">ESTADISTICAS</a></li>
             </ul>
         </nav>
@@ -58,33 +53,33 @@
 
     </div>
     <footer>
-
+        <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
 
 </body>
 <script src="login.js"></script>
 <script>
- /**
-    * LO DE LOCALSTORAGE
-    *
-    **/
+    /**
+       * LO DE LOCALSTORAGE
+       *
+       **/
     miStorage = window.localStorage;
     var usuario = []
 
     if (localStorage.getItem("usuario") == null) {
-            var botonUsuario = document.getElementById("log");
+        var botonUsuario = document.getElementById("log");
 
-            botonUsuario.onclick = function () {
-                usuario[0] = document.getElementById("usu").value;
-                usuario[1] = document.getElementById("pass").value;
-                localStorage.setItem("usuario", JSON.stringify(usuario));
-                var arrayCodificado = localStorage.getItem("usuario");
-                if (arrayCodificado != null) {
-                    usuario = JSON.parse(arrayCodificado);
-                    console.log(usuario);
-                }
+        botonUsuario.onclick = function () {
+            usuario[0] = document.getElementById("usu").value;
+            usuario[1] = document.getElementById("pass").value;
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            var arrayCodificado = localStorage.getItem("usuario");
+            if (arrayCodificado != null) {
+                usuario = JSON.parse(arrayCodificado);
+                console.log(usuario);
             }
         }
+    }
 
 
 
@@ -130,7 +125,7 @@
                 }
             }
         }
-        req.open("GET", "../server/servidor.php?filtro="+filtro);
+        req.open("GET", "../server/servidor.php?filtro=" + filtro);
         req.send()
     }
 
@@ -146,7 +141,6 @@
 
         //Creo la fila de titulos
         var fila = document.createElement("tr");
-        fila.setAttribute("bgcolor", "666666")
         titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
         for (var j = 0; j < 16; j++) {
             var celda = document.createElement("td");
@@ -158,16 +152,15 @@
         tabla.appendChild(tblBody);
         doc.appendChild(tabla);
         tabla.setAttribute("border", "1");
-        tabla.setAttribute("cellspacing","0");
-        tabla.setAttribute("cellpadding","10");
-        tabla.setAttribute("align","center");
-        
+        tabla.setAttribute("cellspacing", "0");
+        tabla.setAttribute("cellpadding", "10");
+        tabla.setAttribute("align", "center");
+
 
         //CREO EL RESTO DE FILAS
         for (var i = 0; i < datos.length; i++) {
             var fila = document.createElement("tr");
-            fila.setAttribute("align","center");
-            fila.setAttribute("bgcolor","aaaaaa");
+            fila.setAttribute("align", "center");
             for (var j = 0; j < 16; j++) {
                 var celda = document.createElement("td");
                 var textoCelda = document.createTextNode(datos[i][j]);
@@ -180,12 +173,12 @@
 
     window.onload = function () {
         filtrarDatos();
-        if(localStorage.getItem("usuario") == null){
+        if (localStorage.getItem("usuario") == null) {
             consultarUsuario();
         }
 
     }
-    
+
 </script>
 
 </html>
