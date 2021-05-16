@@ -40,6 +40,7 @@
     </header>
     <main id="main">
         <div id="directo">
+            <p>EQUIPO LOCAL</p>
             <div id="campo">
                 <div class="jug" id="jug-1"></div>
                 <div class="jug" id="jug-2"></div>
@@ -49,7 +50,7 @@
                 <div class="jug" id="jug-6"></div>
             </div>
             <!-- PARTE MARTA -->
-            <input type="text" name="puntos" value="0" id="puntos">
+            <input type="text" name="puntos" value="0" id="puntos" disabled ="disabled">
             <button id="punto">Sumar punto</button>
             <button id="puntoR">Restar punto</button>
             <button id="puntoReset">Final de set</button>
@@ -97,7 +98,7 @@
             let d_padre = document.createElement('div')
             d_padre.setAttribute('id', "d-accion")
             let p1 = document.createElement('p')
-            p1.innerHTML = "Acciones"
+            p1.innerHTML = "ACCIONES"
             let bt_a1 = document.createElement('button')
             bt_a1.setAttribute('id', "acc-C")
             bt_a1.innerHTML = "C"
@@ -117,7 +118,7 @@
             bt_a6.setAttribute('id', "acc-S")
             bt_a6.innerHTML = "S"
             let p2 = document.createElement('p')
-            p2.innerHTML = "Puntuaje"
+            p2.innerHTML = "PUNTUAJE"
             let va0 = document.createElement('button')
             va0.setAttribute('id', "va-0")
             va0.innerHTML = 0

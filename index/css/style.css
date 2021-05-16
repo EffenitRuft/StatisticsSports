@@ -121,14 +121,16 @@ main{
     transform: translate(-50%, -50%);
 }
 
-/* ASIGNAR JUGADORES */
+/* APARTADO DE DIRECTO */
 #directo{
     height: 500px;
+    text-align: center;
 }
 #campo{
+    margin: 10px;
     width:300px;
     height: 200px;
-    border: 1px solid black;
+    border: 1px solid var(--cab-color);
     display: flex;
     flex-wrap: wrap;
 }
@@ -144,27 +146,77 @@ main{
 }
 .jug p {
     text-align: center;
+    font-size: 17px;
+    font-weight: bold;
     padding: 0;
 }
+/* MENU ACCION DEL JUGADOR*/
 #d-accion{
     position: absolute;
     top:10%;
     left: 50%;
-    width: 300px;
+    width: 350px;
     height: 300px;
     border: 1px solid black;
     background-color: #fff;
     transform: translate(-50%);
+    text-align: center;
 }
+#bt-editar-2 {
+    float: right;
+    margin: 8px 2px 0 0;
+}
+#d-accion > p {
+    margin: 10px;
+}
+.bt-acciones{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 2px;
+    height: 50px;
+    width: 50px;
+}
+.bt-valores{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 2px;
+    height: 50px;
+    width: 50px;
+}
+/* MENU ASIGNAR JUGADOR*/
 #d-asignar{
     position: absolute;
     top:10%;
     left: 50%;
     width: 300px;
-    height: 300px;
+    height: 150px;
     border: 1px solid black;
     background-color: #fff;
     transform: translate(-50%);
+    text-align: center;
+}
+#d-asignar > select{
+    width: 90%;
+    margin: 10px;
+}
+#d-asignar > button{
+    width: 90%;
+    height: 100px;
+    background-color: rgb(0, 158, 0);
+    border: 1px solid black;
+    border-radius: 2px;
+}
+#d-asignar > button:hover{
+    background-color: rgb(0, 221, 0);
+}
+/* MARCADOR */
+#puntos:disabled{
+    width: 20px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
 }
 /* FOOTER */
 footer{
