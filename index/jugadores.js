@@ -56,7 +56,7 @@ function jugadores(equipo, clicked) {
         if (jug.hasChildNodes()) {
             let p = jug.firstChild
             p.innerHTML = select.options[select.selectedIndex].value
-        }else{
+        } else {
             let p = document.createElement("p")
             p.innerHTML = select.options[select.selectedIndex].value
             jug.appendChild(p)

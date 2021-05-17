@@ -6,6 +6,14 @@ include 'filtro.php';
 include 'utilsServidor.php';
 include 'partidos.php';
 include 'login.php';
+include 'filtropartido.php';
+include 'filtroresumen.php';
+include 'estadisticaresumen.php';
+
+//HACER EL INCLUDE 
+include 'clasificacion.php';
+
+
 $base = new conexion("localhost", "root", "", "statisticssports", 3306, "");
 if (isset($_REQUEST['array'])) {
     $array = json_decode($_REQUEST['array']);
@@ -14,32 +22,49 @@ if (isset($_REQUEST['array'])) {
     $idjug = $accion->getJugador();
     $campo = $accion->campo();
     $porcentaje = $accion->convertir();
-    $jugador = new jugador($idjug, $ideq, "", $base);
-    $jugador->actualizaraccion($campo, $porcentaje, $idjug, $base, $ideq);
+    //partido y set
+    $jugador = new jugador($idjug, $ideq, "",$array[4],$array[5], $base);
+    $jugador->actualizaraccion($campo, $porcentaje, $idjug, $base, $ideq,$array[4],$array[5]);
 }
 if (isset($_REQUEST['filtro'])) {
     if ($_REQUEST['filtro'] == "SF") {
         $filtroBusqueda = $_REQUEST['filtro'];
         $resultado = busquedas($filtroBusqueda, $base);
+        //echo $filtroBusqueda;
         echo $resultado;
     } else if ($_REQUEST['filtro'] == "SM") {
         $filtroBusqueda = $_REQUEST['filtro'];
         $resultado = busquedas($filtroBusqueda, $base);
+        //echo $filtroBusqueda;
         echo $resultado;
     } else if ($_REQUEST['filtro'] == "SF2") {
         $filtroBusqueda = $_REQUEST['filtro'];
         $resultado = busquedas($filtroBusqueda, $base);
+        //echo $filtroBusqueda;
         echo $resultado;
     } else if ($_REQUEST['filtro'] == "SM2") {
         $filtroBusqueda = $_REQUEST['filtro'];
         $resultado = busquedas($filtroBusqueda, $base);
+        //echo $filtroBusqueda;
         echo $resultado;
-    } else if ($_REQUEST['filtro'] == "TODO") {
+    } else if ($_REQUEST['filtro'] == "todo") {
         $filtroBusqueda = $_REQUEST['filtro'];
         $resultado = busquedas($filtroBusqueda, $base);
+        //echo $filtroBusqueda;
         echo $resultado;
     }
-    }   
+    }  
+    //NUEVO
+    if (isset($_REQUEST['filtropartidos'])) {
+            $filtroBusqueda = $_REQUEST['filtropartidos'];
+            $resultado = datosPartido($filtroBusqueda, $base);
+            echo $resultado;
+        } 
+        if (isset($_REQUEST['filtrodirecto1'])) {
+            $filtroBusqueda = json_decode($_REQUEST['filtrodirecto1']);
+            $resultado = busquedasResumen($filtroBusqueda[0],$filtroBusqueda[1],$filtroBusqueda[2], $base);
+            echo $resultado;
+        }
     if (isset($_REQUEST['puntosMas'])) {
         $arrayP = json_decode($_REQUEST['puntosMas']);
         $partido = new partidos($arrayP[0],$base);
@@ -56,10 +81,25 @@ if (isset($_REQUEST['filtro'])) {
         $arrayP = json_decode($_REQUEST['setMas']);
         $partido = new partidos($arrayP[0],$base);
         $partido->sumarSet($arrayP[1],$base);
-        echo "SET ACTUALIZADOS";
+        echo "SETS ACTUALIZADOS";
     }
     if (isset($_REQUEST['login'])) {
         $arrayL = json_decode($_REQUEST['login']);
         $login = new login($arrayL[0],$arrayL[1],$base);
     }
+
+
+
+    /**
+     * LO DE LA CLASIFICIACION
+     */
+    if (isset($_REQUEST['clasificacion'])) {
+       // $liga = $_REQUEST['clasificacion'];
+       $liga = $_REQUEST['clasificacion'];
+        $accion = new clasificacion($liga, $base);
+        $array1 = $accion->datosBusqueda();
+        $resultadoJson = json_encode($array1);
+        echo $resultadoJson;
+    }
+    
 ?>

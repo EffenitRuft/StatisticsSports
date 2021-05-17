@@ -18,29 +18,47 @@
         <nav>
             <ul id="barra-nav" class="nav">
                 <li><a href="./index.html">INICIO</a></li>
-                <li><a href="#">CATEGORIAS</a>
+                <li><a href="./index.html">CLASIFICACION</a>
                     <ul>
                         <li><a href="#">FEMENINO</a>
                             <ul>
-                                <li><a href="">Liga hiberdrola</a></li>
-                                <li><a href="">Superliga 2</a></li>
+                                <li><a href="./liga_iberdrola.html">Liga Iberdrola</a></li>
+                                <li><a href="./SVF2.html">Superliga2</a></li>
                             </ul>
                         </li>
                         <li><a href="#">MASCULINO</a>
                             <ul>
-                                <li><a href="">Superliga 1</a></li>
-                                <li><a href="">Superliga 2</a></li>
+                                <li><a href="./SVM.html">Superliga</a></li>
+                                <li><a href="./SVM2.html">Superliga2</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li><a href="#">ENCUENTROS</a></li>
+                <li><a href="./muestraPartidos.html">MOSTRAR PARTIDO</a></li>
             </ul>
         </nav>
     </header>
+    <hr>
     <main id="main">
         <div id="directo">
-            <p>EQUIPO LOCAL</p>
+            <div id="form">
+                <form>
+                    <label for="npartido">Numero de partido:</label><br>
+                    <input type="text" id="npartido" name="npartido"><br>
+                    <label for="local">Equipo local:</label><br>
+                    <input type="text" id="local" name="local"><br>
+                    <label for="visitante">Equipo visitante:</label><br>
+                    <input type="text" id="visitante" name="visitante"><br><br>
+                    <select name="id_liga" id="liga">
+                        <option value="SM">SM</option>
+                        <option value="SF">SF</option>
+                        <option value="SM2">SM2</option>
+                        <option value="SF2">SF2</option>
+                    </select>
+                    <!--Falta conexion-->
+                    <button id="datosform">Enviar</button> <br>
+                </form>
+            </div><br>
             <div id="campo">
                 <div class="jug" id="jug-1"></div>
                 <div class="jug" id="jug-2"></div>
@@ -49,16 +67,43 @@
                 <div class="jug" id="jug-5"></div>
                 <div class="jug" id="jug-6"></div>
             </div>
+            <div id="campo2">
+                <div class="jug" id="jug-12"></div>
+                <div class="jug" id="jug-22"></div>
+                <div class="jug" id="jug-32"></div>
+                <div class="jug" id="jug-42"></div>
+                <div class="jug" id="jug-52"></div>
+                <div class="jug" id="jug-62"></div>
+            </div>
             <!-- PARTE MARTA -->
-            <input type="text" name="puntos" value="0" id="puntos" disabled ="disabled">
+            <input type="text" name="puntos" value="0" id="puntos" disabled="disabled">
             <button id="punto">Sumar punto</button>
             <button id="puntoR">Restar punto</button>
             <button id="puntoReset">Final de set</button>
-            <button id="setG">Set Ganado</button>
             <!--<input type="text" name="in-p" id="in-p">
             <button id="bt-coger">COGER</button>-->
+
+
+
+
+            <!-- BEA *****************************************************-->
+            <button id="puntoR2">Restar punto</button>
+            <button id="punto2">Sumar punto</button>
+            <input type="text" name="puntos" value="0" id="puntos2">
+
+
+            <!-- MARTA MOSTRAR ESTADISTICAS *****************************************************-->
+
+            <div id="infoequipo1">
+                Equipo local<br>
+
+            </div>
+            <div id="infoequipo2">
+                Equipo visitante<br>
+            </div>
         </div>
     </main>
+    <hr>
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
@@ -76,12 +121,32 @@
         let jug5 = document.getElementById('jug-5')
         let jug6 = document.getElementById('jug-6')
 
+        //BEA*****************************************************************
+        let jug12 = document.getElementById('jug-12')
+        let jug22 = document.getElementById('jug-22')
+        let jug32 = document.getElementById('jug-32')
+        let jug42 = document.getElementById('jug-42')
+        let jug52 = document.getElementById('jug-52')
+        let jug62 = document.getElementById('jug-62')
+
+
+
         // Primer estado. No tiene jugador se le asigna
         document.getElementById("campo").childNodes.forEach(element => {
             if (element.nodeName == "DIV") {
                 element.addEventListener("click", jugadorBase)
             }
         });
+
+
+        //***************************************************************************
+        document.getElementById("campo2").childNodes.forEach(element => {
+            if (element.nodeName == "DIV") {
+                element.addEventListener("click", jugadorBase)
+            }
+        });
+
+
 
         function tablaAcciones() {
             if (document.getElementById("d-accion")) {
@@ -98,7 +163,7 @@
             let d_padre = document.createElement('div')
             d_padre.setAttribute('id', "d-accion")
             let p1 = document.createElement('p')
-            p1.innerHTML = "ACCIONES"
+            p1.innerHTML = "Acciones"
             let bt_a1 = document.createElement('button')
             bt_a1.setAttribute('id', "acc-C")
             bt_a1.innerHTML = "C"
@@ -118,7 +183,7 @@
             bt_a6.setAttribute('id', "acc-S")
             bt_a6.innerHTML = "S"
             let p2 = document.createElement('p')
-            p2.innerHTML = "PUNTUAJE"
+            p2.innerHTML = "Puntuaje"
             let va0 = document.createElement('button')
             va0.setAttribute('id', "va-0")
             va0.innerHTML = 0
@@ -213,11 +278,15 @@
             console.log(array2);
             let env = document.createElement("button")
             env.innerHTML = "ENVIAR DATOS"
+            env.setAttribute('id', 'enviard')
             env.addEventListener("click", enviarDatos)
             doc.appendChild(pv)
             doc.appendChild(env)
         }
         function enviarDatos(e) {
+            //METER PARTIDO Y SET
+            array2[4] = 1; /* !!!!!!!!!!!!!!!!! PARTIDO !!!!!!!!!!!!!!!!!*/
+            array2[5] = 1; /* !!!!!!!!!!!!!!! NUM SET !!!!!!!!!!!!!!!!*/
             e.preventDefault()
             document.getElementById("d-accion").remove()
             var req
@@ -244,6 +313,13 @@
         let bt_p = document.getElementById("punto")
         bt_p.addEventListener('click', resultadoPartido)
         function resultadoPartido() {
+            //COLORES***************************************
+            document.getElementById("puntoR").style.backgroundColor = ""
+            document.getElementById("puntoReset").style.backgroundColor = ""
+            document.getElementById("puntoR2").style.backgroundColor = ""
+            document.getElementById("punto2").style.backgroundColor = ""
+
+
             let puntos = parseInt(document.getElementById("puntos").value) + 1
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             //[numPartido,equipo(1o2),set]
@@ -251,7 +327,7 @@
                 num_set = num_set + 1;
                 set_juego = 'J';
             }
-            var arrayp1 = [1, 1, num_set]
+            var arrayp1 = [1, 1, num_set] /* NUM PARTIDO, EQUIPO, SET */
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -262,6 +338,7 @@
                 if (req.readyState == 4) {
                     if (req.status == 200) {
                         console.log(req.responseText)
+                        bt_p.style.backgroundColor = " ";
                     }
                 }
             }
@@ -271,6 +348,12 @@
         let bt_pRest = document.getElementById("puntoR")
         bt_pRest.addEventListener('click', resultadoPartido2)
         function resultadoPartido2() {
+            //colores
+            document.getElementById("punto").style.backgroundColor = ""
+            document.getElementById("puntoReset").style.backgroundColor = ""
+            document.getElementById("puntoR2").style.backgroundColor = ""
+            document.getElementById("punto2").style.backgroundColor = ""
+
             let puntos = parseInt(document.getElementById("puntos").value) - 1
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             //[numPartido,equipo(1o2),set]
@@ -296,20 +379,171 @@
             req.send()
         }
 
+        function sumarset(equipo) {
+            let arrayp1
+            //[numPartido,equipo(1o2)]
+            if (equipo == 1) {
+                arrayp1 = [1, 1] /* NUM PARTIDO , ID EQUIPO*/
+            } else {
+                arrayp1 = [1, 2] /* NUM PARTIDO , ID EQUIPO*/
+            }
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?setMas=" + JSON.stringify(arrayp1));
+            req.send()
+        }
+
+
+
+
+        //filtroA = [10,1,1]
+        function filtrarDatos(array1, doc) {
+            //equipo,partido,set
+            // Recogemos el filtro pedido por input
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        let id = JSON.parse(req.responseText)
+                        //let datos = id.split(",")
+                        //console.log(datos[0])
+                        if (id[0] != "") {
+                            //AQUI IMPRIMIR LA TABLA SEGUN LOS DATOS FILTRADOS-------------------------------
+                            //NECESITO QUE EL SERVIDOR FILTRE POR SF,SM,SF2,SM2, TODO
+                            imprimirTabla(id, doc)
+                        } else {
+                            alert("Introduce un filtro válido")
+                        }
+                        console.log(req.responseText)
+                        //console.log(id);
+                    }
+                }
+            }
+
+            req.open("GET", "../server/servidor.php?filtrodirecto1=" + JSON.stringify(array1));
+            req.send()
+        }
+
+        function imprimirTabla(datos, doc) {
+
+            doc.innerHTML = ''
+
+            // Crea un elemento <table> y un elemento <tbody>
+            var tabla = document.createElement("table");
+            var tblBody = document.createElement("tbody");
+            tabla.setAttribute("id", "tabla")
+
+            //Creo la fila de titulos
+            var fila = document.createElement("tr");
+            fila.setAttribute("bgcolor", "666666")
+            titulos = ["ID", "NOMBRE", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
+            for (var j = 0; j < 14; j++) {
+                var celda = document.createElement("td");
+                var textoCelda = document.createTextNode(titulos[j]);
+                celda.appendChild(textoCelda);
+                fila.appendChild(celda);
+            }
+            tblBody.appendChild(fila);
+            tabla.appendChild(tblBody);
+            doc.appendChild(tabla);
+            tabla.setAttribute("border", "1");
+            tabla.setAttribute("cellspacing", "0");
+            tabla.setAttribute("cellpadding", "10");
+            tabla.setAttribute("align", "center");
+
+
+            //CREO EL RESTO DE FILAS
+            for (var i = 0; i < datos.length; i++) {
+                var fila = document.createElement("tr");
+                fila.setAttribute("align", "center");
+                fila.setAttribute("bgcolor", "aaaaaa");
+                for (var j = 0; j < 14; j++) {
+                    var celda = document.createElement("td");
+                    var textoCelda = document.createTextNode(datos[i][j]);
+                    celda.appendChild(textoCelda);
+                    fila.appendChild(celda);
+                }
+                tblBody.appendChild(fila);
+            }
+        }
+
 
         let bt_pr = document.getElementById("puntoReset")
         bt_pr.addEventListener('click', function () {
+            //COLORES******************************************
+            document.getElementById("puntoR").style.backgroundColor = ""
+            document.getElementById("punto").style.backgroundColor = ""
+            document.getElementById("puntoR2").style.backgroundColor = ""
+            document.getElementById("punto2").style.backgroundColor = ""
+
+            let puntosLocal = document.getElementById("puntos").value;
+            let puntosVisitante = document.getElementById("puntos2").value;
+            if (parseInt(puntosLocal) > parseInt(puntosVisitante)) {
+                sumarset(1) /* EQUIPO 1*/
+            } else {
+                sumarset(2) /* EQUIPO 2*/
+            }
             let puntos = 0
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             set_juego = 'F';
+            console.log('el set de 1: ' + num_set)
+
+            //****************************************************************************
+            let puntos2 = 0
+            document.getElementById("puntos2").setAttribute("value", puntos2.toString())
+            set_juego2 = 'F';
+            console.log('el set de 2: ' + num_set2)
+            let doc1 = document.getElementById('infoequipo1')
+            doc1.innerHTML = "";
+            let doc2 = document.getElementById('infoequipo2')
+            doc2.innerHTML = "";
+            let array1 = [10, 1, num_set];  /* ID EQUIPO1 / ID PARTIDO / NUM SET*/
+            let array2 = [11, 1, num_set];  /* ID EQUIPO1 / ID PARTIDO / NUM SET*/
+            filtrarDatos(array1, doc1);
+            filtrarDatos(array2, doc2);
         });
 
-        let bt_sg = document.getElementById("setG")
-        bt_sg.addEventListener('click', sumarset);
 
-        function sumarset() {
-            //[numPartido,equipo(1o2)]
-            var arrayp1 = [1, 1]
+
+
+        //***********************************BEA********************************************
+        var set_juego2 = 'J';
+        var num_set2 = 1;
+        let bt_p2 = document.getElementById("punto2")
+        bt_p2.addEventListener('click', resultadoPartido3)
+        function resultadoPartido3() {
+            //COLORES***************************************************
+            document.getElementById("puntoR").style.backgroundColor = ""
+            document.getElementById("puntoReset").style.backgroundColor = ""
+            document.getElementById("puntoR2").style.backgroundColor = ""
+            document.getElementById("punto").style.backgroundColor = ""
+
+
+            let puntos2 = parseInt(document.getElementById("puntos2").value) + 1
+            document.getElementById("puntos2").setAttribute("value", puntos2.toString())
+            //[numPartido,equipo(1o2),set]
+            if (set_juego2 == 'F') {
+                num_set2 = num_set2 + 1;
+                set_juego2 = 'J';
+            }
+            var arrayp12 = [1, 2, num_set2] /* ID EQUIPO  */
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -323,9 +557,126 @@
                     }
                 }
             }
-            req.open("GET", "../server/servidor.php?setMas=" + JSON.stringify(arrayp1));
+            req.open("GET", "../server/servidor.php?puntosMas=" + JSON.stringify(arrayp12));
             req.send()
         }
+        let bt_pRest2 = document.getElementById("puntoR2")
+        bt_pRest2.addEventListener('click', resultadoPartido4)
+
+        function resultadoPartido4() {
+            //COLORES*************************************
+            document.getElementById("puntoR").style.backgroundColor = ""
+            document.getElementById("puntoReset").style.backgroundColor = ""
+            document.getElementById("punto").style.backgroundColor = ""
+            document.getElementById("punto2").style.backgroundColor = ""
+
+            let puntos2 = parseInt(document.getElementById("puntos2").value) - 1
+            document.getElementById("puntos2").setAttribute("value", puntos2.toString())
+            //[numPartido,equipo(1o2),set]
+            if (set_juego2 == 'F') {
+                num_set2 = num_set2 + 1;
+                set_juego2 = 'J';
+            }
+            var arrayp12 = [1, 2, num_set2]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?puntosMenos=" + JSON.stringify(arrayp12));
+            req.send()
+        }
+
+
+
+        /**
+         * BORRAR FORMULARIO AL HACER CLICK
+        */
+
+        /**
+         * LO DE OCULTAR FORMULARIO NO ME SALE
+         * */
+        let bformulario = document.getElementById("datosform")
+        bformulario.addEventListener('click', function () {
+            document.getElementById('form').style.display = 'none';
+        });
+
+
+
+        /**
+         * LO DE LAS TECLAS
+         * */
+        document.addEventListener('keydown', event => {
+
+            //LAS TELCAS DE LAS ACCIONES
+            if (event.keyCode === 81) { //Q
+                document.getElementById('acc-C').style.backgroundColor = "red";
+                document.getElementById('acc-C').click();
+
+            } else if (event.keyCode === 87) { //W
+                document.getElementById('acc-R').style.backgroundColor = "red";
+                document.getElementById('acc-R').click();
+            } else if (event.keyCode === 69) {//E
+                document.getElementById('acc-D').style.backgroundColor = "red";
+                document.getElementById('acc-D').click();
+            } else if (event.keyCode === 82) {//R
+                document.getElementById('acc-A').style.backgroundColor = "red";
+                document.getElementById('acc-A').click();
+            } else if (event.keyCode === 84) {//T
+                document.getElementById('acc-B').style.backgroundColor = "red";
+                document.getElementById('acc-B').click();
+            } else if (event.keyCode === 89) {//Y
+                document.getElementById('acc-S').style.backgroundColor = "red";
+                document.getElementById('acc-S').click();
+            } else if (event.keyCode === 48) {//0
+                document.getElementById('va-0').style.backgroundColor = "red";
+                document.getElementById('va-0').click();
+                document.getElementById('enviard').click();
+            } else if (event.keyCode === 49) {//1
+                document.getElementById('va-1').style.backgroundColor = "red";
+                document.getElementById('va-1').click();
+                document.getElementById('enviard').click();
+            } else if (event.keyCode === 50) {//2
+                document.getElementById('va-2').style.backgroundColor = "red";
+                document.getElementById('va-2').click();
+                document.getElementById('enviard').click();
+            } else if (event.keyCode === 51) {//3
+                document.getElementById('va-3').style.backgroundColor = "red";
+                document.getElementById('va-3').click();
+                document.getElementById('enviard').click();
+            } else if (event.keyCode === 52) {//4
+                document.getElementById('va-4').style.backgroundColor = "red";
+                document.getElementById('va-4').click();
+                document.getElementById('enviard').click();
+            }
+            //LAS TELCAS DE LOS PUNTOS
+            else if (event.keyCode === 65) {//A
+                document.getElementById('punto').style.backgroundColor = "red";
+                document.getElementById('punto').click();
+            } else if (event.keyCode === 83) {//S
+                document.getElementById('puntoR').style.backgroundColor = "red";
+                document.getElementById('puntoR').click();
+            } else if (event.keyCode === 68) {//D
+                document.getElementById('puntoReset').style.backgroundColor = "red";
+                document.getElementById('puntoReset').click();
+            } else if (event.keyCode === 70) {//F
+                document.getElementById('puntoR2').style.backgroundColor = "red";
+                document.getElementById('puntoR2').click();
+            } else if (event.keyCode === 71) {//G
+                document.getElementById('punto2').style.backgroundColor = "red";
+                document.getElementById('punto2').click();
+            }
+
+        }, false)
+
     </script>
 </body>
 

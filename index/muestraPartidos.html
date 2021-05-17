@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="./css/style.css">
+    <!--<link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="./style.css">-->
     <title>Muestra datos - StatisticSports</title>
 </head>
 
@@ -111,8 +111,8 @@
 
     function filtrarDatos() {
         let filtro = document.getElementById("in-p").value
-        if (filtro === "") {
-            filtro = "todo";
+        if (filtro == "") {
+            filtro = "TODO"
         }
         // Recogemos el filtro pedido por input
         let req
@@ -122,7 +122,6 @@
             req = ActiveXObject("Microsoft.XMLHTTP");
         }
         req.onreadystatechange = function () {
-            console.log(req.responseText)
             if (req.readyState == 4) {
                 if (req.status == 200) {
                     let id = JSON.parse(req.responseText)
@@ -135,11 +134,12 @@
                     } else {
                         alert("Introduce un filtro válido")
                     }
-                    //console.log(JSON.stringify(id));
+                    //console.log(id);
+                    console.log(req.responseText)
                 }
             }
         }
-        req.open("GET", "../server/servidor.php?filtro="+filtro);
+        req.open("GET", "../server/servidor.php?filtropartidos="+filtro);
         req.send()
     }
 
@@ -156,8 +156,8 @@
         //Creo la fila de titulos
         var fila = document.createElement("tr");
         fila.setAttribute("bgcolor", "666666")
-        titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
-        for (var j = 0; j < 16; j++) {
+        titulos = ["5ºSET", "4ºSET", "3ºSET", "2ºSET", "1ºSET", "SETS", "LOCAL", "VISITANTE", "SETS", "1ºSET", "2ºSET", "3ºSET", "4ºSET", "5ºSET"]
+        for (var j = 0; j < 14; j++) {
             var celda = document.createElement("td");
             var textoCelda = document.createTextNode(titulos[j]);
             celda.appendChild(textoCelda);
@@ -177,7 +177,7 @@
             var fila = document.createElement("tr");
             fila.setAttribute("align","center");
             fila.setAttribute("bgcolor","aaaaaa");
-            for (var j = 0; j < 16; j++) {
+            for (var j = 0; j < 14; j++) {
                 var celda = document.createElement("td");
                 var textoCelda = document.createTextNode(datos[i][j]);
                 celda.appendChild(textoCelda);

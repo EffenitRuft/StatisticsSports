@@ -23,16 +23,16 @@
             }else if($liga=='SM2'){
                 $this->genero = "masculino";
             $this->liga = "superliga2";
-            }else if($liga=='TODO'){
+            }else if($liga=='todo'){
                 $this->genero = "todo";
                 $this->liga = "todo";
             }
             if($this->genero=="todo" && $this->liga=="todo"){
-                $base->consulta("SELECT j.id_jugador, e.id_equipo, e.nombre_equipo
+                $base->consulta("SELECT DISTINCT j.id_jugador, e.id_equipo, e.nombre_equipo
                 FROM statisticssports.jugador j 
                 inner join statisticssports.equipo e on j.ID_EQUIPO=e.id_equipo;");
             }else{
-                $base->consulta("SELECT j.id_jugador, e.id_equipo, e.nombre_equipo
+                $base->consulta("SELECT DISTINCT j.id_jugador, e.id_equipo, e.nombre_equipo
                 FROM statisticssports.jugador j 
                 inner join statisticssports.equipo e on j.ID_EQUIPO=e.id_equipo 
                 where e.liga='$this->liga' and e.genero='$this->genero';");
