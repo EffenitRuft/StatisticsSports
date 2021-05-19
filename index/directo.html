@@ -38,42 +38,26 @@
             </ul>
         </nav>
     </header>
-    <hr>
     <main id="main">
         <div id="directo">
-            <div id="form">
-                <form>
-                    <label for="npartido">Numero de partido:</label><br>
-                    <input type="text" id="npartido" name="npartido"><br>
-                    <label for="local">Equipo local:</label><br>
-                    <input type="text" id="local" name="local"><br>
-                    <label for="visitante">Equipo visitante:</label><br>
-                    <input type="text" id="visitante" name="visitante"><br><br>
-                    <select name="id_liga" id="liga">
-                        <option value="SM">SM</option>
-                        <option value="SF">SF</option>
-                        <option value="SM2">SM2</option>
-                        <option value="SF2">SF2</option>
-                    </select>
-                    <!--Falta conexion-->
-                    <button id="datosform">Enviar</button> <br>
-                </form>
-            </div><br>
-            <div id="campo">
-                <div class="jug" id="jug-1"></div>
-                <div class="jug" id="jug-2"></div>
-                <div class="jug" id="jug-3"></div>
-                <div class="jug" id="jug-4"></div>
-                <div class="jug" id="jug-5"></div>
-                <div class="jug" id="jug-6"></div>
-            </div>
-            <div id="campo2">
-                <div class="jug" id="jug-12"></div>
-                <div class="jug" id="jug-22"></div>
-                <div class="jug" id="jug-32"></div>
-                <div class="jug" id="jug-42"></div>
-                <div class="jug" id="jug-52"></div>
-                <div class="jug" id="jug-62"></div>
+            <div class="campos"><h2>LOCAL</h2><h2>VISITANTE</h2></div>
+            <div class="campos">
+                <div id="campo">
+                    <div class="jug" id="jug-1"></div>
+                    <div class="jug" id="jug-2"></div>
+                    <div class="jug" id="jug-3"></div>
+                    <div class="jug" id="jug-4"></div>
+                    <div class="jug" id="jug-5"></div>
+                    <div class="jug" id="jug-6"></div>
+                </div>
+                <div id="campo2">
+                    <div class="jug" id="jug-12"></div>
+                    <div class="jug" id="jug-22"></div>
+                    <div class="jug" id="jug-32"></div>
+                    <div class="jug" id="jug-42"></div>
+                    <div class="jug" id="jug-52"></div>
+                    <div class="jug" id="jug-62"></div>
+                </div>
             </div>
             <!-- PARTE MARTA -->
             <input type="text" name="puntos" value="0" id="puntos" disabled="disabled">
@@ -103,13 +87,23 @@
             </div>
         </div>
     </main>
-    <hr>
+
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
     <script src="./login.js"></script>
     <script src="./jugadores.js"></script>
     <script>
+        // Botton que borra el div en el que se encuentra
+        const equis = document.createElement("button")
+        equis.innerHTML = "X"
+
+        equis.addEventListener("click", borrarElemento)
+        function borrarElemento(e) {
+            e.preventDefault()
+            let di_padre = this.parentElement
+            di_padre.remove()
+        }
         //JUGADORES
         // EQUIPO, JUGADOR, ACCION, VALOR
         let array = [v1 = 2]
@@ -442,7 +436,6 @@
         }
 
         function imprimirTabla(datos, doc) {
-
             doc.innerHTML = ''
 
             // Crea un elemento <table> y un elemento <tbody>
@@ -484,7 +477,6 @@
             }
         }
 
-
         let bt_pr = document.getElementById("puntoReset")
         bt_pr.addEventListener('click', function () {
             //COLORES******************************************
@@ -519,10 +511,6 @@
             filtrarDatos(array1, doc1);
             filtrarDatos(array2, doc2);
         });
-
-
-
-
         //***********************************BEA********************************************
         var set_juego2 = 'J';
         var num_set2 = 1;
@@ -594,28 +582,10 @@
             req.open("GET", "../server/servidor.php?puntosMenos=" + JSON.stringify(arrayp12));
             req.send()
         }
-
-
-
-        /**
-         * BORRAR FORMULARIO AL HACER CLICK
-        */
-
-        /**
-         * LO DE OCULTAR FORMULARIO NO ME SALE
-         * */
-        let bformulario = document.getElementById("datosform")
-        bformulario.addEventListener('click', function () {
-            document.getElementById('form').style.display = 'none';
-        });
-
-
-
         /**
          * LO DE LAS TECLAS
          * */
         document.addEventListener('keydown', event => {
-
             //LAS TELCAS DE LAS ACCIONES
             if (event.keyCode === 81) { //Q
                 document.getElementById('acc-C').style.backgroundColor = "red";
@@ -674,10 +644,10 @@
                 document.getElementById('punto2').style.backgroundColor = "red";
                 document.getElementById('punto2').click();
             }
-
         }, false)
 
     </script>
+    <script src="./selectpartido.js"></script>
 </body>
 
 </html>

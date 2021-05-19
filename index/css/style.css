@@ -98,8 +98,21 @@ ul {
 main{
     min-height: 77.4vh; /* 1080 */
 }
-/* DIRECTO */
 
+/* SELECCIONAR PARTIDO */
+#form{
+    position: absolute;
+    top:10%;
+    left: 50%;
+    width: 350px;
+    height: 300px;
+    border: 1px solid black;
+    background-color: #fff;
+    transform: translate(-50%);
+    text-align: center;
+}
+
+/* DIRECTO */
 #d-ficha{
     display: flex;
     flex-direction: column;
@@ -125,6 +138,13 @@ main{
 #directo{
     height: 500px;
     text-align: center;
+}
+.campos{
+    display: flex;
+    justify-content: space-between;
+}
+.campos > h2{
+    margin: 0 100px 0 100px;
 }
 #campo, #campo2{
     margin: 10px;
