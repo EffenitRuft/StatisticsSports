@@ -1,9 +1,25 @@
 
 function jugadorBase() {
     let clicked = this.getAttribute("id")
+    let idequip
     if (clicked.includes("bt-editar-") === true) {
         document.getElementById("d-accion").remove()
         clicked = "jug-" + clicked.split("-")[2].toString()
+        let nodo = document.getElementById(clicked)
+        if(nodo.parentNode.getAttribute("id") == "campo"){
+            idequip = JSON.parse(localStorage.getItem("partido"))["local"]
+            console.log(idequip);
+        }else if (nodo.parentNode.getAttribute("id") == "campo2"){
+            idequip = JSON.parse(localStorage.getItem("partido"))["visitante"]
+            console.log(idequip);
+        }
+    }
+    if (this.parentNode.getAttribute("id") == "campo") {
+        idequip = JSON.parse(localStorage.getItem("partido"))["local"]
+        console.log(idequip);
+    } else if (this.parentNode.getAttribute("id") == "campo2") {
+        idequip = JSON.parse(localStorage.getItem("partido"))["visitante"]
+        console.log(idequip);
     }
     var req
     if (window.XMLHttpRequest) {
@@ -19,8 +35,7 @@ function jugadorBase() {
             }
         }
     }
-    // TODO: HAY QUE ENVIAR UN EQUIPO QUE LA CUENTA YA TENDRA
-    req.open("GET", "./basedatos.php?bt=damejugadores&equip=2");
+    req.open("GET", "./basedatos.php?bt=damejugadores&equip=" + idequip);
     req.send()
 }
 
@@ -33,12 +48,30 @@ function jugadores(equipo, clicked) {
 
     // TODO: COMPROBAR SI YA HAY UNA POSICION CON ESE JUGADOR
 
+    const dom_equipo1 = ["jug-1","jug-2","jug-3","jug-4","jug-5","jug-6"]
+    const dom_equipo2 = ["jug-12","jug-22","jug-32","jug-42","jug-52","jug-62"]
+
     let opts = equipo
     for (let i = 0; i < opts.length; i++) {
         let opt = document.createElement("option")
-        opt.setAttribute('value', opts[i].id_jugador)
-        opt.innerHTML = opts[i].nombre
-        select.appendChild(opt)
+        // NO ENSEÑAR EN CASO DE QUE ESTE YA ASIGNADO
+        // AQUI LO EH DEJADO CUANDO EXISTA DENTRO DEL CAMPO NO SE DEBE MOSTRAR EN LA OPCIONES
+        for (let a = 0; a < dom_equipo1.length; a++) {
+            if (document.getElementById(dom_equipo1[a]).hasChildNodes()) {
+                if (parseInt(document.getElementById(dom_equipo1[a]).children[0].innerHTML) == opts[i].id_jugador) {
+                    console.log("Ya esta asignado: " + opts[i].id_jugador);
+                } else {
+                    console.log("PASA : " + opts[i].id_jugador);
+                    opt.setAttribute('value', opts[i].id_jugador)
+                    opt.innerHTML = opts[i].nombre
+                    select.appendChild(opt)
+                }
+            } else {
+                opt.setAttribute('value', opts[i].id_jugador)
+                opt.innerHTML = opts[i].nombre
+                select.appendChild(opt)
+            }
+        }
     }
     let bt_asignar = document.createElement("button")
     bt_asignar.setAttribute('id', "bt-asignar")

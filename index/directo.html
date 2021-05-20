@@ -40,7 +40,7 @@
     </header>
     <main id="main">
         <div id="directo">
-            <div class="campos"><h2>LOCAL</h2><h2>VISITANTE</h2></div>
+            <div class="campos"><h2 id="c-local"></h2><h2 id="c-visit"></h2></div>
             <div class="campos">
                 <div id="campo">
                     <div class="jug" id="jug-1"></div>
@@ -93,6 +93,7 @@
     </footer>
     <script src="./login.js"></script>
     <script src="./jugadores.js"></script>
+    <script src="./selectpartido.js"></script>
     <script>
         // Botton que borra el div en el que se encuentra
         const equis = document.createElement("button")
@@ -104,9 +105,10 @@
             let di_padre = this.parentElement
             di_padre.remove()
         }
+
         //JUGADORES
         // EQUIPO, JUGADOR, ACCION, VALOR
-        let array = [v1 = 2]
+        let array = [parseInt(JSON.parse(localStorage.getItem("partido"))["local"])]
         var array2 = array.slice()
         let jug1 = document.getElementById('jug-1')
         let jug2 = document.getElementById('jug-2')
@@ -114,8 +116,8 @@
         let jug4 = document.getElementById('jug-4')
         let jug5 = document.getElementById('jug-5')
         let jug6 = document.getElementById('jug-6')
-
         //BEA*****************************************************************
+        let arrayvisitante = [parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"])]
         let jug12 = document.getElementById('jug-12')
         let jug22 = document.getElementById('jug-22')
         let jug32 = document.getElementById('jug-32')
@@ -399,9 +401,6 @@
             req.send()
         }
 
-
-
-
         //filtroA = [10,1,1]
         function filtrarDatos(array1, doc) {
             //equipo,partido,set
@@ -647,7 +646,6 @@
         }, false)
 
     </script>
-    <script src="./selectpartido.js"></script>
 </body>
 
 </html>

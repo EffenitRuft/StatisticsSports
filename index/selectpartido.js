@@ -15,6 +15,7 @@ function seleccionarPartido() {
     inp1.setAttribute("type", "text")
     inp1.setAttribute("id", "npartido")
     inp1.setAttribute("name", "npartido")
+    inp1.setAttribute("required","")
     const l2 = document.createElement("label")
     l2.setAttribute("for", "local")
     l2.innerHTML = "Equipo local:"
@@ -22,6 +23,7 @@ function seleccionarPartido() {
     inp2.setAttribute("type", "text")
     inp2.setAttribute("id", "local")
     inp2.setAttribute("name", "local")
+    inp2.setAttribute("required","")
     const l3 = document.createElement("label")
     l3.setAttribute("for", "visitante")
     l3.innerHTML = "Equipo vistante:"
@@ -29,6 +31,7 @@ function seleccionarPartido() {
     inp3.setAttribute("type", "text")
     inp3.setAttribute("id", "visitante")
     inp3.setAttribute("name", "visitante")
+    inp3.setAttribute("required","")
     const sel1 = document.createElement("select")
     sel1.setAttribute("name", "id_liga")
     sel1.setAttribute("id", "liga")
@@ -67,7 +70,6 @@ function seleccionarPartido() {
     formu.appendChild(sel1)
     formu.appendChild(document.createElement("br"))
     formu.appendChild(bt)
-    di_form.appendChild(equis)
     di_form.appendChild(formu)
     di_padre.appendChild(di_form)
 
@@ -80,9 +82,16 @@ function seleccionarPartido() {
         console.log(dat1 + " - " + dat2 + " - " + dat3 + " - " + dat4);
         const info = { "npartido": dat1, "local": dat2, "visitante": dat3, "liga": dat4 }
         localStorage.setItem("partido", JSON.stringify(info))
-        /*
-        HACER CONEXION 
-        A LOCALSTORAGE IMAGINO */
+        
+        /* Identficar equipos */
+        const partido = JSON.parse(localStorage.getItem("partido"))
+        console.log(partido);
+        const h2local = document.getElementById("c-local")
+        h2local.innerHTML = partido["local"]
+        const h2visit = document.getElementById("c-visit")
+        h2visit.innerHTML = partido["visitante"]
+        /*HACER CONEXION A LOCALSTORAGE IMAGINO */
+        /* LOCAL DEBERIA SER SIEMPRE EL USUARIO LOGEADO */
         di_form.remove()
     })
 }
