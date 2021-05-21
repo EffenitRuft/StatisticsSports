@@ -12,7 +12,7 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 if (isset($_REQUEST['bt'])) {
     $jugadores = array();
     $equipo = intval($_REQUEST['equip']);
-    $que = mysqli_query($con,"SELECT id_jugador,nombre FROM jugador WHERE id_equipo = '$equipo'");
+    $que = mysqli_query($con,"SELECT idjugadorBase,nombre FROM jugadorbase WHERE id_equipo = '$equipo'");
     while ($f = mysqli_fetch_assoc($que)) {
         $jugadores[] = $f;
     }

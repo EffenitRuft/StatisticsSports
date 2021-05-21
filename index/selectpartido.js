@@ -90,6 +90,7 @@ function seleccionarPartido() {
         h2local.innerHTML = partido["local"]
         const h2visit = document.getElementById("c-visit")
         h2visit.innerHTML = partido["visitante"]
+        num_partido = parseInt(JSON.parse(localStorage.getItem("partido"))["npartido"])
         /*HACER CONEXION A LOCALSTORAGE IMAGINO */
         /* LOCAL DEBERIA SER SIEMPRE EL USUARIO LOGEADO */
         di_form.remove()

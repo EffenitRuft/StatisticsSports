@@ -124,7 +124,7 @@
         req.onreadystatechange = function () {
             if (req.readyState == 4) {
                 if (req.status == 200) {
-                    let id = JSON.parse(req.responseText)
+                   let id = JSON.parse(req.responseText)
                     //let datos = id.split(",")
                     //console.log(datos[0])
                     if (id[0] != "") {
@@ -135,7 +135,7 @@
                         alert("Introduce un filtro válido")
                     }
                     //console.log(id);
-                    console.log(req.responseText)
+                    console.log(req.responseText);
                 }
             }
         }
@@ -154,10 +154,11 @@
         tabla.setAttribute("id", "tabla")
 
         //Creo la fila de titulos
+        //////////////////////NUEVO MARTA////////////////////////////////////
         var fila = document.createElement("tr");
         fila.setAttribute("bgcolor", "666666")
-        titulos = ["5ºSET", "4ºSET", "3ºSET", "2ºSET", "1ºSET", "SETS", "LOCAL", "VISITANTE", "SETS", "1ºSET", "2ºSET", "3ºSET", "4ºSET", "5ºSET"]
-        for (var j = 0; j < 14; j++) {
+        titulos = ["5ºSET", "4ºSET", "3ºSET", "2ºSET", "1ºSET", "SETS", "LOCAL", "VISITANTE", "SETS", "1ºSET", "2ºSET", "3ºSET", "4ºSET", "5ºSET","LIGA","ESTADÍSTICAS"]
+        for (var j = 0; j < 16; j++) {
             var celda = document.createElement("td");
             var textoCelda = document.createTextNode(titulos[j]);
             celda.appendChild(textoCelda);
@@ -171,17 +172,74 @@
         tabla.setAttribute("cellpadding","10");
         tabla.setAttribute("align","center");
         
-
+        /////////////////////////////////NUEVO MARTA///////////////////////////////
         //CREO EL RESTO DE FILAS
         for (var i = 0; i < datos.length; i++) {
+            let id1;
+            let id2;
+            let liga;
             var fila = document.createElement("tr");
             fila.setAttribute("align","center");
             fila.setAttribute("bgcolor","aaaaaa");
-            for (var j = 0; j < 14; j++) {
+            for (var j = 0; j < 16; j++) {
+                if(j==6){
+                    var celda = document.createElement("td");
+                    var textoCelda = document.createTextNode(datos[i][j]);
+                    celda.appendChild(textoCelda);
+                    fila.appendChild(celda);
+                    id1= datos[i][j];
+                    console.log(id1)
+                }
+                if(j==7){
+                    var celda = document.createElement("td");
+                    var textoCelda = document.createTextNode(datos[i][j]);
+                    celda.appendChild(textoCelda);
+                    fila.appendChild(celda);
+                    id2= datos[i][j];
+                    console.log(id2)
+                }
+                if(j==14){
+                    var celda = document.createElement("td");
+                    var textoCelda = document.createTextNode(datos[i][j]);
+                    celda.appendChild(textoCelda);
+                    fila.appendChild(celda);
+                    liga= datos[i][j];
+                    console.log(liga)
+                }
+                if(j!=15 && j!=14 && j!=6 && j!=7){
                 var celda = document.createElement("td");
                 var textoCelda = document.createTextNode(datos[i][j]);
                 celda.appendChild(textoCelda);
                 fila.appendChild(celda);
+                }
+                if(j==15){
+                    var celda = document.createElement("td");
+                    var form = document.createElement("form");
+                    form.setAttribute("action","muestraEstadistica.html");
+                    form.setAttribute("method","GET");
+                    var input = document.createElement('input');
+                    input.setAttribute("type","hidden");
+                    input.setAttribute("value",id1);
+                    input.setAttribute("name",'id1');
+                    form.appendChild(input);
+                    var input1 = document.createElement('input');
+                    input1.setAttribute("type","hidden");
+                    input1.setAttribute("value",id2);
+                    input1.setAttribute("name",'id2');
+                    form.appendChild(input1);
+                    var input2 = document.createElement('input');
+                    input2.setAttribute("type","hidden");
+                    input2.setAttribute("value",liga);
+                    input2.setAttribute("name",'liga');
+                    form.appendChild(input2);
+                    var boton = document.createElement('input');
+                    boton.setAttribute("type","submit");
+                    boton.setAttribute("value",'ESTADISTICA');
+                    boton.setAttribute("name",'boton');
+                    form.appendChild(boton)
+                    celda.appendChild(form);
+                    fila.appendChild(celda);
+                }
             }
             tblBody.appendChild(fila);
         }

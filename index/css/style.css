@@ -136,7 +136,6 @@ main{
 
 /* APARTADO DE DIRECTO */
 #directo{
-    height: 500px;
     text-align: center;
 }
 .campos{
@@ -230,13 +229,17 @@ main{
     background-color: rgb(0, 221, 0);
 }
 /* MARCADOR */
-#puntos:disabled{
+#puntos:disabled, #puntos2:disabled{
     width: 20px;
     text-align: center;
     background-color: white;
     color: black;
     border: 1px solid black;
     border-radius: 2px;
+}
+/* INFO EQUIPO */
+#tabla th{
+
 }
 /* FOOTER */
 footer{

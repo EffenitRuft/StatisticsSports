@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--NUEVO MARTA-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Inicio - StatisticSports</title>
+</head>
+
+<body>
+    <header>
+        <div id="cab">
+            <picture id="img1">
+                <img id="img1" src="./images/favicon.png">
+            </picture>
+            <h1><a href="./index.html">StatisticSports</a></h1>
+        </div>
+        <nav>
+            <ul id="barra-nav" class="nav">
+                <li><a href="./index.html">INICIO</a></li>
+                <li><a href="#">CLASIFICACION</a>
+                    <ul>
+                        <li><a href="#">FEMENINO</a>
+                            <ul>
+                                <li><a href="./liga_iberdrola.html">Liga hiberdrola</a></li>
+                                <li><a href="./SVF2.html">Superliga 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">MASCULINO</a>
+                            <ul>
+                                <li><a href="./SVM.html">Superliga</a></li>
+                                <li><a href="./SVM2.html">Superliga 2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="./muestraPartidos.html">MOSTRAR PARTIDO</a></li>
+                <li><a href="./muestraDatos.html">ESTADISTICAS</a></li><!--LLEVAR A INDEX-->
+            </ul>
+        </nav>
+    </header>
+    <div id="divTabla1">
+        EQUIPO 1
+    </div>
+    <div id="divTabla2">
+        EQUIPO 2
+    </div>
+    <footer>
+        <p>Web creada por Bea, Alexandru y Marta</p>
+    </footer>
+    <script src="./login.js"></script>
+    <script>
+       /**
+    * LO DE LOCALSTORAGE
+    *
+    **/
+    miStorage = window.localStorage;
+    var botonUsuario = document.getElementById("log");
+    var usuario = []
+
+    botonUsuario.onclick = function (b) {
+        b.preventDefault();
+        usuario[0] = document.getElementById("usu").value;
+        usuario[1] = document.getElementById("pass").value;
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        var arrayCodificado = localStorage.getItem("usuario");
+        if (arrayCodificado != null) {
+            usuario = JSON.parse(arrayCodificado);
+            console.log(usuario);
+        }
+    }
+
+
+
+    function consultarUsuario() {
+        var arrayCodificado = localStorage.getItem("usuario");
+        if (arrayCodificado != null) {
+            usuario = JSON.parse(arrayCodificado);
+            console.log(usuario);
+        }
+    }
+
+    function filtrarDatos(filtro,doc) {
+        //num equipo1,num equipo2.
+        // Recogemos el filtro pedido por input
+        let req
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            req = ActiveXObject("Microsoft.XMLHTTP");
+        }
+        /*ACABAR*/
+        req.onreadystatechange = function () {
+            console.log(req.responseText)
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    let id = JSON.parse(req.responseText)
+                    //let datos = id.split(",")
+                    //console.log(datos[0])
+                    if (id[0] != "") {
+                        //AQUI IMPRIMIR LA TABLA SEGUN LOS DATOS FILTRADOS-------------------------------
+                        //NECESITO QUE EL SERVIDOR FILTRE POR SF,SM,SF2,SM2, TODO
+                        imprimirTabla(id,doc)
+                    } else {
+                        alert("Introduce un filtro válido")
+                    }
+                    //console.log(JSON.stringify(id));
+                    //console.log(req.responseText)
+                }
+            }
+        }
+        req.open("GET", "../server/servidor.php?filtropartidoestadistica="+JSON.stringify(filtro));
+        req.send()
+    }
+
+    function imprimirTabla(datos,doc) {
+        doc.innerHTML = ''
+
+        // Crea un elemento <table> y un elemento <tbody>
+            var tabla = document.createElement("table");
+            var tblBody = document.createElement("tbody");
+            tabla.setAttribute("id", "tabla")
+
+            //Creo la fila de titulos
+            var fila = document.createElement("tr");
+            fila.setAttribute("bgcolor", "666666")
+            titulos = ["ID", "NOMBRE", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
+            for (var j = 0; j < 14; j++) {
+                var celda = document.createElement("td");
+                var textoCelda = document.createTextNode(titulos[j]);
+                celda.appendChild(textoCelda);
+                fila.appendChild(celda);
+            }
+            tblBody.appendChild(fila);
+            tabla.appendChild(tblBody);
+            doc.appendChild(tabla);
+            tabla.setAttribute("border", "1");
+            tabla.setAttribute("cellspacing", "0");
+            tabla.setAttribute("cellpadding", "10");
+            tabla.setAttribute("align", "center");
+
+
+            //CREO EL RESTO DE FILAS
+            for (var i = 0; i < datos.length; i++) {
+                var fila = document.createElement("tr");
+                fila.setAttribute("align", "center");
+                fila.setAttribute("bgcolor", "aaaaaa");
+                for (var j = 0; j < 14; j++) {
+                    var celda = document.createElement("td");
+                    var textoCelda = document.createTextNode(datos[i][j]);
+                    celda.appendChild(textoCelda);
+                    fila.appendChild(celda);
+                }
+                tblBody.appendChild(fila);
+            }
+    }
+
+    function cabeceras(){
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+        return $_GET;
+    }
+
+    window.onload = function () {
+        let array=cabeceras()
+        let array1 = [array['id1'],array['liga'], 1,5];  /* ID EQUIPO1 / ID PARTIDO / NUM SET*/
+        let array2 = [array['id2'],array['liga'], 1,5];
+        let doc = document.getElementById('divTabla1')
+        let doc1 = document.getElementById('divTabla2')
+
+        filtrarDatos(array1,doc);
+        filtrarDatos(array2,doc1);
+        consultarUsuario();
+    }
+    </script>
+</body>
+
+</html>

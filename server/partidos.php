@@ -16,6 +16,7 @@
         private $set4_eq2;
         private $set5_eq1;
         private $set5_eq2;
+        private $liga;
         
         function __construct($numpartido,$base) {
             $this->base=$base;
@@ -64,6 +65,9 @@
                     }
                     if($indice=="equipo_2"){
                         $this->equipo2=$valor;
+                    }
+                    if($indice=="id_liga"){
+                        $this->liga=$valor;
                     }
                 }
             }
@@ -226,6 +230,7 @@
             $array[11] = $this->set3_eq2;
             $array[12] = $this->set4_eq2;
             $array[13] = $this->set5_eq2;
+            $array[14] = $this->liga;
             return $array;
         }
     }  

@@ -9,7 +9,8 @@ include 'login.php';
 include 'filtropartido.php';
 include 'filtroresumen.php';
 include 'estadisticaresumen.php';
-
+include 'jugadornuevo.php';
+include 'filtroequipo.php';
 //HACER EL INCLUDE 
 include 'clasificacion.php';
 
@@ -60,6 +61,12 @@ if (isset($_REQUEST['filtro'])) {
             $resultado = datosPartido($filtroBusqueda, $base);
             echo $resultado;
         } 
+        /*////////////////////////////NUEVO MARTA//////////////////////*/
+        if (isset($_REQUEST['filtropartidoestadistica'])) {
+            $filtroBusqueda = json_decode($_REQUEST['filtropartidoestadistica']);
+            $resultado = busquedasResumenB($filtroBusqueda[0],$filtroBusqueda[1],$filtroBusqueda[2],$filtroBusqueda[3], $base);
+            echo $resultado;
+        } 
         if (isset($_REQUEST['filtrodirecto1'])) {
             $filtroBusqueda = json_decode($_REQUEST['filtrodirecto1']);
             $resultado = busquedasResumen($filtroBusqueda[0],$filtroBusqueda[1],$filtroBusqueda[2], $base);
@@ -87,6 +94,15 @@ if (isset($_REQUEST['filtro'])) {
         $arrayL = json_decode($_REQUEST['login']);
         $login = new login($arrayL[0],$arrayL[1],$base);
     }
+    if (isset($_REQUEST['addJugador'])) {
+        $arrayJ = json_decode($_REQUEST['addJugador']);
+        $idjug = $arrayJ[0];
+        $ideq = $arrayJ[1];
+        $idpartido = $arrayJ[2];
+        $idset = $arrayJ[3];
+        $jugador = new jugadornuevo($idjug,$ideq,$idpartido,$idset,$base);
+        echo 'OK';
+    }
 
 
 
@@ -101,5 +117,3 @@ if (isset($_REQUEST['filtro'])) {
         $resultadoJson = json_encode($array1);
         echo $resultadoJson;
     }
-    
-?>

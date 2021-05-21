@@ -31,7 +31,7 @@ function jugadorBase() {
         if (req.readyState == 4) {
             if (req.status == 200) {
                 console.log("DATOS RECIBIDOS CON ÉXITO")
-                jugadores(JSON.parse(req.response), clicked)
+                jugadores(JSON.parse(req.response), clicked,idequip)
             }
         }
     }
@@ -39,7 +39,7 @@ function jugadorBase() {
     req.send()
 }
 
-function jugadores(equipo, clicked) {
+function jugadores(equipo, clicked, idequip) {
     const idjug = clicked
     let div = document.createElement('div')
     div.setAttribute("id", "d-asignar")
@@ -56,16 +56,16 @@ function jugadores(equipo, clicked) {
         if (dom_equipo1.includes(clicked)) {
             for (let a = 0; a < dom_equipo1.length; a++) {
                 if (document.getElementById(dom_equipo1[a]).hasChildNodes()) {
-                    if (parseInt(document.getElementById(dom_equipo1[a]).children[0].innerHTML) == opts[i].id_jugador) {
+                    if (parseInt(document.getElementById(dom_equipo1[a]).children[0].innerHTML) == opts[i].idjugadorBase) {
                         opts.splice(i, 1)
-                        console.log("Ya esta asignado: " + opts[i].id_jugador);
+                        console.log("Ya esta asignado: " + opts[i].idjugadorBase);
                     } else {
-                        opt.setAttribute('value', opts[i].id_jugador)
+                        opt.setAttribute('value', opts[i].idjugadorBase)
                         opt.innerHTML = opts[i].nombre
                         select.appendChild(opt)
                     }
                 } else {
-                    opt.setAttribute('value', opts[i].id_jugador)
+                    opt.setAttribute('value', opts[i].idjugadorBase)
                     opt.innerHTML = opts[i].nombre
                     select.appendChild(opt)
                 }
@@ -73,16 +73,16 @@ function jugadores(equipo, clicked) {
         } else if (dom_equipo2.includes(clicked)) {
             for (let a = 0; a < dom_equipo2.length; a++) {
                 if (document.getElementById(dom_equipo2[a]).hasChildNodes()) {
-                    if (parseInt(document.getElementById(dom_equipo2[a]).children[0].innerHTML) == opts[i].id_jugador) {
+                    if (parseInt(document.getElementById(dom_equipo2[a]).children[0].innerHTML) == opts[i].idjugadorBase) {
                         opts.splice(i, 1)
-                        console.log("Ya esta asignado: " + opts[i].id_jugador);
+                        console.log("Ya esta asignado: " + opts[i].idjugadorBase);
                     } else {
-                        opt.setAttribute('value', opts[i].id_jugador)
+                        opt.setAttribute('value', opts[i].idjugadorBase)
                         opt.innerHTML = opts[i].nombre
                         select.appendChild(opt)
                     }
                 } else {
-                    opt.setAttribute('value', opts[i].id_jugador)
+                    opt.setAttribute('value', opts[i].idjugadorBase)
                     opt.innerHTML = opts[i].nombre
                     select.appendChild(opt)
                 }
@@ -110,8 +110,30 @@ function jugadores(equipo, clicked) {
             p.innerHTML = select.options[select.selectedIndex].value
             jug.appendChild(p)
         }
+        let arrayJ = [1,parseInt(idequip),num_partido,2]
+        console.log(arrayJ);
+        addJugador(arrayJ)
         document.getElementById('d-asignar').remove()
         div.remove()
         jug.addEventListener('click', tablaAcciones)
     })
+}
+
+function addJugador(array) {
+    var req
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        req = ActiveXObject("Microsoft.XMLHTTP");
+    }
+    req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                console.log("JUGADOR INSERTADO")
+                console.log(req.responseText)
+            }
+        }
+    }
+    req.open("GET", "../server/servidor.php?addJugador="+JSON.stringify(array));
+    req.send()
 }

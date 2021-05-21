@@ -41,4 +41,24 @@
         return $resultadoJson;
     }
     
+    function buscaridequipo($eq,$ligaA,$base){
+        $busqueda = new filtroequipo($eq,$ligaA,$base);
+        $ideq = $busqueda->getidequipo();
+        return $ideq;
+    }
+
+    function busquedasResumenB($eq,$ligaA,$partido,$sets,$base){
+        $ideq = (int)buscaridequipo($eq,$ligaA,$base);
+        $busqueda = new filtroresumen($ideq,$base);
+        $array1 = $busqueda->datosResumen();
+        $resultado;
+        for ($i=0; $i < count($array1); $i++) { 
+            $array2=$array1[$i];
+            $resumen= new estadisticaresumen($array2[0],$ideq,$partido,$sets,$base);
+            $arrayResumen = $resumen->getResumen();
+            $resultado[$i]=$arrayResumen;
+        }
+        $resultadoJson = json_encode($resultado);
+        return $resultadoJson;
+    }
 ?>
