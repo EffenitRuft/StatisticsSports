@@ -100,17 +100,22 @@ function jugadores(equipo, clicked, idequip) {
     document.getElementById(idjug).removeEventListener('click', jugadorBase)
 
     bt_asignar.addEventListener('click', function (e) {
+        let num_jugador=0;
         e.preventDefault()
         let jug = document.getElementById(idjug)
         if (jug.hasChildNodes()) {
             let p = jug.firstChild
             p.innerHTML = select.options[select.selectedIndex].value
+            num_jugador=p.innerHTML;
         } else {
             let p = document.createElement("p")
             p.innerHTML = select.options[select.selectedIndex].value
             jug.appendChild(p)
+            num_jugador=p.innerHTML;
         }
-        let arrayJ = [1,parseInt(idequip),num_partido,2]
+        //NUEVO *******************************************************************************************
+        let num_set = localStorage.getItem("set")
+        let arrayJ = [parseInt(num_jugador),parseInt(idequip),num_partido,parseInt(num_set)]
         console.log(arrayJ);
         addJugador(arrayJ)
         document.getElementById('d-asignar').remove()

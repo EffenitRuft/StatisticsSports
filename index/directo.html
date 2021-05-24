@@ -98,8 +98,8 @@
     <script src="./jugadores.js"></script>
     <script src="./selectpartido.js"></script>
     <script>
+
         var set_juego = 'J';
-        var num_set = 1;
         var num_partido
         var id_eq1 = 1;//localStorage.getItem("numero equipo...etc");
         var id_eq2 = 2;
@@ -294,6 +294,7 @@
             doc.appendChild(env)
         }
         function enviarDatos(e) {
+            let num_set = parseInt(localStorage.getItem("set"))
             //METER PARTIDO Y SET
             array2[4] = num_partido; /* !!!!!!!!!!!!!!!!! PARTIDO !!!!!!!!!!!!!!!!!*/
             array2[5] = num_set; /* !!!!!!!!!!!!!!! NUM SET !!!!!!!!!!!!!!!!*/
@@ -320,6 +321,7 @@
         let bt_p = document.getElementById("punto")
         bt_p.addEventListener('click', resultadoPartido)
         function resultadoPartido() {
+            console.log("===================================================" + set_juego)
             //COLORES***************************************
             document.getElementById("puntoR").style.backgroundColor = ""
             document.getElementById("puntoReset").style.backgroundColor = ""
@@ -331,9 +333,9 @@
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             //[numPartido,equipo(1o2),set]
             if (set_juego == 'F') {
-                num_set = num_set + 1;
                 set_juego = 'J';
             }
+            let num_set = parseInt(localStorage.getItem("set"))
             var arrayp1 = [num_partido, id_eq1, num_set] /* NUM PARTIDO, EQUIPO, SET */ // ESTE NUMERO DE EQUIPO QUE SIGNIFICA
             let req
             if (window.XMLHttpRequest) {
@@ -365,9 +367,10 @@
             let puntos = parseInt(document.getElementById("puntos").value) - 1
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             if (set_juego == 'F') {
-                num_set = num_set + 1;
+                //num_set = num_set + 1;
                 set_juego = 'J';
             }
+            let num_set = parseInt(localStorage.getItem("set"))
             var arrayp1 = [num_partido, id_eq1, num_set] /* NUM PARTIDO, EQUIPO, SET */ // ESTE NUMERO DE EQUIPO QUE SIGNIFICA
             let req
             if (window.XMLHttpRequest) {
@@ -529,11 +532,18 @@
             doc1.innerHTML = "";
             let doc2 = document.getElementById('infoequipo2')
             doc2.innerHTML = "";
-
+            let num_set = parseInt(localStorage.getItem("set"))
             let array1 = [parseInt(JSON.parse(localStorage.getItem("partido"))["local"]), num_partido, num_set];
             let array2 = [parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"]), num_partido, num_set];
             filtrarDatos(array1, doc1);
             filtrarDatos(array2, doc2);
+            //CAMBIAMOS AQUI EL VALOR DEL LOCALSTORAGE******************************************************************NUEVO MARTA
+                console.log("-----------------------------------------------" + num_set)
+                var adios = parseInt(num_set) + 1;
+                console.log("ADIOS1--------------------------------"+ adios)
+                localStorage.setItem("set",adios);
+                let num_setx =  localStorage.getItem("set");
+                console.log("-----------------------------------------------" + num_setx)
         });
         //***********************************BEA********************************************
         let bt_p2 = document.getElementById("punto2")
@@ -545,7 +555,7 @@
             document.getElementById("puntoR2").style.backgroundColor = ""
             document.getElementById("punto").style.backgroundColor = ""
 
-
+            let num_set = parseInt(localStorage.getItem("set"))
             let puntos2 = parseInt(document.getElementById("puntos2").value) + 1
             document.getElementById("puntos2").setAttribute("value", puntos2.toString())
             var arrayp12 = [num_partido, id_eq2, num_set]
@@ -574,7 +584,7 @@
             document.getElementById("puntoReset").style.backgroundColor = ""
             document.getElementById("punto").style.backgroundColor = ""
             document.getElementById("punto2").style.backgroundColor = ""
-
+            let num_set = parseInt(localStorage.getItem("set"))
             let puntos2 = parseInt(document.getElementById("puntos2").value) - 1
             document.getElementById("puntos2").setAttribute("value", puntos2.toString())
             var arrayp12 = [num_partido, id_eq2, num_set]

@@ -80,8 +80,10 @@ function seleccionarPartido() {
         const dat3 = document.getElementById("visitante").value
         const dat4 = document.getElementById("liga").value
         console.log(dat1 + " - " + dat2 + " - " + dat3 + " - " + dat4);
-        const info = { "npartido": dat1, "local": dat2, "visitante": dat3, "liga": dat4 }
+        const info = { "npartido": dat1, "local": dat2, "visitante": dat3, "liga": dat4}
         localStorage.setItem("partido", JSON.stringify(info))
+                //MARTA NUEVO************************************************************************
+        localStorage.setItem("set", 1)
         
         /* Identficar equipos */
         const partido = JSON.parse(localStorage.getItem("partido"))
@@ -91,10 +93,33 @@ function seleccionarPartido() {
         const h2visit = document.getElementById("c-visit")
         h2visit.innerHTML = partido["visitante"]
         num_partido = parseInt(JSON.parse(localStorage.getItem("partido"))["npartido"])
+        let arrayP = [parseInt(dat2),parseInt(dat3),parseInt(dat1),dat4]
+        addPartido(arrayP)
         /*HACER CONEXION A LOCALSTORAGE IMAGINO */
         /* LOCAL DEBERIA SER SIEMPRE EL USUARIO LOGEADO */
         di_form.remove()
     })
+}
+
+//AÑADIR
+
+function addPartido(array) {
+    var req
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        req = ActiveXObject("Microsoft.XMLHTTP");
+    }
+    req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                console.log("PARTIDO INSERTADO")
+                console.log(req.responseText)
+            }
+        }
+    }
+    req.open("GET", "../server/servidor.php?addPartido="+JSON.stringify(array));
+    req.send()
 }
 /**
  <div id="form">
