@@ -13,6 +13,8 @@ include 'jugadornuevo.php';
 include 'filtroequipo.php';
 include 'clasificacion.php';
 include 'partidonuevo.php';
+ //***************************ULTIMA PARTE MARTA*****************************************************************
+include 'puntosclasif.php';
 
 
 $base = new conexion("localhost", "root", "", "statisticssports", 3306, "");
@@ -103,7 +105,6 @@ if (isset($_REQUEST['filtro'])) {
         $jugador = new jugadornuevo($idjug,$ideq,$idpartido,$idset,$base);
         echo 'OK';
     }
-    //NUEVO MARTA***************************************************************
     if (isset($_REQUEST['addPartido'])) {
         $arrayP = json_decode($_REQUEST['addPartido']);
         $ideq1 = $arrayP[0];
@@ -112,6 +113,13 @@ if (isset($_REQUEST['filtro'])) {
         $liga = $arrayP[3];
         $partido = new partidonuevo($ideq1,$ideq2,$idpartido,$liga,$base);
         echo 'OK';
+    }
+
+    //***************************ULTIMA PARTE MARTA*****************************************************************
+    if (isset($_REQUEST['finPartido'])) {
+        $arrayfp = json_decode($_REQUEST['finPartido']);
+        $actualizar = new puntosclasif($arrayfp[0],$base,$arrayfp[1],$arrayfp[2]);
+        echo "CLASIFICACION ACTUALIZADA";
     }
 
 
@@ -127,3 +135,4 @@ if (isset($_REQUEST['filtro'])) {
         $resultadoJson = json_encode($array1);
         echo $resultadoJson;
     }
+?>

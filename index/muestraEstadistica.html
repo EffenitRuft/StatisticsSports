@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <!--NUEVO MARTA-->
@@ -7,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/23b8b8f3dd.js" crossorigin="anonymous"></script>
     <title>Inicio - StatisticSports</title>
 </head>
 
@@ -20,16 +22,16 @@
         </div>
         <nav>
             <ul id="barra-nav" class="nav">
-                <li><a href="./index.html">INICIO</a></li>
-                <li><a href="#">CLASIFICACION</a>
+                <li><a href="./index.html"><i class="fas fa-home"></i> INICIO</a></li>
+                <li><a href="#"><i class="fas fa-chevron-down"></i> CLASIFICACION </a>
                     <ul>
-                        <li><a href="#">FEMENINO</a>
+                        <li><a href="#">FEMENINO <i class="fas fa-chevron-right"></i></a>
                             <ul>
                                 <li><a href="./liga_iberdrola.html">Liga hiberdrola</a></li>
                                 <li><a href="./SVF2.html">Superliga 2</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">MASCULINO</a>
+                        <li><a href="#">MASCULINO <i class="fas fa-chevron-right"></i></a>
                             <ul>
                                 <li><a href="./SVM.html">Superliga</a></li>
                                 <li><a href="./SVM2.html">Superliga 2</a></li>
@@ -37,8 +39,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="./muestraPartidos.html">MOSTRAR PARTIDO</a></li>
-                <li><a href="./muestraDatos.html">ESTADISTICAS</a></li><!--LLEVAR A INDEX-->
+                <li><a href="./muestraPartidos.html"><i class="fas fa-eye"></i> MOSTRAR PARTIDO</a></li>
             </ul>
         </nav>
     </header>
@@ -53,35 +54,62 @@
     </footer>
     <script src="./login.js"></script>
     <script>
-       /**
-    * LO DE LOCALSTORAGE
-    *
-    **/
-    miStorage = window.localStorage;
-    var botonUsuario = document.getElementById("log");
-    var usuario = []
+    /**
+            * LO DE LOCALSTORAGE
+            *
+            **/
+            miStorage = window.localStorage;
+        var usuario = []
 
-    botonUsuario.onclick = function (b) {
-        b.preventDefault();
-        usuario[0] = document.getElementById("usu").value;
-        usuario[1] = document.getElementById("pass").value;
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        var arrayCodificado = localStorage.getItem("usuario");
-        if (arrayCodificado != null) {
-            usuario = JSON.parse(arrayCodificado);
-            console.log(usuario);
+        if (localStorage.getItem("usuario") == null) {
+            var botonUsuario = document.getElementById("log");
+
+            botonUsuario.onclick = function () {
+                usuario[0] = document.getElementById("usu").value;
+                usuario[1] = document.getElementById("pass").value;
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                var arrayCodificado = localStorage.getItem("usuario");
+                if (arrayCodificado != null) {
+                    usuario = JSON.parse(arrayCodificado);
+                    console.log(usuario);
+                }
+            }
         }
-    }
 
-
-
-    function consultarUsuario() {
-        var arrayCodificado = localStorage.getItem("usuario");
-        if (arrayCodificado != null) {
-            usuario = JSON.parse(arrayCodificado);
-            console.log(usuario);
+        function consultarUsuario() {
+            var arrayCodificado = localStorage.getItem("usuario");
+            if (arrayCodificado != null) {
+                usuario = JSON.parse(arrayCodificado);
+                console.log(usuario);
+            }
         }
-    }
+        ///////////////////////////////////////////////////////////////
+
+        function enviarDatos() {
+            let usuario = document.getElementById("usu").value;
+            let contra = document.getElementById("pass").value;
+            let array1 = [usuario, contra];
+            var req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        if (req.response == "ERROR") {
+                            console.log("Contraseña incorrecta")
+                        } else if (req.response == "CORRECTO") {
+                            console.log("Validado con exito")
+                        }
+                    }
+                }
+            }
+            req.open("POST", "../server/servidor.php");
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            req.send("login=" + JSON.stringify(array1))
+        }
 
     function filtrarDatos(filtro,doc) {
         //num equipo1,num equipo2.

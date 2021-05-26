@@ -64,6 +64,7 @@ if (localStorage.getItem("usuario") != null) {
 
     
 }
+
 /**
  * <div id="login">
         <h2>Inicio de sesion</h2>

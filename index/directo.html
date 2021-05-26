@@ -7,34 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/23b8b8f3dd.js" crossorigin="anonymous"></script>
     <title>Directo - StatisticSports</title>
 </head>
 
 <body>
     <header>
         <div id="cab">
+            <picture id="img1">
+                <img id="img1" src="./images/favicon.png">
+            </picture>
             <h1><a href="./index.html">StatisticSports</a></h1>
         </div>
         <nav>
             <ul id="barra-nav" class="nav">
-                <li><a href="./index.html">INICIO</a></li>
-                <li><a href="./index.html">CLASIFICACION</a>
+                <li><a href="./index.html"><i class="fas fa-home"></i> INICIO</a></li>
+                <li><a href="#"><i class="fas fa-chevron-down"></i> CLASIFICACION </a>
                     <ul>
-                        <li><a href="#">FEMENINO</a>
+                        <li><a href="#">FEMENINO <i class="fas fa-chevron-right"></i></a>
                             <ul>
-                                <li><a href="./liga_iberdrola.html">Liga Iberdrola</a></li>
-                                <li><a href="./SVF2.html">Superliga2</a></li>
+                                <li><a href="./liga_iberdrola.html">Liga hiberdrola</a></li>
+                                <li><a href="./SVF2.html">Superliga 2</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">MASCULINO</a>
+                        <li><a href="#">MASCULINO <i class="fas fa-chevron-right"></i></a>
                             <ul>
                                 <li><a href="./SVM.html">Superliga</a></li>
-                                <li><a href="./SVM2.html">Superliga2</a></li>
+                                <li><a href="./SVM2.html">Superliga 2</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li><a href="./muestraPartidos.html">MOSTRAR PARTIDO</a></li>
+                <li><a href="./muestraPartidos.html"><i class="fas fa-eye"></i> MOSTRAR PARTIDO</a></li>
             </ul>
         </nav>
     </header>
@@ -52,6 +56,7 @@
                     <div class="jug" id="jug-4"></div>
                     <div class="jug" id="jug-5"></div>
                     <div class="jug" id="jug-6"></div>
+                    <div class="jug" id="jug-7"></div>
                 </div>
                 <div id="campo2">
                     <div class="jug" id="jug-12"></div>
@@ -60,6 +65,7 @@
                     <div class="jug" id="jug-42"></div>
                     <div class="jug" id="jug-52"></div>
                     <div class="jug" id="jug-62"></div>
+                    <div class="jug" id="jug-72"></div>
                 </div>
             </div>
             <!-- PARTE MARTA -->
@@ -80,7 +86,8 @@
 
 
             <!-- MARTA MOSTRAR ESTADISTICAS *****************************************************-->
-
+            <br>
+            <button id="finpartido">Final partido</button>
             <div id="infoequipo1">
                 Equipo local<br>
 
@@ -124,6 +131,8 @@
         let jug4 = document.getElementById('jug-4')
         let jug5 = document.getElementById('jug-5')
         let jug6 = document.getElementById('jug-6')
+        //***************************ULTIMA PARTE MARTA*****************************************************************
+        let jug7 = document.getElementById('jug-7')
         //BEA*****************************************************************
         let jug12 = document.getElementById('jug-12')
         let jug22 = document.getElementById('jug-22')
@@ -131,6 +140,8 @@
         let jug42 = document.getElementById('jug-42')
         let jug52 = document.getElementById('jug-52')
         let jug62 = document.getElementById('jug-62')
+        //***************************ULTIMA PARTE MARTA*****************************************************************
+        let jug72 = document.getElementById('jug-72')
 
 
 
@@ -488,6 +499,8 @@
             jug4.innerHTML = '';
             jug5.innerHTML = '';
             jug6.innerHTML = '';
+            //***************************ULTIMA PARTE MARTA*****************************************************************
+            jug7.innerHTML = '';
             document.getElementById("campo").childNodes.forEach(element => {
                 if (element.nodeName == "DIV") {
                     element.removeEventListener("click", tablaAcciones)
@@ -500,6 +513,8 @@
             jug42.innerHTML = '';
             jug52.innerHTML = '';
             jug62.innerHTML = '';
+            //***************************ULTIMA PARTE MARTA*****************************************************************
+            jug72.innerHTML = '';
 
             document.getElementById("campo2").childNodes.forEach(element => {
                 if (element.nodeName == "DIV") {
@@ -668,6 +683,31 @@
             }
         }, false)
 
+
+
+
+
+        //NUEVO MARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        let bt_fp = document.getElementById("finpartido")
+        bt_fp.addEventListener('click', findepartido)
+        function findepartido() {
+            var arrayfp = [num_partido,parseInt(JSON.parse(localStorage.getItem("partido"))["local"]),parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"])]
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        console.log(req.responseText)
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?finPartido=" + JSON.stringify(arrayfp));
+            req.send()
+        }
     </script>
 </body>
 
