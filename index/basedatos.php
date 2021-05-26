@@ -23,4 +23,12 @@ if (isset($_REQUEST["array"])){
     $array = $_REQUEST["array"];
     echo $array;
 }
+if(isset($_REQUEST["buscarPartido"])){
+    $idequipo = intval($_REQUEST['buscarPartido']);
+    $que = mysqli_query($con, "SELECT nombre_equipo FROM equipo WHERE id_equipo = '$idequipo'");
+    while ($f = mysqli_fetch_assoc($que)) {
+        echo $f["nombre_equipo"];
+    }
+    $con->close();
+}
 ?>

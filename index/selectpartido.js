@@ -15,7 +15,7 @@ function seleccionarPartido() {
     inp1.setAttribute("type", "text")
     inp1.setAttribute("id", "npartido")
     inp1.setAttribute("name", "npartido")
-    inp1.setAttribute("required","")
+    inp1.setAttribute("required", "")
     const l2 = document.createElement("label")
     l2.setAttribute("for", "local")
     l2.innerHTML = "Equipo local:"
@@ -23,7 +23,7 @@ function seleccionarPartido() {
     inp2.setAttribute("type", "text")
     inp2.setAttribute("id", "local")
     inp2.setAttribute("name", "local")
-    inp2.setAttribute("required","")
+    inp2.setAttribute("required", "")
     const l3 = document.createElement("label")
     l3.setAttribute("for", "visitante")
     l3.innerHTML = "Equipo vistante:"
@@ -31,7 +31,7 @@ function seleccionarPartido() {
     inp3.setAttribute("type", "text")
     inp3.setAttribute("id", "visitante")
     inp3.setAttribute("name", "visitante")
-    inp3.setAttribute("required","")
+    inp3.setAttribute("required", "")
     const sel1 = document.createElement("select")
     sel1.setAttribute("name", "id_liga")
     sel1.setAttribute("id", "liga")
@@ -80,20 +80,20 @@ function seleccionarPartido() {
         const dat3 = document.getElementById("visitante").value
         const dat4 = document.getElementById("liga").value
         console.log(dat1 + " - " + dat2 + " - " + dat3 + " - " + dat4);
-        const info = { "npartido": dat1, "local": dat2, "visitante": dat3, "liga": dat4}
+        const info = { "npartido": dat1, "local": dat2, "visitante": dat3, "liga": dat4 }
         localStorage.setItem("partido", JSON.stringify(info))
-                //MARTA NUEVO************************************************************************
+        //MARTA NUEVO************************************************************************
         localStorage.setItem("set", 1)
-        
+
         /* Identficar equipos */
         const partido = JSON.parse(localStorage.getItem("partido"))
         console.log(partido);
-        const h2local = document.getElementById("c-local")
-        h2local.innerHTML = partido["local"]
-        const h2visit = document.getElementById("c-visit")
-        h2visit.innerHTML = partido["visitante"]
+
+        buscarEquipo(partido["local"])
+        buscarEquipo(partido["visitante"])
+
         num_partido = parseInt(JSON.parse(localStorage.getItem("partido"))["npartido"])
-        let arrayP = [parseInt(dat2),parseInt(dat3),parseInt(dat1),dat4]
+        let arrayP = [parseInt(dat2), parseInt(dat3), parseInt(dat1), dat4]
         addPartido(arrayP)
         /*HACER CONEXION A LOCALSTORAGE IMAGINO */
         /* LOCAL DEBERIA SER SIEMPRE EL USUARIO LOGEADO */
@@ -118,7 +118,33 @@ function addPartido(array) {
             }
         }
     }
-    req.open("GET", "../server/servidor.php?addPartido="+JSON.stringify(array));
+    req.open("GET", "../server/servidor.php?addPartido=" + JSON.stringify(array));
+    req.send()
+}
+
+function buscarEquipo(id) {
+    var req
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        req = ActiveXObject("Microsoft.XMLHTTP");
+    }
+    req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                console.log("PARTIDO INSERTADO")
+                console.log(req.responseText)
+                if (id == JSON.parse(localStorage.getItem("partido"))["local"]) {
+                    const h2local = document.getElementById("c-local")
+                    h2local.innerHTML = req.responseText
+                } else if (id == JSON.parse(localStorage.getItem("partido"))["visitante"]) {
+                    const h2visit = document.getElementById("c-visit")
+                    h2visit.innerHTML = req.responseText
+                }
+            }
+        }
+    }
+    req.open("GET", "./basedatos.php?buscarPartido=" + id);
     req.send()
 }
 /**

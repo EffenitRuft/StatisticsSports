@@ -121,6 +121,24 @@ function addJugador(array) {
     req.send()
 }
 
+function darEquipo(id){
+    var req
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        req = ActiveXObject("Microsoft.XMLHTTP");
+    }
+    req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                console.log("DATOS RECIBIDOS CON ÉXITO")
+                console.log(JSON.parse(req.response))
+            }
+        }
+    }
+    req.open("GET", "./basedatos.php?equipos=" + idequip);
+    req.send()
+}
     /*
     CODIGO DE PRUEBA PARA ELIMINAR DE OPCIONES
     
