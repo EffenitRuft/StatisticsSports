@@ -48,11 +48,24 @@ function jugadores(equipo, clicked, idequip) {
    
     const dom_equipo1 = ["jug-1", "jug-2", "jug-3", "jug-4", "jug-5", "jug-6","jug-7"]
     const dom_equipo2 = ["jug-12", "jug-22", "jug-32", "jug-42", "jug-52", "jug-62","jug-72"]
-
+    //RECOGE EQUIPO
     let opts = equipo
-        //***************************ULTIMA PARTE MARTA*****************************************************************
-        // **************************SIN ELIMINAR DE LA LISTA*********************************//
         if (dom_equipo1.includes(clicked)) {
+            let dom_campo1 = document.getElementById("campo").children
+            let dentro = []
+            for (let a = 0; a < dom_campo1.length; a++) {
+                if(dom_campo1[a].hasChildNodes()){
+                    //SI TIENE HIJO MIRA CUAL ES Y LO METE A JUGANDO
+                    dentro.push(dom_campo1[a].firstChild.innerHTML)
+                }
+            }
+            for (let i = 0; i < dentro.length; i++) {
+                for (let a = 0; a < opts.length; a++) {
+                    if(opts[a].idjugadorBase == dentro[i]){
+                        opts.splice(a,1)
+                    }
+                }
+            }
             for (let a = 0; a < opts.length; a++) {
                 let opt = document.createElement("option")
                     opt.setAttribute('value', opts[a].idjugadorBase)
@@ -60,6 +73,21 @@ function jugadores(equipo, clicked, idequip) {
                     select.appendChild(opt)
             }
         } else if (dom_equipo2.includes(clicked)) {
+            let dom_campo2 = document.getElementById("campo2").children
+            let dentro = []
+            for (let a = 0; a < dom_campo2.length; a++) {
+                if(dom_campo2[a].hasChildNodes()){
+                    //SI TIENE HIJO MIRA CUAL ES Y LO METE A JUGANDO
+                    dentro.push(dom_campo2[a].firstChild.innerHTML)
+                }
+            }
+            for (let i = 0; i < dentro.length; i++) {
+                for (let a = 0; a < opts.length; a++) {
+                    if(opts[a].idjugadorBase == dentro[i]){
+                        opts.splice(a,1)
+                    }
+                }
+            }
             for (let a = 0; a < opts.length; a++) {
                 let opt = document.createElement("option")
                     opt.setAttribute('value', opts[a].idjugadorBase)
