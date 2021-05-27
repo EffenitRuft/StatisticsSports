@@ -121,7 +121,7 @@
                 $set_saq=$set;
             }
 
-$base->consulta("SELECT id_jugador,nombre,sum(numcolocaciones) as numcolocacionesA,(sum(mediacolocaciones)/$set_col)
+$base->consulta("SELECT id_jugador,nombre,puesto,sum(numcolocaciones) as numcolocacionesA,(sum(mediacolocaciones)/$set_col)
 as mediacolocacionesA,sum(numrecibir) as numrecibirA, (sum(mediarecibir)/$set_rec)as mediarecibirA,
 sum(numerodefender) as numerodefenderA,(sum(mediadefender)/$set_def) as mediadefenderA,sum(numeroataque) as numeroataqueA,
 (sum(mediaataque)/$set_ata) as mediaataqueA, sum(numerobloquear) as numerobloquearA,(sum(mediabloquear)/$set_blo)as mediabloquearA,
@@ -135,7 +135,10 @@ while ($fila = $base->extraer_registro()) {
         }
         //Guardamos el puesto
         if($indice=="nombre"){
-            $this->nombre=$valor;
+            $this->nombre_jug=$valor;
+        }
+        if($indice=="puesto"){
+            $this->puesto= $valor;
         }
         //Guardamos el puesto
         if($indice=="numcolocacionesA"){
