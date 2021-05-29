@@ -31,4 +31,36 @@ if(isset($_REQUEST["buscarPartido"])){
     }
     $con->close();
 }
-?>
+if(isset($_REQUEST["equipoLiga"])){
+    $liga = $_REQUEST["equipoLiga"];
+    if ($liga == "SM") {
+        // MASCULINO SUPERLIGA 1
+        $que = mysqli_query($con, "SELECT id_equipo, nombre_equipo FROM equipo WHERE genero = 'masculino' and liga = 'superliga1'");
+        while ($f = mysqli_fetch_assoc($que)) {
+            echo $f["id_equipo"]." - ". $f["nombre_equipo"].":" ;
+        }
+        $con->close();
+    }else if($liga == "SF"){
+        // FEMENINO SUPERLIGA 1
+        $que = mysqli_query($con, "SELECT id_equipo, nombre_equipo FROM equipo WHERE genero = 'femenino' and liga = 'superliga1'");
+        while ($f = mysqli_fetch_assoc($que)) {
+            echo $f["id_equipo"]."-". $f["nombre_equipo"].":" ;
+        }
+        $con->close();
+    }else if ($liga == "SM2"){
+        // MASCULINO SUPERLIGA 2
+        $que = mysqli_query($con, "SELECT id_equipo, nombre_equipo FROM equipo WHERE genero = 'masculino' and liga = 'superliga2'");
+        while ($f = mysqli_fetch_assoc($que)) {
+            echo $f["id_equipo"]."-". $f["nombre_equipo"].":" ;
+        }
+        $con->close();
+    }else if ($liga == "SF2"){
+        // FEMENINO SUPERLIGA 2
+        $que = mysqli_query($con, "SELECT id_equipo, nombre_equipo FROM equipo WHERE genero = 'femenino' and liga = 'superliga2'");
+        while ($f = mysqli_fetch_assoc($que)) {
+            echo $f["id_equipo"]."-". $f["nombre_equipo"].":" ;
+        }
+        $con->close();
+    }
+
+}

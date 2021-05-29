@@ -10,28 +10,30 @@ function seleccionarPartido() {
     const formu = document.createElement("form")
     const l1 = document.createElement("label")
     l1.setAttribute("for", "npartido")
-    l1.innerHTML = "Numero de partido:"
+    l1.innerHTML = "NUMERO DE PARTIDO"
     const inp1 = document.createElement("input")
     inp1.setAttribute("type", "text")
     inp1.setAttribute("id", "npartido")
     inp1.setAttribute("name", "npartido")
     inp1.setAttribute("required", "")
+    // EQUIPO LOCAL
     const l2 = document.createElement("label")
     l2.setAttribute("for", "local")
-    l2.innerHTML = "Equipo local:"
-    const inp2 = document.createElement("input")
-    inp2.setAttribute("type", "text")
+    l2.innerHTML = "EQUIPO LOCAL"
+    const inp2 = document.createElement("select")
     inp2.setAttribute("id", "local")
     inp2.setAttribute("name", "local")
-    inp2.setAttribute("required", "")
+    // EQUIPO VISITANTE
     const l3 = document.createElement("label")
     l3.setAttribute("for", "visitante")
-    l3.innerHTML = "Equipo vistante:"
-    const inp3 = document.createElement("input")
-    inp3.setAttribute("type", "text")
+    l3.innerHTML = "EQUIPO VISITANTE"
+    const inp3 = document.createElement("select")
     inp3.setAttribute("id", "visitante")
     inp3.setAttribute("name", "visitante")
-    inp3.setAttribute("required", "")
+    // SELECCIONAR LIGA
+    const l4 = document.createElement("label")
+    l4.setAttribute("for", "id_liga")
+    l4.innerHTML = "SELECCIONA LIGA"
     const sel1 = document.createElement("select")
     sel1.setAttribute("name", "id_liga")
     sel1.setAttribute("id", "liga")
@@ -55,6 +57,10 @@ function seleccionarPartido() {
     sel1.appendChild(opt2)
     sel1.appendChild(opt3)
     sel1.appendChild(opt4)
+    formu.appendChild(l4)
+    formu.appendChild(document.createElement("br"))
+    formu.appendChild(sel1)
+    formu.appendChild(document.createElement("br"))
     formu.appendChild(l1)
     formu.appendChild(document.createElement("br"))
     formu.appendChild(inp1)
@@ -67,12 +73,14 @@ function seleccionarPartido() {
     formu.appendChild(document.createElement("br"))
     formu.appendChild(inp3)
     formu.appendChild(document.createElement("br"))
-    formu.appendChild(sel1)
-    formu.appendChild(document.createElement("br"))
     formu.appendChild(bt)
     di_form.appendChild(formu)
     di_padre.appendChild(di_form)
 
+    //PIDO LOS DE MASCULINO SUPERLIGA 1 - INICIALMENTE
+    damEquipos(sel1.value,inp2,inp3)
+    
+    /* ------------------------------------------------- */
     bt.addEventListener("click", function (e) {
         e.preventDefault()
         const dat1 = document.getElementById("npartido").value
@@ -99,7 +107,50 @@ function seleccionarPartido() {
         /* LOCAL DEBERIA SER SIEMPRE EL USUARIO LOGEADO */
         di_form.remove()
     })
+
+    sel1.addEventListener("change", function () {
+        // CADA VEZ QUE HAYA UN CAMBIO LE PIDO EQUIPOS AL SERVIDOR
+        damEquipos(sel1.value,inp2,inp3)
+    })
 }
+
+//CONSTRUCTOR DE EQUIPOS
+function selectEquipos(eqs,domeqs) {
+    //SPLITEO LOS RESULTADO
+    equipos = eqs.split(":")
+    //SACO EL ULTIMO
+    equipos.pop()
+    //RECORRO LOS DOS SELECTS
+    for (let a = 0; a < domeqs.length; a++) {
+        domeqs[a].innerHTML = ""
+        //ASIGNO LAS OPCIONES PARA LOS DOS EQUIPOS
+        for (let i = 0; i < equipos.length; i++) {
+            let opcion = document.createElement("option")
+            opcion.setAttribute("value",equipos[i].split("-")[0])
+            opcion.innerHTML = equipos[i].split("-")[1]
+            domeqs[a].appendChild(opcion)
+        }
+    }
+}
+
+function damEquipos(valor,inp2,inp3) {
+    var req
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        req = ActiveXObject("Microsoft.XMLHTTP");
+    }
+    req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                selectEquipos(req.responseText,[inp2,inp3])
+            }
+        }
+    }
+    req.open("GET", "./basedatos.php?equipoLiga=" + valor);
+    req.send()
+}
+
 
 //AÑADIR
 
