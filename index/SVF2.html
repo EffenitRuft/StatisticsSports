@@ -149,7 +149,6 @@
 
             //Creo la fila de titulos
             var fila = document.createElement("tr");
-            fila.setAttribute("bgcolor", "666666")
             titulos = ["EQUIPO", "PUNTOS", "PUNTOS CONTRA", "PUNTOS FAVOR", "SETS CONTRA", "SETS FAVOR","JUGADOS","G3","G2","P1","P0"]
             for (var j = 0; j < 11; j++) {
                 var celda = document.createElement("td");
@@ -160,17 +159,10 @@
             tblBody.appendChild(fila);
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
-            tabla.setAttribute("border", "1");
-            tabla.setAttribute("cellspacing", "0");
-            tabla.setAttribute("cellpadding", "10");
-            tabla.setAttribute("align", "center");
-
 
             //CREO EL RESTO DE FILAS
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
-                fila.setAttribute("align", "center");
-                fila.setAttribute("bgcolor", "aaaaaa");
                 for (var j = 0; j < 11; j++) {
                     var celda = document.createElement("td");
                     var textoCelda = document.createTextNode(datos[i][j]);

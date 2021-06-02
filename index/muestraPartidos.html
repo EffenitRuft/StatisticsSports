@@ -53,12 +53,9 @@
         </select>
         <button id="bt-filtrar">FILTRAR</button>
     </div>
-    <br><br><br>
-    <div id="divTabla">
-
-    </div>
+    <div id="divTabla"></div>
     <footer>
-
+        <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
 
 </body>
@@ -146,7 +143,6 @@
         //Creo la fila de titulos
         //////////////////////NUEVO MARTA////////////////////////////////////
         var fila = document.createElement("tr");
-        fila.setAttribute("bgcolor", "666666")
         titulos = ["5ºSET", "4ºSET", "3ºSET", "2ºSET", "1ºSET", "SETS", "LOCAL", "VISITANTE", "SETS", "1ºSET", "2ºSET", "3ºSET", "4ºSET", "5ºSET", "LIGA", "ESTADÍSTICAS"]
         for (var j = 0; j < 16; j++) {
             var celda = document.createElement("td");
@@ -157,10 +153,6 @@
         tblBody.appendChild(fila);
         tabla.appendChild(tblBody);
         doc.appendChild(tabla);
-        tabla.setAttribute("border", "1");
-        tabla.setAttribute("cellspacing", "0");
-        tabla.setAttribute("cellpadding", "10");
-        tabla.setAttribute("align", "center");
 
         /////////////////////////////////NUEVO MARTA///////////////////////////////
         //CREO EL RESTO DE FILAS
@@ -169,8 +161,6 @@
             let id2;
             let liga;
             var fila = document.createElement("tr");
-            fila.setAttribute("align", "center");
-            fila.setAttribute("bgcolor", "aabbaa");
             for (var j = 0; j < 16; j++) {
                 if (j == 6) {
                     var celda = document.createElement("td");

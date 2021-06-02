@@ -68,36 +68,23 @@
                     <div class="jug" id="jug-72"></div>
                 </div>
             </div>
-            <!-- PARTE MARTA -->
-            <input type="text" name="puntos" value="0" id="puntos" disabled="disabled">
-            <button id="punto">Sumar punto</button>
-            <button id="puntoR">Restar punto</button>
-            <button id="puntoReset">Final de set</button>
-            <!--<input type="text" name="in-p" id="in-p">
-            <button id="bt-coger">COGER</button>-->
-
-
-
-
-            <!-- BEA *****************************************************-->
-            <button id="puntoR2">Restar punto</button>
-            <button id="punto2">Sumar punto</button>
-            <input type="text" name="puntos" value="0" id="puntos2" disabled="disabled">
-
-
-            <!-- MARTA MOSTRAR ESTADISTICAS *****************************************************-->
-            <br>
-            <button id="finpartido">Final partido</button>
-            <div id="infoequipo1">
-                Equipo local<br>
-
+            <div>
+                <input class="p-direc" type="text" name="puntos" value="0" id="puntos" disabled="disabled">
+                <button class="bts-direc" id="punto">Sumar punto</button>
+                <button class="bts-direc" id="puntoR">Restar punto</button>
+                <button class="bts-direc" id="puntoReset">Final de set</button>
+                <button class="bts-direc" id="puntoR2">Restar punto</button>
+                <button class="bts-direc" id="punto2">Sumar punto</button>
+                <input class="p-direc" type="text" name="puntos" value="0" id="puntos2" disabled="disabled">
+                <br>
+                <button class="bts-direc" id="finpartido">Final partido</button>
             </div>
-            <div id="infoequipo2">
-                Equipo visitante<br>
+            <div id="info-equipos">
+                <div id="infoequipo1">Equipo local<br></div>
+                <div id="infoequipo2">Equipo visitante<br></div>
             </div>
         </div>
     </main>
-
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
@@ -153,8 +140,6 @@
             }
         });
 
-
-        //***************************************************************************
         //EQUIPO 2
         document.getElementById("campo2").childNodes.forEach(element => {
             if (element.nodeName == "DIV") {
@@ -473,8 +458,7 @@
             tblBody.appendChild(fila);
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
-            tabla.setAttribute("border", "1");
-            tabla.setAttribute("align", "center");
+
 
 
             //CREO EL RESTO DE FILAS
@@ -553,12 +537,12 @@
             filtrarDatos(array1, doc1);
             filtrarDatos(array2, doc2);
             //CAMBIAMOS AQUI EL VALOR DEL LOCALSTORAGE******************************************************************NUEVO MARTA
-                console.log("-----------------------------------------------" + num_set)
-                var adios = parseInt(num_set) + 1;
-                console.log("ADIOS1--------------------------------"+ adios)
-                localStorage.setItem("set",adios);
-                let num_setx =  localStorage.getItem("set");
-                console.log("-----------------------------------------------" + num_setx)
+            console.log("-----------------------------------------------" + num_set)
+            var adios = parseInt(num_set) + 1;
+            console.log("ADIOS1--------------------------------" + adios)
+            localStorage.setItem("set", adios);
+            let num_setx = localStorage.getItem("set");
+            console.log("-----------------------------------------------" + num_setx)
         });
         //***********************************BEA********************************************
         let bt_p2 = document.getElementById("punto2")
@@ -691,7 +675,7 @@
         let bt_fp = document.getElementById("finpartido")
         bt_fp.addEventListener('click', findepartido)
         function findepartido() {
-            var arrayfp = [num_partido,parseInt(JSON.parse(localStorage.getItem("partido"))["local"]),parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"])]
+            var arrayfp = [num_partido, parseInt(JSON.parse(localStorage.getItem("partido"))["local"]), parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"])]
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();

@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overlock&display=swap');
 :root{
     --cab-color:rgb(63, 77, 201);
+    --tit-color:rgb(226, 215, 58);
 }
 body{
     margin: 0;
@@ -21,7 +24,7 @@ body{
 #cab h1 a{
     font-size: 3em;
     font-family: 'Bebas Neue', cursive;
-    color: rgb(226, 215, 58);
+    color: var(--tit-color);
     text-decoration: none;
     cursor: pointer;
 }
@@ -35,7 +38,7 @@ body{
 #cab button{
     padding: 20px;
     background-color: white;
-    border: 1px solid rgb(226, 215, 58);
+    border: 1px solid var(--tit-color);
     border-radius: 5px;
 }
 #cab button:hover{
@@ -57,6 +60,7 @@ ul {
     margin-top: 0;
     text-align: center;
     border-radius: 0 0 10px 10px;
+    font-family: 'Overlock', cursive;
 }
 
 .nav > li {
@@ -102,16 +106,48 @@ main{
 /* SELECCIONAR PARTIDO */
 #form{
     position: absolute;
-    top:10%;
+    top:25vh;
     left: 50%;
-    width: 350px;
-    height: 300px;
+    width: 98vw;
+    height: 450px;
     border: 1px solid black;
     background-color: #fff;
     transform: translate(-50%);
     text-align: center;
+    display: table;
+    font-family: 'Overlock';
 }
-
+#form form{
+    font-size: 20px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+#form form input{
+    width: auto;
+    height: 30px;
+    width: 200px;
+}
+#form form select {
+    font-family: 'Overlock';
+    text-align-last:center;
+    height: 30px;
+    width: 200px;
+}
+#form form select option{
+    font-family: 'Overlock';
+    text-align-last: center;
+    text-align: center;
+    height: 30px;
+    width: 200px;
+}
+#form form button{
+    margin-top: 10px;
+    height: 30px;
+    width: 200px;
+    font-family: 'Overlock';
+    font-size: large;
+}
 /* DIRECTO */
 #d-ficha{
     display: flex;
@@ -140,7 +176,7 @@ main{
 }
 .campos{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .campos > h2{
     margin: 0 100px 0 100px;
@@ -148,10 +184,15 @@ main{
 #campo, #campo2{
     margin: 10px;
     width:300px;
-    height: 200px;
+    height: 300px;
     border: 1px solid var(--cab-color);
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+}
+.jug:last-child{
+    background-color: rgb(73, 7, 160);
+    color: white;
 }
 .jug{
     background-color: rgb(154, 158, 214);
@@ -169,24 +210,56 @@ main{
     font-weight: bold;
     padding: 0;
 }
+/* MENU PARTIDO */
+.bts-direc{
+    height: 50px;
+}
+#punto, #punto2{
+    background-color: #19b11e;
+    border: 1px solid green;
+    border-radius: 3px;
+}
+#punto:hover, #punto2:hover{
+    background-color: #1edd24;
+    border: 1px solid rgb(0, 68, 0);
+}
+#puntoR, #puntoR2{
+    background-color: #f84f4f;
+    border: 1px solid rgb(167, 0, 0);
+    border-radius: 3px;
+}
+#puntoR:hover, #puntoR2:hover{
+    background-color: #f73030;
+    border: 1px solid rgb(97, 2, 2);
+}
+/* MARCADOR */
+#puntos:disabled, #puntos2:disabled{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+} 
 /* MENU ACCION DEL JUGADOR*/
 #d-accion{
     position: absolute;
-    top:10%;
+    top:25vh;
     left: 50%;
     width: 350px;
-    height: 300px;
+    height: 500px;
     border: 1px solid black;
     background-color: #fff;
     transform: translate(-50%);
     text-align: center;
 }
+#d-accion > p{
+    margin: 30px 0 25px 0;
+}
 #bt-editar-2 {
     float: right;
     margin: 8px 2px 0 0;
-}
-#d-accion > p {
-    margin: 10px;
 }
 .bt-acciones{
     font-size: 15px;
@@ -205,7 +278,7 @@ main{
 /* MENU ASIGNAR JUGADOR*/
 #d-asignar{
     position: absolute;
-    top:10%;
+    top:25vh;
     left: 50%;
     width: 300px;
     height: 150px;
@@ -228,18 +301,50 @@ main{
 #d-asignar > button:hover{
     background-color: rgb(0, 221, 0);
 }
-/* MARCADOR */
-#puntos:disabled, #puntos2:disabled{
-    width: 20px;
-    text-align: center;
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    border-radius: 2px;
-}
 /* INFO EQUIPO */
-#tabla th{
+#divTabla{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#tabla {
+    border-radius: 10px;
+}
+#tabla ,tr{
+    font-family: 'Fira Sans', sans-serif;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+}
 
+#tabla tr:first-child{
+    background-color: var(--cab-color);
+    font-weight: bold;
+}
+#tabla tr:nth-child(even){
+    background-color: var(--tit-color);
+}
+#tabla td{
+    padding: 5px;
+}
+table tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+}
+table tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+}
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+/* INFORMACION PARTIDO */
+#info-equipos{
+    display: flex;
+    justify-content: space-between;
+    margin:20px 0 20px 0;
 }
 /* FOOTER */
 footer{
