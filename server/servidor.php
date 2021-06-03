@@ -13,8 +13,11 @@ include 'jugadornuevo.php';
 include 'filtroequipo.php';
 include 'clasificacion.php';
 include 'partidonuevo.php';
- //***************************ULTIMA PARTE MARTA*****************************************************************
 include 'puntosclasif.php';
+include 'filtrarenindex.php';
+include 'filtrarenindex2.php';
+include 'filtrarequiposliga.php';
+include 'filtroequipopartidos.php';
 
 
 $base = new conexion("localhost", "root", "", "statisticssports", 3306, "");
@@ -29,7 +32,7 @@ if (isset($_REQUEST['array'])) {
     $jugador = new jugador($idjug, $ideq, "",$array[4],$array[5], $base);
     $jugador->actualizaraccion($campo, $porcentaje, $idjug, $base, $ideq,$array[4],$array[5]);
 }
-if (isset($_REQUEST['filtro'])) {
+if ((isset($_REQUEST['filtro'])) && !(isset($_REQUEST['filtroEquipo'])) && !(isset($_REQUEST['filtroEquipopartido'])) && !(isset($_REQUEST['filtroPuesto']))){
     if ($_REQUEST['filtro'] == "SF") {
         $filtroBusqueda = $_REQUEST['filtro'];
         $resultado = busquedas($filtroBusqueda, $base);
@@ -58,7 +61,7 @@ if (isset($_REQUEST['filtro'])) {
     }
     }  
     //NUEVO
-    if (isset($_REQUEST['filtropartidos'])) {
+    if (isset($_REQUEST['filtropartidos']) && !(isset($_REQUEST['filtroEquipopartido']))) {
             $filtroBusqueda = $_REQUEST['filtropartidos'];
             $resultado = datosPartido($filtroBusqueda, $base);
             echo $resultado;
@@ -135,4 +138,45 @@ if (isset($_REQUEST['filtro'])) {
         $resultadoJson = json_encode($array1);
         echo $resultadoJson;
     }
+
+
+
+
+
+    //**NUEVO BEA FILTRAR EQUIPO INDEX******************************* */
+    if ((isset($_REQUEST['filtroEquipo'])) && !(isset($_REQUEST['filtroPuesto']))){
+        
+            $filtroBusqueda = $_REQUEST['filtro'];
+            $filtroEquipo = $_REQUEST['filtroEquipo'];
+            $resultado = busquedasEQ($filtroBusqueda,$filtroEquipo, $base);
+            echo $resultado;
+    }
+    //**NUEVO BEA FILTRAR EQUIPO INDEX******************************* */
+     if (isset($_REQUEST['filtroPuesto'])){
+        
+        $filtroBusqueda = $_REQUEST['filtro'];
+        $filtroEquipo = $_REQUEST['filtroEquipo'];
+        $filtroPuesto = $_REQUEST['filtroPuesto'];
+        $resultado = busquedasPUESTO($filtroBusqueda,$filtroEquipo,$filtroPuesto, $base);
+        echo $resultado;
+    } 
+
+
+    if (isset($_REQUEST['equipoLiga']) && !(isset($_REQUEST['filtroEquipopartido']))) {
+        $liga = $_REQUEST['equipoLiga'];
+        $accion = new filtrarequiposliga($liga, $base);
+        $arrayliga = $accion->datosBusqueda();
+        $resultadoJson = json_encode($arrayliga);
+        echo $resultadoJson;
+    }
+
+
+    if (isset($_REQUEST['filtroEquipopartido'])){
+        $filtroBusqueda = $_REQUEST['filtro'];
+        $filtroEquipo = $_REQUEST['filtroEquipopartido'];
+        $resultado = busquedasEQdos($filtroBusqueda,$filtroEquipo, $base);
+        echo $resultado; 
+        
+    }       
+
 ?>

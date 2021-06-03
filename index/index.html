@@ -26,7 +26,7 @@
                     <ul>
                         <li><a href="#">FEMENINO <i class="fas fa-chevron-right"></i></a>
                             <ul>
-                                <li><a href="./liga_iberdrola.html">Liga hiberdrola</a></li>
+                                <li><a href="./liga_iberdrola.html">Liga iberdrola</a></li>
                                 <li><a href="./SVF2.html">Superliga 2</a></li>
                             </ul>
                         </li>
@@ -50,7 +50,23 @@
             <option value="SM2">SM2</option>
             <option value="SF2">SF2</option>
         </select>
-        <button id="bt-filtrar">FILTRAR</button>
+        <button id="bt-filtrar">FILTRAR POR LIGA</button>
+        <br><br>
+        <select name="in-EQ" id="in-EQ">
+        </select>
+        <button id="bt-filtrarEQ">FILTRAR POR EQUIPO</button>
+        <br><br>
+
+        <select name="in-PUESTO" id="in-PUESTO">
+            <option value="TODO">TODO</option>
+            <option value="receptor">Receptor</option>
+            <option value="opuesto">Opuesto</option>
+            <option value="central">Central</option>
+            <option value="colocador">Colocador</option>
+            <option value="libero">Libero</option>
+        </select>
+        <button id="bt-filtrarPUESTO">FILTRAR POR PUESTO</button>
+        <br><br>
     </div>
     <div id="divTabla"></div>
     <footer>
@@ -58,10 +74,7 @@
     </footer>
     <script src="./login.js"></script>
     <script>
-        /**
-            * LO DE LOCALSTORAGE
-            *
-            **/
+
         miStorage = window.localStorage;
         var usuario = []
 
@@ -87,7 +100,6 @@
                 console.log(usuario);
             }
         }
-        ///////////////////////////////////////////////////////////////
 
         function enviarDatos() {
             let usuario = document.getElementById("usu").value;
@@ -115,6 +127,7 @@
             req.send("login=" + JSON.stringify(array1))
         }
 
+
         let bt_p = document.getElementById("bt-filtrar")
         bt_p.addEventListener('click', filtrarDatos)
 
@@ -123,7 +136,6 @@
             if (filtro === "") {
                 filtro = "todo";
             }
-            // Recogemos el filtro pedido por input
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -131,26 +143,84 @@
                 req = ActiveXObject("Microsoft.XMLHTTP");
             }
             req.onreadystatechange = function () {
-                console.log(req.responseText)
                 if (req.readyState == 4) {
                     if (req.status == 200) {
                         let id = JSON.parse(req.responseText)
-                        //let datos = id.split(",")
-                        //console.log(datos[0])
+                        cogerequipos(filtro)
                         if (id[0] != "") {
-                            //AQUI IMPRIMIR LA TABLA SEGUN LOS DATOS FILTRADOS-------------------------------
-                            //NECESITO QUE EL SERVIDOR FILTRE POR SF,SM,SF2,SM2, TODO
                             imprimirTabla(id)
                         } else {
                             alert("Introduce un filtro válido")
                         }
-                        //console.log(JSON.stringify(id));
                     }
                 }
             }
             req.open("GET", "../server/servidor.php?filtro=" + filtro);
             req.send()
         }
+
+
+
+
+        // *********************************************************************BEA*******************************
+        let bt_pe = document.getElementById("bt-filtrarEQ")
+        bt_pe.addEventListener('click', filtrarDatosEQ)
+
+        function filtrarDatosEQ() {
+            let liga = document.getElementById("in-p").value
+            let filtro = document.getElementById("in-EQ").value
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        let id = JSON.parse(req.responseText)
+                        if (id[0] != "") {
+                            imprimirTabla(id)
+                        } else {
+                            alert("Introduce un filtro válido")
+                        }
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?filtroEquipo=" + filtro + "&filtro=" + liga);
+            req.send()
+        }
+
+        let bt_puesto = document.getElementById("bt-filtrarPUESTO")
+        bt_puesto.addEventListener('click', filtrarDatosPUESTO)
+
+        function filtrarDatosPUESTO() {
+            let liga = document.getElementById("in-p").value
+            let filtro = document.getElementById("in-EQ").value
+            let puesto = document.getElementById("in-PUESTO").value
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        let id = JSON.parse(req.responseText)
+                        if (id[0] != "") {
+                            imprimirTabla(id)
+                        } else {
+                            alert("Introduce un filtro válido")
+                        }
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?filtroEquipo=" + filtro + "&filtro=" + liga + "&filtroPuesto=" + puesto);
+            req.send()
+        }
+        // ***********************************************************BEA*****************************************
+
 
         function imprimirTabla(datos) {
 
@@ -164,6 +234,7 @@
 
             //Creo la fila de titulos
             var fila = document.createElement("tr");
+    
             titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
             for (var j = 0; j < 16; j++) {
                 var celda = document.createElement("td");
@@ -201,6 +272,46 @@
         } else {
             window.onload = function () {
                 filtrarDatos();
+            }
+        }
+
+
+        function cogerequipos(liga) {
+            $liga = liga;
+            var req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        let arrayequiposliga = JSON.parse(req.responseText);
+                        if (arrayequiposliga != null) {
+                            darvalorLista(arrayequiposliga)
+                        }
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?equipoLiga=" + liga);
+            req.send()
+        }
+
+        function darvalorLista(equipos) {
+            selectpadre = document.getElementById("in-EQ")
+            while (selectpadre.firstChild) {
+                selectpadre.removeChild(selectpadre.firstChild);
+            };
+            let opt = document.createElement("option")
+            opt.setAttribute('value', "TODO")
+            opt.innerHTML = "TODO"
+            selectpadre.appendChild(opt)
+            for (let a = 0; a < equipos.length; a++) {
+                let opt = document.createElement("option")
+                opt.setAttribute('value', equipos[a][0])
+                opt.innerHTML = equipos[a][1]
+                selectpadre.appendChild(opt)
             }
         }
     </script>

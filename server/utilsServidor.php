@@ -1,7 +1,52 @@
 <?php 
-    
+   
+
+
     function busquedas($filtrobusqueda,$base){
         $busqueda = new filtro($filtrobusqueda,$base);
+        $array1 = $busqueda->datosBusqueda();
+        $resultado;
+        for ($i=0; $i < count($array1); $i++) { 
+            $array2=$array1[$i];
+            $jugador= new jugador($array2[0],$array2[1],$array2[2],2,1,$base);
+            $arrayJugador = $jugador->getJugador();
+            $resultado[$i]=$arrayJugador;
+        }
+        $resultadoJson = json_encode($resultado);
+        return $resultadoJson;
+    }
+
+    //***************************bea************************* */
+    function busquedasEQ($filtrobusqueda,$filtroequipo,$base){
+        $busqueda = new filtroIndex($filtrobusqueda,$filtroequipo,$base);
+        $array1 = $busqueda->datosBusqueda();
+        $resultado;
+        for ($i=0; $i < count($array1); $i++) { 
+            $array2=$array1[$i];
+            $jugador= new jugador($array2[0],$array2[1],$array2[2],2,1,$base);
+            $arrayJugador = $jugador->getJugador();
+            $resultado[$i]=$arrayJugador;
+        }
+        $resultadoJson = json_encode($resultado);
+        return $resultadoJson;
+    }
+    function busquedasEQdos($filtrobusqueda,$filtroequipo,$base){
+        $busqueda = new filtroequipopartidos($filtrobusqueda,$filtroequipo,$base);
+        $array1 = $busqueda->datosBusqueda();
+        $resultado;
+        for ($i=0; $i < count($array1); $i++) { 
+            $array2=$array1[$i];
+            $partido= new partidos($array2[0],$base);
+            $arrayPartido = $partido->getPartido();
+            $resultado[$i]=$arrayPartido;
+        }
+        $resultadoJson = json_encode($resultado);
+        return $resultadoJson;
+
+    }
+
+    function busquedasPUESTO($filtrobusqueda,$filtroequipo,$filtroPuesto,$base){
+        $busqueda = new filtroIndex2($filtrobusqueda,$filtroequipo,$filtroPuesto,$base);
         $array1 = $busqueda->datosBusqueda();
         $resultado;
         for ($i=0; $i < count($array1); $i++) { 
