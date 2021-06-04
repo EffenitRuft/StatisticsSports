@@ -5,9 +5,10 @@
     --cab-color:rgb(63, 77, 201);
     --tit-color:rgb(226, 215, 58);
 }
-body{
+html ,body{
+    height: 100%;
     margin: 0;
-}
+} 
 /* CABECERA */
 #cab{
     display: flex;
@@ -57,7 +58,7 @@ ul {
     list-style:none;
     padding: 0;
     background-color: var(--cab-color);
-    margin-top: 0;
+    margin: 0;
     text-align: center;
     border-radius: 0 0 10px 10px;
     font-family: 'Overlock', cursive;
@@ -100,7 +101,7 @@ ul {
 
 /* MAIN */
 main{
-    min-height: 77.4vh; /* 1080 */
+    min-height: 75vh; /* 1080 */
 }
 
 /* SELECCIONAR PARTIDO */
@@ -305,6 +306,7 @@ main{
 #divTabla{
     margin-top: 10px;
     margin-bottom: 10px;
+    overflow-x: auto;
 }
 #tabla {
     border-radius: 10px;
@@ -316,6 +318,7 @@ main{
     border-collapse: separate;
     border-spacing: 0;
     text-align: center;
+    white-space: nowrap;
 }
 
 #tabla tr:first-child{
@@ -340,6 +343,18 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
+.clasificacion tr td:first-child{
+    font-weight:bold;
+}
+.index tr td:nth-child(2){
+    font-weight:bold;
+}
+.partido tr td:nth-child(7){
+    font-weight:bold;
+}
+.partido tr td:nth-child(8){
+    font-weight:bold;
+}
 /* INFORMACION PARTIDO */
 #info-equipos{
     display: flex;
@@ -355,4 +370,39 @@ footer{
 }
 footer p{
     margin: 0;
+}
+@media (max-width: 425px) {
+    header{
+        width:100%;
+    }
+    #img1{
+        display: none;
+    }
+    #cab{
+        justify-content: center;
+        flex-direction: column;
+    }
+    #cab h1 a{
+        font-size: 2em;
+    }
+    #login{
+        display: none;
+    }
+    .nav > li {
+        display: block;
+    }
+    .nav li a {
+        background-color: rgba(17, 0, 255, 0);
+    }
+    .nav li ul {
+        border-radius: 0;
+    }
+    .nav li ul li ul {
+        border-radius: 0;
+        box-shadow: 1px 1px 10px black;
+    }
+    #divTabla{
+        overflow-x: auto;
+        margin: 0 0 10px 0;
+    }
 }
