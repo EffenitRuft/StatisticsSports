@@ -43,27 +43,17 @@
             </ul>
         </nav>
     </header>
-    <div id="divTabla1">
-        EQUIPO 1
-    </div>
-    <div id="divTabla2">
-        EQUIPO 2
-    </div>
+    <div id="divTabla1"></div>
+    <div id="divTabla2"></div>
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
     <script src="./login.js"></script>
     <script>
-    /**
-            * LO DE LOCALSTORAGE
-            *
-            **/
             miStorage = window.localStorage;
         var usuario = []
-
         if (localStorage.getItem("usuario") == null) {
             var botonUsuario = document.getElementById("log");
-
             botonUsuario.onclick = function () {
                 usuario[0] = document.getElementById("usu").value;
                 usuario[1] = document.getElementById("pass").value;
@@ -75,7 +65,6 @@
                 }
             }
         }
-
         function consultarUsuario() {
             var arrayCodificado = localStorage.getItem("usuario");
             if (arrayCodificado != null) {
@@ -83,8 +72,6 @@
                 console.log(usuario);
             }
         }
-        ///////////////////////////////////////////////////////////////
-
         function enviarDatos() {
             let usuario = document.getElementById("usu").value;
             let contra = document.getElementById("pass").value;
@@ -112,8 +99,6 @@
         }
 
     function filtrarDatos(filtro,doc) {
-        //num equipo1,num equipo2.
-        // Recogemos el filtro pedido por input
         let req
         if (window.XMLHttpRequest) {
             req = new XMLHttpRequest();
@@ -126,17 +111,12 @@
             if (req.readyState == 4) {
                 if (req.status == 200) {
                     let id = JSON.parse(req.responseText)
-                    //let datos = id.split(",")
-                    //console.log(datos[0])
                     if (id[0] != "") {
-                        //AQUI IMPRIMIR LA TABLA SEGUN LOS DATOS FILTRADOS-------------------------------
-                        //NECESITO QUE EL SERVIDOR FILTRE POR SF,SM,SF2,SM2, TODO
                         imprimirTabla(id,doc)
                     } else {
                         alert("Introduce un filtro válido")
                     }
-                    //console.log(JSON.stringify(id));
-                    //console.log(req.responseText)
+
                 }
             }
         }
@@ -145,12 +125,12 @@
     }
 
     function imprimirTabla(datos,doc) {
-        doc.innerHTML = ''
-
+       
         // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
+            tabla.setAttribute("class","index")
 
             //Creo la fila de titulos
             var fila = document.createElement("tr");
@@ -178,12 +158,31 @@
             }
     }
 
+    function crearNombre(tipid, idequip) {
+        if (tipid == "id1") {
+            let doc = document.getElementById('divTabla1')
+            let e = document.createElement("p")
+            e.innerHTML = idequip
+            doc.appendChild(e)
+        }
+        if (tipid == "id2") {
+            let doc = document.getElementById('divTabla2')
+            let e = document.createElement("p")
+            e.innerHTML = idequip
+            doc.appendChild(e)
+        }
+    }
+
     function cabeceras(){
         var parts = window.location.search.substr(1).split("&");
         var $_GET = {};
         for (var i = 0; i < parts.length; i++) {
             var temp = parts[i].split("=");
+            console.log(temp);
             $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+            if (temp[0] == "id1" || temp[0] == "id2") {
+                crearNombre(temp[0],temp[1])
+            }
         }
         return $_GET;
     }
