@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <!--NUEVO MARTA-->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,7 +50,7 @@
     </footer>
     <script src="./login.js"></script>
     <script>
-            miStorage = window.localStorage;
+        miStorage = window.localStorage;
         var usuario = []
         if (localStorage.getItem("usuario") == null) {
             var botonUsuario = document.getElementById("log");
@@ -98,44 +98,47 @@
             req.send("login=" + JSON.stringify(array1))
         }
 
-    function filtrarDatos(filtro,doc) {
-        let req
-        if (window.XMLHttpRequest) {
-            req = new XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            req = ActiveXObject("Microsoft.XMLHTTP");
-        }
-        /*ACABAR*/
-        req.onreadystatechange = function () {
-            console.log(req.responseText)
-            if (req.readyState == 4) {
-                if (req.status == 200) {
-                    let id = JSON.parse(req.responseText)
-                    if (id[0] != "") {
-                        imprimirTabla(id,doc)
-                    } else {
-                        alert("Introduce un filtro válido")
-                    }
+        function filtrarDatos(filtro, doc) {
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            /*ACABAR*/
+            req.onreadystatechange = function () {
+                console.log(req.responseText)
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        let id = JSON.parse(req.responseText)
+                        if (id[0] != "") {
+                            imprimirTabla(id, doc)
+                        } else {
+                            alert("Introduce un filtro válido")
+                        }
 
+                    }
                 }
             }
+            req.open("GET", "../server/servidor.php?filtropartidoestadistica=" + JSON.stringify(filtro));
+            req.send()
         }
-        req.open("GET", "../server/servidor.php?filtropartidoestadistica="+JSON.stringify(filtro));
-        req.send()
-    }
 
-    function imprimirTabla(datos,doc) {
-       
-        // Crea un elemento <table> y un elemento <tbody>
+        function imprimirTabla(datos, doc) {
+
+            doc.innerHTML = ''
+
+            // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
-            tabla.setAttribute("class","index")
+            tabla.setAttribute("class", "index")
 
             //Creo la fila de titulos
             var fila = document.createElement("tr");
-            titulos = ["ID", "NOMBRE", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
-            for (var j = 0; j < 14; j++) {
+
+            titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
+            for (var j = 0; j < 16; j++) {
                 var celda = document.createElement("td");
                 var textoCelda = document.createTextNode(titulos[j]);
                 celda.appendChild(textoCelda);
@@ -145,10 +148,11 @@
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
 
+
             //CREO EL RESTO DE FILAS
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
-                for (var j = 0; j < 14; j++) {
+                for (var j = 0; j < 16; j++) {
                     var celda = document.createElement("td");
                     var textoCelda = document.createTextNode(datos[i][j]);
                     celda.appendChild(textoCelda);
@@ -156,48 +160,48 @@
                 }
                 tblBody.appendChild(fila);
             }
-    }
-
-    function crearNombre(tipid, idequip) {
-        if (tipid == "id1") {
-            let doc = document.getElementById('divTabla1')
-            let e = document.createElement("p")
-            e.innerHTML = idequip
-            doc.appendChild(e)
         }
-        if (tipid == "id2") {
-            let doc = document.getElementById('divTabla2')
-            let e = document.createElement("p")
-            e.innerHTML = idequip
-            doc.appendChild(e)
-        }
-    }
 
-    function cabeceras(){
-        var parts = window.location.search.substr(1).split("&");
-        var $_GET = {};
-        for (var i = 0; i < parts.length; i++) {
-            var temp = parts[i].split("=");
-            console.log(temp);
-            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
-            if (temp[0] == "id1" || temp[0] == "id2") {
-                crearNombre(temp[0],temp[1])
+        function crearNombre(tipid, idequip) {
+            if (tipid == "id1") {
+                let doc = document.getElementById('divTabla1')
+                let e = document.createElement("p")
+                e.innerHTML = idequip
+                doc.appendChild(e)
+            }
+            if (tipid == "id2") {
+                let doc = document.getElementById('divTabla2')
+                let e = document.createElement("p")
+                e.innerHTML = idequip
+                doc.appendChild(e)
             }
         }
-        return $_GET;
-    }
 
-    window.onload = function () {
-        let array=cabeceras()
-        let array1 = [array['id1'],array['liga'], 1,5];  /* ID EQUIPO1 / ID PARTIDO / NUM SET*/
-        let array2 = [array['id2'],array['liga'], 1,5];
-        let doc = document.getElementById('divTabla1')
-        let doc1 = document.getElementById('divTabla2')
+        function cabeceras() {
+            var parts = window.location.search.substr(1).split("&");
+            var $_GET = {};
+            for (var i = 0; i < parts.length; i++) {
+                var temp = parts[i].split("=");
+                console.log(temp);
+                $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+                if (temp[0] == "id1" || temp[0] == "id2") {
+                    crearNombre(temp[0], temp[1])
+                }
+            }
+            return $_GET;
+        }
 
-        filtrarDatos(array1,doc);
-        filtrarDatos(array2,doc1);
-        consultarUsuario();
-    }
+        window.onload = function () {
+            let array = cabeceras()
+            let array1 = [array['id1'], array['liga'], 1, 5];  /* ID EQUIPO1 / ID PARTIDO / NUM SET*/
+            let array2 = [array['id2'], array['liga'], 1, 5];
+            let doc = document.getElementById('divTabla1')
+            let doc1 = document.getElementById('divTabla2')
+
+            filtrarDatos(array1, doc);
+            filtrarDatos(array2, doc1);
+            consultarUsuario();
+        }
     </script>
 </body>
 

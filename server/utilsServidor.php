@@ -73,14 +73,14 @@
     }
     
     function busquedasResumen($ideq,$partido,$sets,$base){
-        $busqueda = new filtroresumen($ideq,$base);
+        $busqueda = new filtroresumen($ideq,$partido,$base);
         $array1 = $busqueda->datosResumen();
         $resultado;
         for ($i=0; $i < count($array1); $i++) { 
             $array2=$array1[$i];
-            $resumen= new estadisticaresumen($array2[0],$ideq,$partido,$sets,$base);
-            $arrayResumen = $resumen->getResumen();
-            $resultado[$i]=$arrayResumen;
+            $jugador= new estadisticaresumen($array2[0],$ideq,'equipo',$partido,$sets,$base);
+            $arrayJugador = $jugador->getJugadorSinEquipo();
+            $resultado[$i]=$arrayJugador;
         }
         $resultadoJson = json_encode($resultado);
         return $resultadoJson;
@@ -94,14 +94,14 @@
 
     function busquedasResumenB($eq,$ligaA,$partido,$sets,$base){
         $ideq = (int)buscaridequipo($eq,$ligaA,$base);
-        $busqueda = new filtroresumen($ideq,$base);
+        $busqueda = new filtroresumen($ideq,$partido,$base);
         $array1 = $busqueda->datosResumen();
         $resultado;
         for ($i=0; $i < count($array1); $i++) { 
             $array2=$array1[$i];
-            $resumen= new estadisticaresumen($array2[0],$ideq,$partido,$sets,$base);
-            $arrayResumen = $resumen->getResumen();
-            $resultado[$i]=$arrayResumen;
+            $jugador= new estadisticaresumen($array2[0],$ideq,$eq,$partido,$sets,$base);
+            $arrayJugador = $jugador->getJugador();
+            $resultado[$i]=$arrayJugador;
         }
         $resultadoJson = json_encode($resultado);
         return $resultadoJson;

@@ -80,8 +80,8 @@
                 <button class="bts-direc" id="finpartido">Final partido</button>
             </div>
             <div id="info-equipos">
-                <div id="infoequipo1">Equipo local<br></div>
-                <div id="infoequipo2">Equipo visitante<br></div>
+                <div id="infoequipo1"></div>
+                <div id="infoequipo2"></div>
             </div>
         </div>
     </main>
@@ -437,19 +437,21 @@
             req.open("GET", "../server/servidor.php?filtrodirecto1=" + JSON.stringify(array1));
             req.send()
         }
-
         function imprimirTabla(datos, doc) {
+
             doc.innerHTML = ''
 
             // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
+            tabla.setAttribute("class", "index")
 
             //Creo la fila de titulos
             var fila = document.createElement("tr");
-            titulos = ["ID", "NOMBRE", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
-            for (var j = 0; j < 14; j++) {
+
+            titulos = ["ID", "NOMBRE", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
+            for (var j = 0; j < 15; j++) {
                 var celda = document.createElement("td");
                 var textoCelda = document.createTextNode(titulos[j]);
                 celda.appendChild(textoCelda);
@@ -460,11 +462,10 @@
             doc.appendChild(tabla);
 
 
-
             //CREO EL RESTO DE FILAS
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
-                for (var j = 0; j < 14; j++) {
+                for (var j = 0; j < 15; j++) {
                     var celda = document.createElement("td");
                     var textoCelda = document.createTextNode(datos[i][j]);
                     celda.appendChild(textoCelda);

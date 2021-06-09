@@ -358,10 +358,12 @@ table tr:last-child td:last-child {
 /* INFORMACION PARTIDO */
 #info-equipos{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     margin:20px 0 20px 0;
 }
-
+#info-equipos > div{
+    margin: 10px 0 10px 0;
+}
 /* MOSTRAR PARTIDOS */
 #divTabla1,#divTabla2{
     margin: 10px;

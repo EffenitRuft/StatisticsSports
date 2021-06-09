@@ -6,10 +6,10 @@
         
 
         
-        function __construct($ideq,$base) {
+        function __construct($ideq,$partido,$base) {
             $i=0;
             $this->ideq = $ideq;
-            $base->consulta("SELECT DISTINCT id_jugador FROM statisticssports.jugador where id_equipo='$ideq'");
+            $base->consulta("SELECT DISTINCT id_jugador FROM statisticssports.jugador where id_equipo='$ideq' and partido='$partido'");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
                     //Guardamos el NOMBRE
