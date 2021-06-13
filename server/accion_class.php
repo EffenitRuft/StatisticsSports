@@ -33,7 +33,7 @@
                     $resultado="MEDIARECIBIR";;
                     break;
                 case 'A':
-                    $resultado="MEDIATAQUE";;
+                    $resultado="MEDIAATAQUE";;
                     break;
                 case 'B':
                     $resultado="MEDIABLOQUEAR";

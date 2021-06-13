@@ -193,8 +193,10 @@
 
         window.onload = function () {
             let array = cabeceras()
-            let array1 = [array['id1'], array['liga'], 1, 5];  /* ID EQUIPO1 / ID PARTIDO / NUM SET*/
-            let array2 = [array['id2'], array['liga'], 1, 5];
+            let opcion1='a';
+            let opcion2='b';
+            let array1 = [array['id1'], array['liga'], array['id2'],opcion1];  /* ID EQUIPO1/ LIGA / ID EQUIPO2/opcion*/
+            let array2 = [array['id2'], array['liga'], array['id1'],opcion2];
             let doc = document.getElementById('divTabla1')
             let doc1 = document.getElementById('divTabla2')
 

@@ -92,18 +92,29 @@
         return $ideq;
     }
 
-    function busquedasResumenB($eq,$ligaA,$partido,$sets,$base){
-        $ideq = (int)buscaridequipo($eq,$ligaA,$base);
-        $busqueda = new filtroresumen($ideq,$partido,$base);
+    function busquedasResumenB($eq1,$ligaA,$eq2,$opcion,$base){
+        $ideq = (int)buscaridequipo($eq1,$ligaA,$base);
+        if($opcion=='a'){
+            $idpartido = (int)buscaridpartido($eq1,$eq2,$ligaA,$base);
+        }else if($opcion=='b'){
+            $idpartido = (int)buscaridpartido($eq2,$eq1,$ligaA,$base);
+        }
+        $busqueda = new filtroresumen($ideq,$idpartido,$base);
         $array1 = $busqueda->datosResumen();
         $resultado;
         for ($i=0; $i < count($array1); $i++) { 
             $array2=$array1[$i];
-            $jugador= new estadisticaresumen($array2[0],$ideq,$eq,$partido,$sets,$base);
+            $jugador= new estadisticaresumenpartido($array2[0],$ideq,$eq1,$idpartido,$base);
             $arrayJugador = $jugador->getJugador();
             $resultado[$i]=$arrayJugador;
         }
         $resultadoJson = json_encode($resultado);
         return $resultadoJson;
+        return $resultado;
+    }
+    function buscaridpartido($eq1,$eq2,$ligaA,$base){
+        $busqueda = new filtroidpartido($eq1,$eq2,$ligaA,$base);
+        $idpartido = $busqueda->getidpartido();
+        return $idpartido;
     }
 ?>

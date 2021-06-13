@@ -135,7 +135,7 @@ while ($fila = $base->extraer_registro()) {
             }else if($accion=='MEDIADEFENDER'){
                 $numero = 'NUMERODEFENDER';
                 $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }else if($accion=='MEDIATAQUE'){
+            }else if($accion=='MEDIAATAQUE'){
                 $numero = 'NUMEROATAQUE';
                 $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
             }else if($accion=='MEDIABLOQUEAR'){

@@ -9,6 +9,7 @@ include 'login.php';
 include 'filtropartido.php';
 include 'filtroresumen.php';
 include 'estadisticaresumen.php';
+include 'estadisticaresumenpartido.php';
 include 'jugadornuevo.php';
 include 'filtroequipo.php';
 include 'clasificacion.php';
@@ -18,6 +19,7 @@ include 'filtrarenindex.php';
 include 'filtrarenindex2.php';
 include 'filtrarequiposliga.php';
 include 'filtroequipopartidos.php';
+include 'filtroidpartido.php';
 
 
 $base = new conexion("localhost", "root", "", "statisticssports", 3306, "");

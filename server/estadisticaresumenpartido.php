@@ -1,5 +1,5 @@
 <?php
-    class estadisticaresumen{       
+    class estadisticaresumenpartido{       
         private $id_jugador;
         private $nombre_jug;
         private $nombreEquipo;
@@ -22,10 +22,22 @@
 //***************************TODO EL CONSTRUCTOR*****************************************************************
 
         
-        function __construct($idjug,$ideq,$nombreEquipo,$partido,$set,$base) {
+        function __construct($idjug,$ideq,$nombreEquipo,$partido,$base) {
             $this->id_jugador=$idjug;
             $this->nombreEquipo=$nombreEquipo;
             $this->id_equipo=$ideq;
+
+            $set = 0;
+
+            $base->consulta("SELECT DISTINCT max(num_set) as numSet FROM statisticssports.jugador where partido='$partido' and id_equipo='$ideq'");
+            while ($fila = $base->extraer_registro()) {
+                foreach ($fila as $indice => $valor) {
+                    //Guardamos el NOMBRE
+                    if($indice=="numSet"){
+                        $set=$valor;
+                    }
+                }
+            }
 
             $set_col=0;
             $set_rec=0;
@@ -193,57 +205,6 @@ while ($fila = $base->extraer_registro()) {
         
         }
 
-        private function operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set){
-            $valor_anterior_Num;
-            $base->consulta("SELECT $numero FROM jugador where ID_JUGADOR='$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
-            while ($fila = $base->extraer_registro()) {
-                foreach ($fila as $indice => $valor) {
-                    if($indice==$numero){
-                        $valor_anterior_Num=$valor;
-                    }
-                }
-            }
-            $valor_nuevo_Num = $valor_anterior_Num+1;
-            $base->consulta("UPDATE jugador SET $numero = '$valor_nuevo_Num' WHERE ID_Jugador = '$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
-            $valor_anterior_Med;
-            $base->consulta("SELECT $accion FROM jugador where ID_JUGADOR='$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
-            while ($fila = $base->extraer_registro()) {
-                foreach ($fila as $indice => $valor) {
-                    if($indice==$accion){
-                        $valor_anterior_Med=$valor;
-                    }
-                }
-            }
-            if($valor_nuevo_Num==1){
-                $valor_nuevo_Med = $media;
-            }else{
-                $valor_nuevo_Med = ($valor_anterior_Med+$media)/2;
-            }
-            $base->consulta("UPDATE jugador SET $accion = '$valor_nuevo_Med' WHERE ID_Jugador = '$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
-        }
-        
-        public function actualizaraccion($accion,$media,$id,$base,$ideq,$partido,$set) {
-            if($accion=='MEDIACOLOCACIONES'){
-                $numero = 'NUMCOLOCACIONES';
-                $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }else if($accion=='MEDIARECIBIR'){
-                $numero = 'NUMRECIBIR';
-                $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }else if($accion=='MEDIADEFENDER'){
-                $numero = 'NUMERODEFENDER';
-                $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }else if($accion=='MEDIAATAQUE'){
-                $numero = 'NUMEROATAQUE';
-                $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }else if($accion=='MEDIABLOQUEAR'){
-                $numero = 'NUMEROBLOQUEAR';
-                $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }else if($accion=='MEDIASAQUES'){
-                $numero = 'NUMSAQUES';
-                $this->operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set);
-            }
-        }
-
         public function getJugador(){
             $array[0] = $this->id_jugador;
             $array[1] = $this->nombre_jug;
@@ -263,23 +224,4 @@ while ($fila = $base->extraer_registro()) {
             $array[15] = $this->mediasaques;
             return $array;
         }
-        public function getJugadorSinEquipo(){
-            $array[0] = $this->id_jugador;
-            $array[1] = $this->nombre_jug;
-            $array[2] = $this->puesto;
-            $array[3] = $this->numcolocaciones;
-            $array[4] = $this->mediacolocaciones;
-            $array[5] = $this->numrecibir;
-            $array[6] = $this->mediarecibir;
-            $array[7] = $this->numerodefender;
-            $array[8] = $this->mediadefender;
-            $array[9] = $this->numeroataque;
-            $array[10] = $this->mediataque;
-            $array[11] = $this->numerobloquear;
-            $array[12] = $this->mediabloquear;
-            $array[13] = $this->numsaques;
-            $array[14] = $this->mediasaques;
-            return $array;
-        }
     }
-?>
