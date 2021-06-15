@@ -1,9 +1,10 @@
 seleccionarPartido()
-
+/**
+ * Constructor de selector de partidos.
+ * Este crea el formulario y los selects con opciones correspondientes.
+ */
 function seleccionarPartido() {
-    ///FORMULARIO PARA ASIGNAR PARTIDO PARA INSERTAR DATOS///
-
-    /* ------------------------------------------------- */
+    // Formulario para insertar datos de partido
     const di_padre = document.getElementById("directo")
     const di_form = document.createElement("div")
     di_form.setAttribute("id", "form")
@@ -52,7 +53,7 @@ function seleccionarPartido() {
     const bt = document.createElement("button")
     bt.setAttribute("id", "datosform")
     bt.innerHTML = "Enviar"
-    /* ------------------------------------------------- */
+
     sel1.appendChild(opt1)
     sel1.appendChild(opt2)
     sel1.appendChild(opt3)
@@ -77,45 +78,42 @@ function seleccionarPartido() {
     di_form.appendChild(formu)
     di_padre.appendChild(di_form)
 
-    //PIDO LOS DE MASCULINO SUPERLIGA 1 - INICIALMENTE
-    damEquipos(sel1.value,inp2,inp3)
-    
-    /* ------------------------------------------------- */
+    // Por defecto se seleccionara los valores de MASCULINO SUPERLIGA 1
+    damEquipos(sel1.value, inp2, inp3)
+
+    // Cuando se pulsa, este recoge los valores y crea el partido
     bt.addEventListener("click", function (e) {
         e.preventDefault()
         const dat1 = document.getElementById("npartido").value
         const dat2 = document.getElementById("local").value
         const dat3 = document.getElementById("visitante").value
         const dat4 = document.getElementById("liga").value
-        console.log(dat1 + " - " + dat2 + " - " + dat3 + " - " + dat4);
         const info = { "npartido": dat1, "local": dat2, "visitante": dat3, "liga": dat4 }
         localStorage.setItem("partido", JSON.stringify(info))
-        //MARTA NUEVO************************************************************************
+
         localStorage.setItem("set", 1)
 
-        /* Identficar equipos */
+        // Identifica los equipos
         const partido = JSON.parse(localStorage.getItem("partido"))
-        console.log(partido);
 
         buscarEquipo(partido["local"])
         buscarEquipo(partido["visitante"])
-
         num_partido = parseInt(JSON.parse(localStorage.getItem("partido"))["npartido"])
         let arrayP = [parseInt(dat2), parseInt(dat3), parseInt(dat1), dat4]
+        
+        // Se crea el partido en la base de datos.
         addPartido(arrayP)
-        /*HACER CONEXION A LOCALSTORAGE IMAGINO */
-        /* LOCAL DEBERIA SER SIEMPRE EL USUARIO LOGEADO */
         di_form.remove()
     })
 
     sel1.addEventListener("change", function () {
         // CADA VEZ QUE HAYA UN CAMBIO LE PIDO EQUIPOS AL SERVIDOR
-        damEquipos(sel1.value,inp2,inp3)
+        damEquipos(sel1.value, inp2, inp3)
     })
 }
 
 //CONSTRUCTOR DE EQUIPOS
-function selectEquipos(eqs,domeqs) {
+function selectEquipos(eqs, domeqs) {
     //SPLITEO LOS RESULTADO
     equipos = eqs.split(":")
     //SACO EL ULTIMO
@@ -126,14 +124,15 @@ function selectEquipos(eqs,domeqs) {
         //ASIGNO LAS OPCIONES PARA LOS DOS EQUIPOS
         for (let i = 0; i < equipos.length; i++) {
             let opcion = document.createElement("option")
-            opcion.setAttribute("value",equipos[i].split("-")[0])
+            opcion.setAttribute("value", equipos[i].split("-")[0])
             opcion.innerHTML = equipos[i].split("-")[1]
             domeqs[a].appendChild(opcion)
         }
     }
 }
 
-function damEquipos(valor,inp2,inp3) {
+// SE BUSCAN LOS VALORES EN LA BASE DE DATOS
+function damEquipos(valor, inp2, inp3) {
     var req
     if (window.XMLHttpRequest) {
         req = new XMLHttpRequest();
@@ -143,7 +142,7 @@ function damEquipos(valor,inp2,inp3) {
     req.onreadystatechange = function () {
         if (req.readyState == 4) {
             if (req.status == 200) {
-                selectEquipos(req.responseText,[inp2,inp3])
+                selectEquipos(req.responseText, [inp2, inp3])
             }
         }
     }
@@ -152,8 +151,7 @@ function damEquipos(valor,inp2,inp3) {
 }
 
 
-//AÑADIR
-
+//AÑADIR PARTIDO EN LA BASE DE DATOS
 function addPartido(array) {
     var req
     if (window.XMLHttpRequest) {
@@ -164,8 +162,6 @@ function addPartido(array) {
     req.onreadystatechange = function () {
         if (req.readyState == 4) {
             if (req.status == 200) {
-                console.log("PARTIDO INSERTADO")
-                console.log(req.responseText)
             }
         }
     }
@@ -173,6 +169,10 @@ function addPartido(array) {
     req.send()
 }
 
+/*
+*  SE BUSCA EL PARTIDO EN LA BASE DE DATOS
+*  Y SE AÑADE EL NOMBRE DEL EQUIPO PARA IDENTIFICAR
+*/
 function buscarEquipo(id) {
     var req
     if (window.XMLHttpRequest) {
@@ -183,8 +183,6 @@ function buscarEquipo(id) {
     req.onreadystatechange = function () {
         if (req.readyState == 4) {
             if (req.status == 200) {
-                console.log("PARTIDO INSERTADO")
-                console.log(req.responseText)
                 if (id == JSON.parse(localStorage.getItem("partido"))["local"]) {
                     const h2local = document.getElementById("c-local")
                     h2local.innerHTML = req.responseText
@@ -198,23 +196,3 @@ function buscarEquipo(id) {
     req.open("GET", "./basedatos.php?buscarPartido=" + id);
     req.send()
 }
-/**
- <div id="form">
-    <form>
-        <label for="npartido">Numero de partido:</label><br>
-        <input type="text" id="npartido" name="npartido"><br>
-        <label for="local">Equipo local:</label><br>
-        <input type="text" id="local" name="local"><br>
-        <label for="visitante">Equipo visitante:</label><br>
-        <input type="text" id="visitante" name="visitante"><br><br>
-        <select name="id_liga" id="liga">
-            <option value="SM">SM</option>
-            <option value="SF">SF</option>
-            <option value="SM2">SM2</option>
-            <option value="SF2">SF2</option>
-        </select>
-        <!--Falta conexion-->
-        <button id="datosform">Enviar</button> <br>
-    </form>
-</div>
- */

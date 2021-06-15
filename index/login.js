@@ -1,8 +1,11 @@
 if (localStorage.getItem("usuario") != null) {
+    /**
+     * Si el usuario esta logeado crea el boton para deslogearse
+     * y añade al navegador la seccion de DIRECTO para 
+     * crear el partido, introducir datos, etc...
+     */
     const usuario = localStorage.getItem("usuario")
-    console.log("El usuario esta logeado: " + usuario);
-
-    // CONTROL DEL FORMULARIO
+    // BOTON DE DESCONEXION
     const di_cab = document.getElementById("cab")
     const bt_salir = document.createElement("button")
     bt_salir.innerHTML = "DESCONECTAR"
@@ -11,20 +14,20 @@ if (localStorage.getItem("usuario") != null) {
         localStorage.removeItem("usuario")
         location.href = "./index.html"
     })
-    // NAVEGADOR DIRECTO
-
+    // INTRODUCIR DIRECTO AL NAVEGADOR
     const nav = document.getElementById("barra-nav")
-
     const di_li = document.createElement("li")
     const di_a = document.createElement("a")
     di_a.setAttribute("href", "./directo.html")
     di_a.innerHTML = "DIRECTO"
-
     di_li.appendChild(di_a)
     nav.appendChild(di_li)
 } else {
-    console.log("El usuario NO esta logeado.");
-    // CONTROL DEL FORMULARIO
+    /**
+     * Cuando el usuario no este logeado se crea un formulario
+     * para que pueda iniciar sesion.
+     */
+
     const di_cab = document.getElementById("cab")
     const di_login = document.createElement('div')
     di_login.setAttribute("id", "login")
@@ -61,19 +64,4 @@ if (localStorage.getItem("usuario") != null) {
     form_login.appendChild(inp3)
     di_login.appendChild(form_login)
     di_cab.appendChild(di_login)
-
-    
 }
-
-/**
- * <div id="login">
-        <h2>Inicio de sesion</h2>
-        <form action="#" method="post">
-                <label for="Usuario">Usuario</label>
-                <input type="text" name="usu" id="usu">
-                <label for="Contraseña">Contraseña</label>
-                <input type="password" name="pass" id="pass">
-                <input type="submit" name="log" value="Entrar" id="log">
-        </form>
-    </div>
- */

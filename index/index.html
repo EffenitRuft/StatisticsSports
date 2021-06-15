@@ -74,13 +74,18 @@
     </footer>
     <script src="./login.js"></script>
     <script>
-
+        /*
+        * Control para incio de sesion, se recoge el usuario de localstorage
+        * y se comprueba que este usuario exista haciendo una peticion
+        * al servidor.
+        */
         miStorage = window.localStorage;
         var usuario = []
 
         if (localStorage.getItem("usuario") == null) {
             var botonUsuario = document.getElementById("log");
-
+            // Se le añade funcionalidad al boton para enviar datos y 
+            // confirmar que exista o no
             botonUsuario.onclick = function () {
                 usuario[0] = document.getElementById("usu").value;
                 usuario[1] = document.getElementById("pass").value;
@@ -88,19 +93,19 @@
                 var arrayCodificado = localStorage.getItem("usuario");
                 if (arrayCodificado != null) {
                     usuario = JSON.parse(arrayCodificado);
-                    console.log(usuario);
                 }
             }
         }
 
+        // Funcion para consultar usuario cuando entras en la pagina
         function consultarUsuario() {
             var arrayCodificado = localStorage.getItem("usuario");
             if (arrayCodificado != null) {
                 usuario = JSON.parse(arrayCodificado);
-                console.log(usuario);
             }
         }
 
+        // Funcion para buscar en la base de datos al usuario.
         function enviarDatos() {
             let usuario = document.getElementById("usu").value;
             let contra = document.getElementById("pass").value;
@@ -115,9 +120,7 @@
                 if (req.readyState == 4) {
                     if (req.status == 200) {
                         if (req.response == "ERROR") {
-                            console.log("Contraseña incorrecta")
                         } else if (req.response == "CORRECTO") {
-                            console.log("Validado con exito")
                         }
                     }
                 }
@@ -127,10 +130,15 @@
             req.send("login=" + JSON.stringify(array1))
         }
 
-
         let bt_p = document.getElementById("bt-filtrar")
         bt_p.addEventListener('click', filtrarDatos)
 
+        /* 
+        *  La funcion lo que hace es recoger el valor de filtro 
+        *  dependiendo del valor va cambiando y por defecto es vacio.
+        *  Por lo que enseña todos los jugadores y devuelve los 
+        *  valores creando una tabla.
+        */
         function filtrarDatos() {
             let filtro = document.getElementById("in-p").value
             if (filtro === "") {
@@ -159,13 +167,14 @@
             req.send()
         }
 
-
-
-
-        // *********************************************************************BEA*******************************
         let bt_pe = document.getElementById("bt-filtrarEQ")
         bt_pe.addEventListener('click', filtrarDatosEQ)
 
+        /* 
+        *  Filtro por liga recoge el valor de la liga y
+        *  equipo. Hace una busqueda a la base de datos y
+        *  devuelve los valores creando una tabla. 
+        */
         function filtrarDatosEQ() {
             let liga = document.getElementById("in-p").value
             let filtro = document.getElementById("in-EQ").value
@@ -193,7 +202,11 @@
 
         let bt_puesto = document.getElementById("bt-filtrarPUESTO")
         bt_puesto.addEventListener('click', filtrarDatosPUESTO)
-
+        /*
+        *  Filtro por puesto recoge el valor del option y 
+        *  los valores anteriores. Hace una busqueda a la base de datos y 
+        *  devuelve los valores creando una tabla.
+        */
         function filtrarDatosPUESTO() {
             let liga = document.getElementById("in-p").value
             let filtro = document.getElementById("in-EQ").value
@@ -219,8 +232,10 @@
             req.open("GET", "../server/servidor.php?filtroEquipo=" + filtro + "&filtro=" + liga + "&filtroPuesto=" + puesto);
             req.send()
         }
-        // ***********************************************************BEA*****************************************
 
+        /*
+        *  Constructor de las tablas.
+        */
 
         function imprimirTabla(datos) {
 
@@ -231,11 +246,11 @@
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
-            tabla.setAttribute("class","index")
+            tabla.setAttribute("class", "index")
 
-            //Creo la fila de titulos
+            //Crea la fila de titulos
             var fila = document.createElement("tr");
-    
+
             titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
             for (var j = 0; j < 16; j++) {
                 var celda = document.createElement("td");
@@ -248,7 +263,7 @@
             doc.appendChild(tabla);
 
 
-            //CREO EL RESTO DE FILAS
+            //Crea el resto de filas
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
                 for (var j = 0; j < 16; j++) {
@@ -260,6 +275,12 @@
                 tblBody.appendChild(fila);
             }
         }
+
+        /*
+       *  Constructor de inicio.
+       *  Al iniciar pagina se muestran tablas y
+       *  si no estas logeado se añade el formulario.
+       */
 
         if (localStorage.getItem("usuario") == null) {
             window.onload = function () {
@@ -276,7 +297,10 @@
             }
         }
 
-
+        /*
+        *  Para dar valor a los select se utilizan estas dos funciones,
+        *  para buscar en la base de datos y para crear el select.
+        */
         function cogerequipos(liga) {
             $liga = liga;
             var req

@@ -58,7 +58,7 @@
         </select>
         <button id="bt-filtrarEQ">FILTRAR POR EQUIPO</button>
         <br><br>
-        
+
     </div>
     <br><br><br>
     <div id="divTabla">
@@ -71,7 +71,11 @@
 </body>
 
 <script>
-  
+    /*
+    * Control para incio de sesion, se recoge el usuario de localstorage
+    * y se comprueba que este usuario exista haciendo una peticion
+    * al servidor.
+    */
     miStorage = window.localStorage;
     var usuario = []
 
@@ -79,6 +83,8 @@
         var botonUsuario = document.getElementById("log");
 
         botonUsuario.onclick = function () {
+            // Se le añade funcionalidad al boton para enviar datos y 
+            // confirmar que exista o no
             usuario[0] = document.getElementById("usu").value;
             usuario[1] = document.getElementById("pass").value;
             localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -89,7 +95,7 @@
             }
         }
     }
-
+    // Funcion para consultar usuario cuando entras en la pagina
     function consultarUsuario() {
         var arrayCodificado = localStorage.getItem("usuario");
         if (arrayCodificado != null) {
@@ -98,9 +104,39 @@
         }
     }
 
+    // Funcion para buscar en la base de datos al usuario.
+    function enviarDatos() {
+        let usuario = document.getElementById("usu").value;
+        let contra = document.getElementById("pass").value;
+        let array1 = [usuario, contra];
+        var req
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            req = ActiveXObject("Microsoft.XMLHTTP");
+        }
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    if (req.response == "ERROR") {
+                    } else if (req.response == "CORRECTO") {
+                    }
+                }
+            }
+        }
+        req.open("POST", "../server/servidor.php");
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        req.send("login=" + JSON.stringify(array1))
+    }
 
     let bt_p = document.getElementById("bt-filtrar")
     bt_p.addEventListener('click', filtrarDatos)
+
+    /* 
+    *  La funciona lo que hace es dependiendo del valor deseado,
+    *  se muestran unos partidos u otros.
+    *  Devuelve los valores creando una tabla.
+    */
 
     function filtrarDatos() {
         let filtro = document.getElementById("in-p").value
@@ -130,84 +166,96 @@
         req.send()
     }
 
+    /*
+    *  Para dar valor a los select se utilizan estas dos funciones,
+    *  para buscar en la base de datos y para crear el select.
+    */
     function cogerequipos(liga) {
-            $liga = liga;
-            var req
-            if (window.XMLHttpRequest) {
-                req = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                req = ActiveXObject("Microsoft.XMLHTTP");
-            }
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        let arrayequiposliga = JSON.parse(req.responseText);
-                        if (arrayequiposliga != null) {
-                            darvalorLista(arrayequiposliga)
-                        }
+        $liga = liga;
+        var req
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            req = ActiveXObject("Microsoft.XMLHTTP");
+        }
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    let arrayequiposliga = JSON.parse(req.responseText);
+                    if (arrayequiposliga != null) {
+                        darvalorLista(arrayequiposliga)
                     }
                 }
             }
-            req.open("GET", "../server/servidor.php?equipoLiga=" + liga);
-            req.send()
         }
+        req.open("GET", "../server/servidor.php?equipoLiga=" + liga);
+        req.send()
+    }
 
-        function darvalorLista(equipos) {
-            selectpadre = document.getElementById("in-EQ")
-            while (selectpadre.firstChild) {
-                selectpadre.removeChild(selectpadre.firstChild);
-            };
+    
+    function darvalorLista(equipos) {
+        selectpadre = document.getElementById("in-EQ")
+        while (selectpadre.firstChild) {
+            selectpadre.removeChild(selectpadre.firstChild);
+        };
+        let opt = document.createElement("option")
+        opt.setAttribute('value', "TODO")
+        opt.innerHTML = "TODO"
+        selectpadre.appendChild(opt)
+        for (let a = 0; a < equipos.length; a++) {
             let opt = document.createElement("option")
-            opt.setAttribute('value', "TODO")
-            opt.innerHTML = "TODO"
+            opt.setAttribute('value', equipos[a][0])
+            opt.innerHTML = equipos[a][1]
             selectpadre.appendChild(opt)
-            for (let a = 0; a < equipos.length; a++) {
-                let opt = document.createElement("option")
-                opt.setAttribute('value', equipos[a][0])
-                opt.innerHTML = equipos[a][1]
-                selectpadre.appendChild(opt)
-            }
         }
+    }
 
-        let bt_pe = document.getElementById("bt-filtrarEQ")
-        bt_pe.addEventListener('click', filtrarDatosEQ)
+    let bt_pe = document.getElementById("bt-filtrarEQ")
+    bt_pe.addEventListener('click', filtrarDatosEQ)
 
-        function filtrarDatosEQ() {
-            let liga = document.getElementById("in-p").value
-            let filtro = document.getElementById("in-EQ").value
-            let req
-            if (window.XMLHttpRequest) {
-                req = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                req = ActiveXObject("Microsoft.XMLHTTP");
-            }
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        console.log(req.responseText)
-                        let id = JSON.parse(req.responseText)
-                        console.log(JSON.parse(req.responseText))
-                        if (id[0] != "") {
-                            imprimirTabla(id)
-                        } else {
-                            alert("Introduce un filtro válido")
-                        }
+    /* 
+    *  Filtro por liga recoge el valor de la liga y
+    *  equipo. Hace una busqueda a la base de datos y
+    *  devuelve los valores creando una tabla. 
+    */
+    function filtrarDatosEQ() {
+        let liga = document.getElementById("in-p").value
+        let filtro = document.getElementById("in-EQ").value
+        let req
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            req = ActiveXObject("Microsoft.XMLHTTP");
+        }
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    console.log(req.responseText)
+                    let id = JSON.parse(req.responseText)
+                    console.log(JSON.parse(req.responseText))
+                    if (id[0] != "") {
+                        imprimirTabla(id)
+                    } else {
+                        alert("Introduce un filtro válido")
                     }
                 }
             }
-            req.open("GET", "../server/servidor.php?filtroEquipopartido=" + filtro + "&filtro=" + liga);
-            req.send()
         }
+        req.open("GET", "../server/servidor.php?filtroEquipopartido=" + filtro + "&filtro=" + liga);
+        req.send()
+    }
 
 
-
+    /*
+    *  Constructor de tablas para partidos.
+    */
     function imprimirTabla(datos) {
         let doc = document.getElementById('divTabla')
         doc.innerHTML = ''
         var tabla = document.createElement("table");
         var tblBody = document.createElement("tbody");
         tabla.setAttribute("id", "tabla")
-        tabla.setAttribute("class","partido")
+        tabla.setAttribute("class", "partido")
         var fila = document.createElement("tr");
         titulos = ["5ºSET", "4ºSET", "3ºSET", "2ºSET", "1ºSET", "SETS", "LOCAL", "VISITANTE", "SETS", "1ºSET", "2ºSET", "3ºSET", "4ºSET", "5ºSET", "LIGA", "ESTADÍSTICAS"]
         for (var j = 0; j < 16; j++) {
@@ -285,10 +333,26 @@
             tblBody.appendChild(fila);
         }
     }
-    
-    window.onload = function () {
-        filtrarDatos();
-        consultarUsuario();
+
+    /*
+        *  Constructor de inicio.
+        *  Al iniciar pagina se muestran tablas y
+        *  si no estas logeado se añade el formulario.
+        */
+
+    if (localStorage.getItem("usuario") == null) {
+        window.onload = function () {
+            filtrarDatos();
+            let log = document.getElementById("log");
+            log.addEventListener("click", function () {
+                enviarDatos()
+                consultarUsuario()
+            })
+        }
+    } else {
+        window.onload = function () {
+            filtrarDatos();
+        }
     }
 
 </script>
