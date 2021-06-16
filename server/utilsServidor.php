@@ -1,7 +1,12 @@
 <?php 
-   
-
-
+    /**
+     * Esta función toma como parámetros $filtrobusqueda y $base
+     * @param filtrobusqueda es el filtro
+     * @param base es la base de datos
+     * Utiliza la clase filtro, la función datosBusqueda y getJugador.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function busquedas($filtrobusqueda,$base){
         $busqueda = new filtro($filtrobusqueda,$base);
         $array1 = $busqueda->datosBusqueda();
@@ -16,7 +21,15 @@
         return $resultadoJson;
     }
 
-    //***************************bea************************* */
+    /**
+     * Esta función toma como parámetros $filtrobusqueda, $filtroequipo y $base
+     * @param filtrobusqueda es el filtro
+     * @param filtroequipo es el id equipo
+     * @param base es la base de datos
+     * Utiliza la clase filtroIndex, la función datosBusqueda y getJugador.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function busquedasEQ($filtrobusqueda,$filtroequipo,$base){
         $busqueda = new filtroIndex($filtrobusqueda,$filtroequipo,$base);
         $array1 = $busqueda->datosBusqueda();
@@ -30,6 +43,16 @@
         $resultadoJson = json_encode($resultado);
         return $resultadoJson;
     }
+
+    /**
+     * Esta función toma como parámetros $filtrobusqueda, $filtroequipo y $base
+     * @param filtrobusqueda es el filtro
+     * @param filtroequipo es el id equipo
+     * @param base es la base de datos
+     * Utiliza la clase filtroequipopartidos, la función datosBusqueda y getPartido.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function busquedasEQdos($filtrobusqueda,$filtroequipo,$base){
         $busqueda = new filtroequipopartidos($filtrobusqueda,$filtroequipo,$base);
         $array1 = $busqueda->datosBusqueda();
@@ -45,6 +68,16 @@
 
     }
 
+    /**
+     * Esta función toma como parámetros $filtrobusqueda, $filtroequipo filtroPuesto y $base
+     * @param filtrobusqueda es el filtro
+     * @param filtroequipo es el id equipo
+     * @param filtroPuesto es el puesto del jugador
+     * @param base es la base de datos
+     * Utiliza la clase filtroIndex2, la función datosBusqueda y getJugador.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function busquedasPUESTO($filtrobusqueda,$filtroequipo,$filtroPuesto,$base){
         $busqueda = new filtroIndex2($filtrobusqueda,$filtroequipo,$filtroPuesto,$base);
         $array1 = $busqueda->datosBusqueda();
@@ -58,6 +91,15 @@
         $resultadoJson = json_encode($resultado);
         return $resultadoJson;
     }
+
+    /**
+     * Esta función toma como parámetros $filtrobusqueda y $base
+     * @param filtrobusqueda es el filtro
+     * @param base es la base de datos
+     * Utiliza la clase filtropartido, la función datosPartido y getPartido.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function datosPartido($filtrobusqueda,$base){
         $busqueda = new filtropartido($filtrobusqueda,$base);
         $array1 = $busqueda->datosPartido();
@@ -72,6 +114,17 @@
         return $resultadoJson;
     }
     
+    /**
+     * Esta función toma como parámetros $ideq,$partido,$sets y $base
+     * @param ideq es el id del equipo
+     * @param partido es el numero de partido
+     * @param sets es el set
+     * @param base es la base de datos
+     * Utiliza la clase filtroresumen, la función datosResumen
+     * la clase estadisticaresumen y la función getJugadorSinEquipo.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function busquedasResumen($ideq,$partido,$sets,$base){
         $busqueda = new filtroresumen($ideq,$partido,$base);
         $array1 = $busqueda->datosResumen();
@@ -86,12 +139,34 @@
         return $resultadoJson;
     }
     
+     /**
+     * Esta función toma como parámetros $eq,$ligaA y $base
+     * @param eq es el nombre del equipo
+     * @param ligaA es la liga
+     * @param base es la base de datos
+     * Utiliza la clase filtroequipo y la función getidequipo
+     * Devuelve el id del equipo
+     * @return ideq
+     */
     function buscaridequipo($eq,$ligaA,$base){
         $busqueda = new filtroequipo($eq,$ligaA,$base);
         $ideq = $busqueda->getidequipo();
         return $ideq;
     }
 
+    /**
+     * Esta función toma como parámetros $eq1,$ligaA,$eq2,$opcion y $base
+     * @param eq1 es el equipo 1
+     * @param ligaA es la liga
+     * @param eq2 es el equipo 2
+     * @param opcion es una variable para diferenciar equipo 1 del 2
+     * @param base es la base de datos
+     * Utiliza la función buscaridequipo, la clase filtroresumen, 
+     * la función datosResumen, la clase estadisticaresumenpartido
+     * y la función getJugador.
+     * Devuelve el resultado codificado en json.
+     * @return resultadoJson
+     */
     function busquedasResumenB($eq1,$ligaA,$eq2,$opcion,$base){
         $ideq = (int)buscaridequipo($eq1,$ligaA,$base);
         if($opcion=='a'){
@@ -112,6 +187,17 @@
         return $resultadoJson;
         return $resultado;
     }
+
+    /**
+     * Esta función toma como parámetros $eq1,$eq2,$ligaA y $base
+     * @param eq1 es el equipo 1
+     * @param eq2 es el equipo 2
+     * @param ligaA es la liga
+     * @param base es la base de datos
+     * Utiliza la clase filtroidpartido y la función getidpartido
+     * Devuelve el id del partido
+     * @return idpartido
+     */
     function buscaridpartido($eq1,$eq2,$ligaA,$base){
         $busqueda = new filtroidpartido($eq1,$eq2,$ligaA,$base);
         $idpartido = $busqueda->getidpartido();

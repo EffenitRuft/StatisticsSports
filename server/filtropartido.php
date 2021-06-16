@@ -1,4 +1,8 @@
+
 <?php
+/**Clase filtropartido
+Esta clase sirve para obtener el id_partido de partidos filtrados por liga.
+ */
     class filtropartido{      
         private $base;
         private $equipo1;
@@ -19,7 +23,13 @@
         private $arrayArrays;
         
 
-        
+        /**
+         * Constructor que toma como parámetros $liga y $base
+         * @param base es la base de datos, se asigna al atributo privado base.
+         * Posteriormente se realiza una consulta a base de datos teniendo en cuenta 
+         * si se quiere filtrar por liga o no.
+         * A continuación se guardan los id_partido en un array.
+         */
         function __construct($liga,$base) {
             $i = 0;
             $this->base=$base;
@@ -39,6 +49,11 @@
             }
         }
 
+        /**
+         * Función que devuelve arrayArrays que contiene los id_partido
+         * de los partidos elegidos.
+         * @return arrayArrays
+         */
         public function datosPartido(){
             return $this->arrayArrays;
         }

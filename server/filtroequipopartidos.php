@@ -1,4 +1,8 @@
+
 <?php
+/**Clase filtroequipopartidos
+Esta clase sirve para obtener el idpartido de un equipo concreto para saber qué partidos ha jugado.
+ */
     class filtroequipopartidos{       
         private $liga;
         private $base;
@@ -24,7 +28,18 @@
 
         
 
-        
+        /**
+         * Constructor que toma como parámetros $liga $eq y $base
+         * @param base es la base de datos, se asigna al atributo privado base.
+         * @param eq es el id del equipo.
+         * @param liga es el valor de la liga en formato siglas.
+         * 
+         * A continuación se realizan consultas teniendo en cuenta si se quiere mostrar todo o
+         * si se quiere filtrar por equipo, que en ese caso primero se hace una consulta para
+         * obtener el nombre del equipo a partir de su id y posteriormente se hace una consulta
+         * para saber que partidos ha jugado ese equipo.
+         * Finalmente se guardan los idpartido de los partidos del equipo buscado en un array.
+         */
         function __construct($liga,$eq,$base) {
             $i = 0;
             $this->base=$base;
@@ -61,6 +76,11 @@
             }
         }
 
+        /**
+         * Función que devuelve arrayArrays que contiene el id_partido de todos
+         * los partidos jugados por el equipo elegido.
+         * @return arrayArrays
+         */
         public function datosBusqueda(){
             return $this->arrayArrays;
         }

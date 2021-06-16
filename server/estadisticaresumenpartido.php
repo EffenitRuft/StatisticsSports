@@ -1,4 +1,11 @@
+
 <?php
+/**Clase estadisticaresumen partido
+Esta clase sirve para devolver los valores de estadística de un jugador en un partido en concreto.
+Tiene diecisiete atributos privados  $id_jugador, $nombre_jug, $nombreEquipo, $id_equipo, $puesto, $numcolocaciones,
+$mediacolocaciones, $numrecibir, $mediarecibir, $numerodefender, $mediadefender, $numeroataque, $mediataque,
+$numerobloquear, $mediabloquear, $numsaques, $mediasaques;
+ */
     class estadisticaresumenpartido{       
         private $id_jugador;
         private $nombre_jug;
@@ -18,10 +25,19 @@
         private $numsaques;
         private $mediasaques;
 
-//***************************ULTIMA PARTE MARTA*****************************************************************
-//***************************TODO EL CONSTRUCTOR*****************************************************************
-
-        
+        /**
+         * * Constructor que toma como parámetros $idjug,$ideq,$nombreEquipo,$partido y $base.
+         * @param idjug se asigna al atributo privado de la clase id_jugador
+         * @param nombreEquipo se asigna al atributo privado de la clase nombreEquipo
+         * @param ideq se asigna al atributo privado de la clase id_equipo
+         * 
+         * Posteriormente se realiza una consulta para obtener el número de set.
+         * A continuación se inicializan todos los sets correspondientes a las acciones a 0.
+         * Después se realizan consultas SQL a base de datos para obtener el número de cada acción.
+         * A continuación se realiza una consulta en la que se devuelven todos los valores redondeados de las acciones
+         * de un jugador en un partido en concreto.
+         * Finalmente se recorre el resultado de la consulta y se asignan los valores.
+         */
         function __construct($idjug,$ideq,$nombreEquipo,$partido,$base) {
             $this->id_jugador=$idjug;
             $this->nombreEquipo=$nombreEquipo;
@@ -32,7 +48,6 @@
             $base->consulta("SELECT DISTINCT max(num_set) as numSet FROM statisticssports.jugador where partido='$partido' and id_equipo='$ideq'");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numSet"){
                         $set=$valor;
                     }
@@ -52,63 +67,56 @@
             group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numcolocacionesA"){
                         $set_col=$valor;
                     }
                 }
             }
-                    $base->consulta("SELECT count(numrecibir) as numrecibirA
-                    FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numrecibir !=0
-                    group by id_jugador,partido,id_equipo;");
+            $base->consulta("SELECT count(numrecibir) as numrecibirA
+            FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numrecibir !=0
+            group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numrecibirA"){
                         $set_rec=$valor;
                     }
                 }
             }
-                    $base->consulta("SELECT count(numerodefender) as numerodefenderA
-                    FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numerodefender !=0
-                     group by id_jugador,partido,id_equipo;");
+            $base->consulta("SELECT count(numerodefender) as numerodefenderA
+            FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numerodefender !=0
+            group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numerodefenderA"){
                         $set_def=$valor;
                     }
                 }
             }
-                    $base->consulta("SELECT count(numeroataque) as numeroataqueA
-                    FROM statisticssports.jugador where
-                    id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numeroataque !=0
-                    group by id_jugador,partido,id_equipo;");
-                    while ($fila = $base->extraer_registro()) {
-                     foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
+            $base->consulta("SELECT count(numeroataque) as numeroataqueA
+            FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numeroataque !=0
+            group by id_jugador,partido,id_equipo;");
+            while ($fila = $base->extraer_registro()) {
+                foreach ($fila as $indice => $valor) {
                     if($indice=="numeroataqueA"){
                         $set_ata=$valor;
                     }
                 }
             }
-                    $base->consulta("SELECT count(numerobloquear) as numerobloquearA
-                    FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numerobloquear !=0
-                    group by id_jugador,partido,id_equipo;");
+            $base->consulta("SELECT count(numerobloquear) as numerobloquearA
+            FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numerobloquear !=0
+            group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numerobloquearA"){
                         $set_blo=$valor;
                     }
                 }
             }
-                    $base->consulta("SELECT count(numsaques) as numsaquesA
-                    FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numsaques !=0
-                   group by id_jugador,partido,id_equipo;");
+            $base->consulta("SELECT count(numsaques) as numsaquesA
+            FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' and numsaques !=0
+            group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numsaquesA"){
                         $this->set_saq=$valor;
                     }
@@ -141,71 +149,60 @@ sum(numsaques) as numsaquesA,round((sum(mediasaques)/$set_saq),2) as mediasaques
  FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' group by id_jugador,id_equipo;");
 while ($fila = $base->extraer_registro()) {
     foreach ($fila as $indice => $valor) {
-        //Guardamos el NOMBRE
         if($indice=="id_jugador"){
             $this->id_jugador=$valor;
         }
-        //Guardamos el puesto
         if($indice=="nombre"){
             $this->nombre_jug=$valor;
         }
         if($indice=="puesto"){
             $this->puesto= $valor;
         }
-        //Guardamos el puesto
         if($indice=="numcolocacionesA"){
             $this->numcolocaciones=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediacolocacionesA"){
             $this->mediacolocaciones=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numrecibirA"){
             $this->numrecibir=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediarecibirA"){
             $this->mediarecibir=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numerodefenderA"){
             $this->numerodefender=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediadefenderA"){
             $this->mediadefender=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numeroataqueA"){
             $this->numeroataque=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediaataqueA"){
             $this->mediataque=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numerobloquearA"){
             $this->numerobloquear=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediabloquearA"){
             $this->mediabloquear=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numsaquesA"){
             $this->numsaques=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediasaquesA"){
             $this->mediasaques=$valor;
         }
     }
 }
-        
-        }
+}
 
-        public function getJugador(){
+/**
+ * Funcion que devuelve un array con todos los valores del jugador
+ * @return array
+ */
+public function getJugador(){
             $array[0] = $this->id_jugador;
             $array[1] = $this->nombre_jug;
             $array[2] = $this->nombreEquipo;

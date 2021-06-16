@@ -1,4 +1,9 @@
+
 <?php
+/**Clase filtro
+Esta clase sirve para obtener los jugadores filtrados por género y liga concretos.
+Tiene 5 atributos privados  $liga, $base, $categoria, $genero y $arrayArrays.
+ */
     class filtro{       
         private $liga;
         private $base;
@@ -7,7 +12,19 @@
         private $arrayArrays;
         
 
-        
+         /**
+         * Constructor que toma como parámetros $liga y $base
+         * @param base es la base de datos, se asigna al atributo privado base.
+         * @param liga es el valor de la liga en formato siglas.
+         * 
+         * Posteriormente según el valor de liga pasado por parámetro lo transforma a
+         * formato extenso asignando el género y la liga.
+         * 
+         * A continuación se realiza la consulta SQL a base de datos para obtener los jugadores elegidos.
+         * 
+         * Finalmente se extraen los datos de la consulta y se insertan en un array que
+         * está compuesto de arrays de los jugadores.
+         */
         function __construct($liga,$base) {
             $i = 0;
             $this->base=$base;
@@ -39,15 +56,12 @@
             }
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="id_jugador"){
                         $array1[0]=$valor;
                     }
-                    //Guardamos el puesto
                     if($indice=="id_equipo"){
                         $array1[1]=$valor;
                     }
-                    //Guardamos el puesto
                     if($indice=="nombre_equipo"){
                         $array1[2]=$valor;
                     }   
@@ -57,6 +71,11 @@
             }
         }
 
+         /**
+         * Función que devuelve arrayArrays que es un array que contiene
+         * arrays con los datos de los jugadores elegidos.
+         * @return arrayArrays
+         */
         public function datosBusqueda(){
             return $this->arrayArrays;
         }

@@ -1,4 +1,9 @@
+
 <?php
+/**Clase filtrarequiposliga
+Esta clase sirve para obtener los equipos filtrados por género y liga concretos.
+Tiene cinco atributos privados $liga, $base, $categoria, $genero y $arrayArrays.
+ */
     class filtrarequiposliga{       
         private $liga;
         private $base;
@@ -7,7 +12,19 @@
         private $arrayArrays;
         
 
-        
+        /**
+         * Constructor que toma como parámetros $liga y $base
+         * @param base es la base de dato, se asigna al atributo privado base.
+         * @param liga es el valor de la liga en formato siglas.
+         * 
+         * Posteriormente según el valor de liga pasado por parámetro lo transforma a
+         * formato extenso asignando el género y la liga.
+         * 
+         * A continuación se realiza la consulta SQL a base de datos para obtener los equipos.
+         * 
+         * Finalmente se extraen los datos de la consulta y se insertan en un array que
+         * está compuesto de arrays de los equipos.
+         */
         function __construct($liga,$base) {
             $i = 0;
             $this->base=$base;
@@ -43,6 +60,11 @@
             }
         }
 
+         /**
+         * Función que devuelve arrayArrays que es un array que contiene
+         * arrays con los datos de los equipos elegidos.
+         * @return arrayArrays
+         */
         public function datosBusqueda(){
             return $this->arrayArrays;
         }

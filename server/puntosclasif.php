@@ -1,4 +1,8 @@
+
 <?php
+/**Clase puntosclasif
+Esta clase sirve para llevar la cuenta de los puntos para formar la clasificación.
+ */
     class puntosclasif{       
         private $partido;
         private $base;
@@ -18,7 +22,18 @@
         private $set5_eq2;
         private $liga;
 
-        
+        /**
+         * Constructor que toma como parámetros $numpartido,$base,$equipo1 y $equipo2
+         * @param numpartido es el número del partido, se asigna al atributo privado partido
+         * @param base es la base de datos, se asigna al atributo privado base
+         * @param equipo1 es el equipo 1.
+         * @param equipo2 es el equipo 2.
+         * Posteriormente se realiza una consulta para obtener todos los datos de un partido concreto.
+         * Estos datos se insertan en los valores de los atributos privados correspondientes.
+         * Posteriormente se asignan los puntos correspondientes.
+         * A continuación se realiza una consulta a base de datos para obtener los puntos de un equipo concreto.
+         * Estos valores se guardan y finalmente se actualiza la base de datos.
+         */
         function __construct($numpartido,$base,$equipo1,$equipo2) {
             $this->base=$base;
             $this->partido=$numpartido;
@@ -66,13 +81,11 @@
                     }
                 }
             }
-//puntos equipo1,puntos equipo2, set equipo1, set equipo2,g3 equipo1,g3 equipo2,g2 equipo1,g2 equipo2,p1 equipo1,p1 equipo2,p0 equipo1,p0 equipo2.
+            
             $arrayResultado = [];
             $puntosF1 = $this->set1_eq1 + $this->set2_eq1 + $this->set3_eq1 + $this->set4_eq1 +$this->set5_eq1;
             $puntosF2 = $this->set1_eq2 + $this->set2_eq2 + $this->set3_eq2 + $this->set4_eq2 +$this->set5_eq2;
             if($this->set_eq1==3 &&($this->set_eq2==0 ||$this->set_eq2==1)){
-                //FALTA PUNTOS TOTALES, FALTA JUGADOS
-                //puntos equipo1,puntos equipo2, set equipo1, set equipo2,g3 equipo1,g3 equipo2,g2 equipo1,g2 equipo2,p1 equipo1,p1 equipo2,p0 equipo1,p0 equipo2.
                 $arrayResultado= [$puntosF1,$puntosF2 ,intval($this->set_eq1),intval($this->set_eq2),1,0,0,0,0,0,0,1];
                 $puntosg=3;
                 $puntosp=0;

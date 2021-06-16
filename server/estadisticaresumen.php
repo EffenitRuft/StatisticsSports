@@ -1,4 +1,12 @@
+
 <?php
+/**Clase estadisticaresumen
+Esta clase se encarga de actualizar el valor de las acciones así como calcular la media de la nota para
+finalmente devolver el array del jugador elegido con todos los datos de la estadística.
+Tiene diecisiete atributos privados $id_jugador, $nombre_jug, $nombreEquipo, $id_equipo, $puesto, $numcolocaciones,
+$mediacolocaciones, $numrecibir, $mediarecibir, $numerodefender, $mediadefender, $numeroataque, $mediataque,
+$numerobloquear, $mediabloquear, $numsaques, $mediasaques;
+ */
     class estadisticaresumen{       
         private $id_jugador;
         private $nombre_jug;
@@ -17,11 +25,22 @@
         private $mediabloquear;
         private $numsaques;
         private $mediasaques;
-
-//***************************ULTIMA PARTE MARTA*****************************************************************
-//***************************TODO EL CONSTRUCTOR*****************************************************************
-
         
+        /**
+         * Constructor que toma como parámetros $idjug,$ideq,$nombreEquipo,$partido,$set y $base.
+         * @param idjug se asigna al atributo privado de la clase id_jugador
+         * @param nombreEquipo se asigna al atributo privado de la clase nombreEquipo
+         * @param ideq se asigna al atributo privado de la clase id_equipo
+         * 
+         * Posteriormente se realizan las consultas a base de datos para extraer el número de todas las acciones
+         * El numero de colocaciones, el numero de recepciones, el numero de defensas, el número de ataques,
+         * el número de bloqueos y el número de saques.
+         * A continuación se le asigna el número de set al que pertenece.
+         * Después se realiza una consulta en la que se devuelven todos los valores redondeados de las acciones
+         * de un jugador en un partido en concreto.
+         * Finalmente se recorre el resultado de la consulta y se asignan los valores.
+         * 
+         */
         function __construct($idjug,$ideq,$nombreEquipo,$partido,$set,$base) {
             $this->id_jugador=$idjug;
             $this->nombreEquipo=$nombreEquipo;
@@ -40,7 +59,6 @@
             group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numcolocacionesA"){
                         $set_col=$valor;
                     }
@@ -51,7 +69,6 @@
                     group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numrecibirA"){
                         $set_rec=$valor;
                     }
@@ -62,7 +79,6 @@
                      group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numerodefenderA"){
                         $set_def=$valor;
                     }
@@ -74,7 +90,6 @@
                     group by id_jugador,partido,id_equipo;");
                     while ($fila = $base->extraer_registro()) {
                      foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numeroataqueA"){
                         $set_ata=$valor;
                     }
@@ -85,7 +100,6 @@
                     group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numerobloquearA"){
                         $set_blo=$valor;
                     }
@@ -96,7 +110,6 @@
                    group by id_jugador,partido,id_equipo;");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="numsaquesA"){
                         $this->set_saq=$valor;
                     }
@@ -129,71 +142,61 @@ sum(numsaques) as numsaquesA,round((sum(mediasaques)/$set_saq),2) as mediasaques
  FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' and partido='$partido' group by id_jugador,id_equipo;");
 while ($fila = $base->extraer_registro()) {
     foreach ($fila as $indice => $valor) {
-        //Guardamos el NOMBRE
         if($indice=="id_jugador"){
             $this->id_jugador=$valor;
         }
-        //Guardamos el puesto
         if($indice=="nombre"){
             $this->nombre_jug=$valor;
         }
         if($indice=="puesto"){
             $this->puesto= $valor;
         }
-        //Guardamos el puesto
         if($indice=="numcolocacionesA"){
             $this->numcolocaciones=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediacolocacionesA"){
             $this->mediacolocaciones=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numrecibirA"){
             $this->numrecibir=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediarecibirA"){
             $this->mediarecibir=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numerodefenderA"){
             $this->numerodefender=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediadefenderA"){
             $this->mediadefender=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numeroataqueA"){
             $this->numeroataque=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediaataqueA"){
             $this->mediataque=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numerobloquearA"){
             $this->numerobloquear=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediabloquearA"){
             $this->mediabloquear=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numsaquesA"){
             $this->numsaques=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediasaquesA"){
             $this->mediasaques=$valor;
         }
     }
 }
         
-        }
-
-        private function operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set){
+}
+    /**
+     * Función que toma como parámetros $accion,$media,$id,$base,$numero,$ideq,$partido,$set
+     * y actualiza el valor del numero de esa acción en la base de datos teniendo en cuenta
+     * que si hay más de un valor hay que hacer la media.
+     */
+    private function operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set){
             $valor_anterior_Num;
             $base->consulta("SELECT $numero FROM jugador where ID_JUGADOR='$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
             while ($fila = $base->extraer_registro()) {
@@ -222,6 +225,10 @@ while ($fila = $base->extraer_registro()) {
             $base->consulta("UPDATE jugador SET $accion = '$valor_nuevo_Med' WHERE ID_Jugador = '$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
         }
         
+        /**
+         * Función que utiliza la función operacionesactualizar para actualizar el valor
+         * de esa acción en la base de datos.
+         */
         public function actualizaraccion($accion,$media,$id,$base,$ideq,$partido,$set) {
             if($accion=='MEDIACOLOCACIONES'){
                 $numero = 'NUMCOLOCACIONES';
@@ -244,6 +251,11 @@ while ($fila = $base->extraer_registro()) {
             }
         }
 
+        /**
+         * Función que asigna los valores de los atributos privados a las diferentes posiciones de $array
+         * y devuelve el array construido.
+         * @return array 
+         */
         public function getJugador(){
             $array[0] = $this->id_jugador;
             $array[1] = $this->nombre_jug;
@@ -263,6 +275,12 @@ while ($fila = $base->extraer_registro()) {
             $array[15] = $this->mediasaques;
             return $array;
         }
+
+        /**
+         * Funcion que asigna los valores de los atributos privados exceptuando el equipo
+         * a las diferentes posiciones de $array y devuelve el array construido.
+         * @return array 
+         */
         public function getJugadorSinEquipo(){
             $array[0] = $this->id_jugador;
             $array[1] = $this->nombre_jug;

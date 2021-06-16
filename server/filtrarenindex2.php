@@ -1,4 +1,9 @@
+
 <?php
+/**Clase filtroIndex2
+Esta clase sirve para devolver los datos de jugadores filtrados por puesto, equipo, liga y género.
+Tiene siete atributos privados $liga, $base, $categoria, $genero, $eq, $arrayArrays y $puesto.
+ */
     class filtroIndex2{       
         private $liga;
         private $base;
@@ -9,7 +14,27 @@
         private $puesto;
         
 
-        
+        /**
+         * Constructor que toma como parámetros $liga,$eq,$puesto y $base
+         * @param base es la base de datos, se asigna al atributo privado base.
+         * @param eq es el equipo elegido.
+         * @param puesto es el valor del puesto.
+         * @param liga es el valor de la liga en formato siglas.
+         * 
+         * Posteriormente según el valor de liga pasado por parámetro lo transforma a
+         * formato extenso asignando el género y la liga.
+         * 
+         * A continuación se realiza una consulta de datos teniendo en cuenta diferentes
+         * casos:
+         *  -Que no se quiera filtrar y se quieran todos los resultados.
+         *  -Que se quieran todos los jugadores de equipos de un puesto, una liga y género concretos.
+         *  -Que se quieran filtrar por liga y género.
+         *  -Que se quieran filtrar por equipo, liga y género.
+         * 
+         * Finalmente se extraen los datos de la consulta y se insertan en un array que
+         * está compuesto de arrays de los equipos.
+         * 
+         */
         function __construct($liga,$eq,$puesto,$base) {
             $i = 0;
             $this->base=$base;
@@ -61,15 +86,12 @@
             }
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="id_jugador"){
                         $array1[0]=$valor;
                     }
-                    //Guardamos el puesto
                     if($indice=="id_equipo"){
                         $array1[1]=$valor;
                     }
-                    //Guardamos el puesto
                     if($indice=="nombre_equipo"){
                         $array1[2]=$valor;
                     }   
@@ -79,6 +101,12 @@
             }
         }
 
+        
+        /**
+         * Función que devuelve arrayArrays que es un array que contiene
+         * arrays con los datos de los equipos elegidos.
+         * @return arrayArrays
+         */
         public function datosBusqueda(){
             return $this->arrayArrays;
         }

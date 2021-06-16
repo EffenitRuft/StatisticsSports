@@ -1,4 +1,8 @@
+
 <?php
+/**Clase partidos
+Esta clase sirve para actualizar los datos de sets del partido y obtenerlos.
+ */
     class partidos{       
         private $partido;
         private $base;
@@ -18,6 +22,14 @@
         private $set5_eq2;
         private $liga;
         
+        /**
+         * Constructor que toma como parámetros $numpartido y $base.
+         * @param numpartido es el número del partido.
+         * @param base es la base de datos.
+         * Posteriormente se realiza una consulta para obtener todos los datos
+         * de un partido según su id_partido.
+         * A continuación se insertan los valores obtenidos en los atributos privados.
+         */
         function __construct($numpartido,$base) {
             $this->base=$base;
             $this->partido=$numpartido;
@@ -72,6 +84,16 @@
                 }
             }
         }
+
+        /**
+         * Función que toma como parámetros $equipo,$set,$base y $num
+         * @param equipo es el número del equipo (1 o 2).
+         * @param set es el número de set.
+         * @param base es la base de datos.
+         * @param num es un contador para actualizar el número del set
+         * Posteriormente se realizan consultas para actualizar el número de set de cada equipo
+         * teniendo en cuenta el contador.
+         */
         public function sumarPuntos($equipo,$set,$base,$num){
             $valor_anterior;
             $valor_nuevo;
@@ -187,6 +209,13 @@
                 $base->consulta("UPDATE statisticssports.partidos SET set5_eq2 = '$valor_nuevo' WHERE id_partido = '$this->partido';");
             }
         }
+
+        /**
+         * Función que toma como parámetros $equipo y $base.
+         * @param equipo es el número del equipo.
+         * @param base es la base de datos.
+         * Posteriormente se realizan consultas para obtener y actualizar el número del set.
+         */
         public function sumarSet($equipo,$base){
             $valor_anterior;
             $valor_nuevo;
@@ -215,6 +244,10 @@
             }
         }
 
+        /**
+         * Función para obtener todos los sets de un partido concreto insertados en un array.
+         * @return array.
+         */
         public function getPartido(){
             $array[0] = $this->set5_eq1;
             $array[1] = $this->set4_eq1;

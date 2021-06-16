@@ -1,4 +1,8 @@
+
 <?php
+/**Clase partidonuevo
+Esta clase sirve para obtener los nombres de equipo y crear un partido con ellos.
+ */
     class partidonuevo{       
         private $id_jugador;
         private $nombre_jug;
@@ -18,14 +22,23 @@
         private $numsaques;
         private $mediasaques;
 
-        
+        /**
+         * Constructor que toma como parámetros $ideq1,$ideq2,$idpartido,$liga y $base.
+         * @param ideq1 es el id del equipo 1 (local).
+         * @param ideq2 es el id del equipo 2 (visitante).
+         * @param idpartido es el id del partido.
+         * @param liga es la liga de los equipos.
+         * @param base es la base de datos.
+         * Posteriormente se realizan consultas a base de datos para obtener
+         * el nombre de los equipos.
+         * Finalmente se crea el partido en la base de datos.
+         */
         function __construct($ideq1,$ideq2,$idpartido,$liga,$base) {
             $equipo1='';
             $equipo2='';
             $base->consulta("SELECT `equipo`.`nombre_equipo` FROM `statisticssports`.`equipo` where id_equipo = $ideq1");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="nombre_equipo"){
                         $equipo1=$valor;
                     }
@@ -34,7 +47,6 @@
             $base->consulta("SELECT `equipo`.`nombre_equipo` FROM `statisticssports`.`equipo` where id_equipo = $ideq2");
             while ($fila = $base->extraer_registro()) {
                 foreach ($fila as $indice => $valor) {
-                    //Guardamos el NOMBRE
                     if($indice=="nombre_equipo"){
                         $equipo2=$valor;
                     }

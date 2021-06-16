@@ -1,4 +1,9 @@
+
 <?php
+/**Clase clasificacion
+Esta clase sirve para extraer los datos de un equipo de genero y liga concretos.
+Tiene cinco atributos privados, $liga, $base, $categoria, $genero y $arrayArrays.
+ */
     class clasificacion{       
         private $liga;
         private $base;
@@ -7,7 +12,14 @@
         private $arrayArrays;
         
 
-        
+        /**
+         * Constructor que toma como parámetros $liga y $base
+         * @param $base es la conexión a base de datos
+         * @param $liga es la liga en formato siglas
+         * Este constructor se encarga de asignar a $liga en formato siglas el formato extenso
+         * Posteriormente realiza la consulta a base de datos para extraer todos los datos de esa liga
+         * A continuación recorre el resultado de la consulta y lo inserta en $arrayArrays
+         */
         function __construct($liga,$base) {
             $i = 0;
             $this->base=$base;
@@ -70,6 +82,11 @@
             }
         }
 
+        /**
+         * Funcion que devuelve arrayArrays que está formado por 
+         * arrays con los datos de los equipos elegidos
+         * @return arrayArrays
+         */
         public function datosBusqueda(){
             return $this->arrayArrays;
         }

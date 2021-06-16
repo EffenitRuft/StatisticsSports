@@ -1,4 +1,8 @@
+
 <?php
+/**Clase jugador
+Esta clase sirve para obtener todos los datos del jugador según un id_jugador y un id_equipo concretos.
+ */
     class jugador{       
         private $id_jugador;
         private $nombre_jug;
@@ -18,6 +22,18 @@
         private $numsaques;
         private $mediasaques;
         
+        /**
+         * Constructor que toma como parámetros $idjug,$ideq,$nombreEquipo,$partido,$set y $base
+         * @param idjug es el id del jugador, se asigna al atributo privado id_jugador
+         * @param ideq es el id del equipo, se asigna al atributo privado id_equipo.
+         * @param nombreEquipo es el nombre del equipo, se asigna al atributo privado nombreEquipo.
+         * @param partido es el partido.
+         * @param set es el set.
+         * @param base es la base de datos.
+         * Posteriormente se realiza una consulta SQL a base de datos para obtener todos los datos
+         * del jugador filtrados por su id jugador y el id del equipo.
+         * A continuación se extraen los resultados y se insertan en un array.
+         */
         function __construct($idjug,$ideq,$nombreEquipo,$partido,$set,$base) {
             $this->id_jugador=$idjug;
             $this->nombreEquipo=$nombreEquipo;
@@ -32,70 +48,60 @@ sum(numsaques) as numsaquesA,round(( sum(case when numsaques != 0 then mediasaqu
  FROM statisticssports.jugador where id_jugador='$idjug' and id_equipo='$ideq' group by id_jugador,id_equipo;");
 while ($fila = $base->extraer_registro()) {
     foreach ($fila as $indice => $valor) {
-        //Guardamos el NOMBRE
         if($indice=="id_jugador"){
             $this->id_jugador=$valor;
         }
-        //Guardamos el puesto
         if($indice=="nombre"){
             $this->nombre_jug=$valor;
         }
         if($indice=="puesto"){
             $this->puesto= $valor;
         }
-        //Guardamos el puesto
         if($indice=="numcolocacionesA"){
             $this->numcolocaciones=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediacolocacionesA"){
             $this->mediacolocaciones=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numrecibirA"){
             $this->numrecibir=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediarecibirA"){
             $this->mediarecibir=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numerodefenderA"){
             $this->numerodefender=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediadefenderA"){
             $this->mediadefender=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numeroataqueA"){
             $this->numeroataque=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediaataqueA"){
             $this->mediataque=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numerobloquearA"){
             $this->numerobloquear=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediabloquearA"){
             $this->mediabloquear=$valor;
         }
-        //Guardamos el puesto
         if($indice=="numsaquesA"){
             $this->numsaques=$valor;
         }
-        //Guardamos el puesto
         if($indice=="mediasaquesA"){
             $this->mediasaques=$valor;
         }
     }
 }
         
-        }
-
+}
+        /**
+        * Función que toma como parámetros $accion,$media,$id,$base,$numero,$ideq,$partido,$set
+        * y actualiza el valor del numero de esa acción en la base de datos teniendo en cuenta
+        * que si hay más de un valor hay que hacer la media.
+        */
         private function operacionesactualizar($accion,$media,$id,$base,$numero,$ideq,$partido,$set){
             $valor_anterior_Num;
             $base->consulta("SELECT $numero FROM jugador where ID_JUGADOR='$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
@@ -125,6 +131,10 @@ while ($fila = $base->extraer_registro()) {
             $base->consulta("UPDATE jugador SET $accion = '$valor_nuevo_Med' WHERE ID_Jugador = '$id' and ID_EQUIPO='$ideq' and partido='$partido' and num_set='$set';");
         }
         
+         /**
+         * Función que utiliza la función operacionesactualizar para actualizar el valor
+         * de esa acción en la base de datos.
+         */
         public function actualizaraccion($accion,$media,$id,$base,$ideq,$partido,$set) {
             if($accion=='MEDIACOLOCACIONES'){
                 $numero = 'NUMCOLOCACIONES';
@@ -147,6 +157,11 @@ while ($fila = $base->extraer_registro()) {
             }
         }
 
+         /**
+         * Función que asigna los valores de los atributos privados a las diferentes posiciones de $array
+         * y devuelve el array construido.
+         * @return array 
+         */
         public function getJugador(){
             $array[0] = $this->id_jugador;
             $array[1] = $this->nombre_jug;
