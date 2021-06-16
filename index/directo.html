@@ -1,3 +1,7 @@
+<!--
+    Este archivo lo que hace es manejar los partidos, creandolos y
+    manejando los jugadores de cada equipo.
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -92,24 +96,25 @@
     <script src="./jugadores.js"></script>
     <script src="./selectpartido.js"></script>
     <script>
-        /* FALTA DIRECTO Y BASEDATOS.PHP*/
+        /*
+        * Se inicializa varios valores para el inicio de un partido. 
+        */
         var set_juego = 'J';
         var num_partido
-        var id_eq1 = 1;//localStorage.getItem("numero equipo...etc");
+        var id_eq1 = 1;
         var id_eq2 = 2;
-        // Botton que borra el div en el que se encuentra
+
         const equis = document.createElement("button")
         equis.innerHTML = "X"
-
         equis.addEventListener("click", borrarElemento)
         function borrarElemento(e) {
             e.preventDefault()
             let di_padre = this.parentElement
             di_padre.remove()
         }
-
-        //JUGADORES
-        // EQUIPO, JUGADOR, ACCION, VALOR
+        /**
+         * Estructura para los equipos y sus jugadores.
+        */
         let array = []
         var array2 = array.slice()
         let jug1 = document.getElementById('jug-1')
@@ -118,42 +123,39 @@
         let jug4 = document.getElementById('jug-4')
         let jug5 = document.getElementById('jug-5')
         let jug6 = document.getElementById('jug-6')
-        //***************************ULTIMA PARTE MARTA*****************************************************************
         let jug7 = document.getElementById('jug-7')
-        //BEA*****************************************************************
         let jug12 = document.getElementById('jug-12')
         let jug22 = document.getElementById('jug-22')
         let jug32 = document.getElementById('jug-32')
         let jug42 = document.getElementById('jug-42')
         let jug52 = document.getElementById('jug-52')
         let jug62 = document.getElementById('jug-62')
-        //***************************ULTIMA PARTE MARTA*****************************************************************
         let jug72 = document.getElementById('jug-72')
 
-
-
-        // Primer estado. No tiene jugador se le asigna
-        //EQUIPO 1
+        /**
+         * Se les asigna a los jugadores un evento que al se clickeado
+         * puedas insertar un jugador al partido.
+        */
         document.getElementById("campo").childNodes.forEach(element => {
             if (element.nodeName == "DIV") {
                 element.addEventListener("click", jugadorBase)
             }
         });
-
-        //EQUIPO 2
         document.getElementById("campo2").childNodes.forEach(element => {
             if (element.nodeName == "DIV") {
                 element.addEventListener("click", jugadorBase)
             }
         });
 
-
+        /**
+         * La funcion sirve para crear un menu donde puedas seleccionar una accion y
+         * darle un puntaje.
+        */
         function tablaAcciones() {
             if (document.getElementById("d-accion")) {
                 document.getElementById("d-accion").remove()
             }
             var idjug = this.childNodes[0].innerHTML
-            console.log(idjug);
             let bt_editar = document.createElement("button")
             bt_editar.setAttribute("id", "bt-editar-" + this.getAttribute("id").split("-")[1])
             bt_editar.innerHTML = "CAMBIAR JUGADOR"
@@ -199,7 +201,6 @@
             va4.setAttribute('id', "va-4")
             va4.innerHTML = 4
 
-
             d_padre.appendChild(bt_editar)
             d_padre.appendChild(p1)
             d_padre.appendChild(bt_a1)
@@ -214,7 +215,7 @@
             d_padre.appendChild(va2)
             d_padre.appendChild(va3)
             d_padre.appendChild(va4)
-            /* SEPARAR ARRAY PARA DIFERENCIAR EQUIPOS */
+
             if (this.parentNode.getAttribute("id") == "campo") {
                 array[0] = parseInt(JSON.parse(localStorage.getItem("partido"))["local"])
             } else if (this.parentNode.getAttribute("id") == "campo2") {
@@ -222,14 +223,10 @@
             }
             array2 = array.slice()
 
-
             array2[1] = parseInt(idjug)
             if (array2.length > 2) {
                 array2.splice(1, 1)
-                console.log("PASA POR AQUI");
             }
-            console.log(array2);
-
 
             d_padre.childNodes.forEach(element => {
                 if (element.nodeName == "BUTTON") {
@@ -244,6 +241,10 @@
             });
             document.body.appendChild(d_padre)
         }
+        /**
+         * Esta funcion sirve para cuando pulses una accion se meta en un array que
+         * al insertar en la base de datos funcione correctamente.
+        */
         function accion(e) {
             e.preventDefault()
             let doc = document.getElementById("d-accion")
@@ -256,15 +257,16 @@
             pulsado = this.getAttribute("id").split("-")[1]
             v3 = pulsado
             p.innerHTML = "ACCION = " + v3
-            //OPCION 1 - DEVOLVER EL VALOR V3 E INTENTAR METERLO EN EL ARRAY
-            //OPCION 2 - DIRECTAMENTE METER EL VALOR EN EL ARRAY
             array2[2] = v3
             if (array2.length > 3) {
                 array2.splice(2, 1)
             }
-            console.log(array2);
             doc.appendChild(p)
         }
+        /**
+         * Esta funcion lo que hace es que al ser pulsado un puntaje,
+         * este se añada al array y aparezca en pantalla.
+        */
         function valor(e) {
             e.preventDefault()
             let doc = document.getElementById("d-accion")
@@ -281,7 +283,6 @@
             if (array2.length > 4) {
                 array2.splice(4, 1)
             }
-            console.log(array2);
             let env = document.createElement("button")
             env.innerHTML = "ENVIAR DATOS"
             env.setAttribute('id', 'enviard')
@@ -289,11 +290,13 @@
             doc.appendChild(pv)
             doc.appendChild(env)
         }
+        /**
+         * Esta funcion sirve para que cuando ya hayan datos se puedan insertar en la base de datos.
+        */
         function enviarDatos(e) {
             let num_set = parseInt(localStorage.getItem("set"))
-            //METER PARTIDO Y SET
-            array2[4] = num_partido; /* !!!!!!!!!!!!!!!!! PARTIDO !!!!!!!!!!!!!!!!!*/
-            array2[5] = num_set; /* !!!!!!!!!!!!!!! NUM SET !!!!!!!!!!!!!!!!*/
+            array2[4] = num_partido;
+            array2[5] = num_set; 
             e.preventDefault()
             document.getElementById("d-accion").remove()
             var req
@@ -305,34 +308,31 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        console.log(req.response)
-                        console.log("DATOS MANDADOS CON ÉXITO")
                     }
                 }
             }
             req.open("GET", "../server/servidor.php?array=" + JSON.stringify(array2));
             req.send()
         }
-        // PARTE MARTA
+
         let bt_p = document.getElementById("punto")
         bt_p.addEventListener('click', resultadoPartido)
+        /**
+         * Lo que hace esta funcion es añadir un punto al equipo izquierdo.
+        */
         function resultadoPartido() {
-            console.log("===================================================" + set_juego)
-            //COLORES***************************************
             document.getElementById("puntoR").style.backgroundColor = ""
             document.getElementById("puntoReset").style.backgroundColor = ""
             document.getElementById("puntoR2").style.backgroundColor = ""
             document.getElementById("punto2").style.backgroundColor = ""
 
-
             let puntos = parseInt(document.getElementById("puntos").value) + 1
             document.getElementById("puntos").setAttribute("value", puntos.toString())
-            //[numPartido,equipo(1o2),set]
             if (set_juego == 'F') {
                 set_juego = 'J';
             }
             let num_set = parseInt(localStorage.getItem("set"))
-            var arrayp1 = [num_partido, id_eq1, num_set] /* NUM PARTIDO, EQUIPO, SET */ // ESTE NUMERO DE EQUIPO QUE SIGNIFICA
+            var arrayp1 = [num_partido, id_eq1, num_set]
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -342,7 +342,6 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        console.log(req.responseText)
                         bt_p.style.backgroundColor = " ";
                     }
                 }
@@ -353,8 +352,10 @@
 
         let bt_pRest = document.getElementById("puntoR")
         bt_pRest.addEventListener('click', resultadoPartido2)
+        /**
+         * Lo que hace esta funcion es que al sel clickeado resta un punto al equipo izquierdo.
+        */
         function resultadoPartido2() {
-            //colores
             document.getElementById("punto").style.backgroundColor = ""
             document.getElementById("puntoReset").style.backgroundColor = ""
             document.getElementById("puntoR2").style.backgroundColor = ""
@@ -363,11 +364,10 @@
             let puntos = parseInt(document.getElementById("puntos").value) - 1
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             if (set_juego == 'F') {
-                //num_set = num_set + 1;
                 set_juego = 'J';
             }
             let num_set = parseInt(localStorage.getItem("set"))
-            var arrayp1 = [num_partido, id_eq1, num_set] /* NUM PARTIDO, EQUIPO, SET */ // ESTE NUMERO DE EQUIPO QUE SIGNIFICA
+            var arrayp1 = [num_partido, id_eq1, num_set]
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -377,13 +377,15 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        console.log(req.responseText)
                     }
                 }
             }
             req.open("GET", "../server/servidor.php?puntosMenos=" + JSON.stringify(arrayp1));
             req.send()
         }
+        /**
+         * Lo que hace esta funcion es sumar un set al partido.
+        */
         function sumarset(equipo) {
             let arrayp1
 
@@ -400,20 +402,20 @@
             }
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        console.log(req.responseText)
-
-                    }
+                    if (req.status == 200) {}
                 }
             }
             req.open("GET", "../server/servidor.php?setMas=" + JSON.stringify(arrayp1));
             req.send()
         }
 
-        //filtroA = [10,1,1]
+        /**
+         * La funcion lo que hace es buscar el partido e imprimir una tabla.
+         * @param array1
+         * @param doc
+         * Por parametros se toma el array1 que es un array compuesto por equipo,partido y set. Doc es la ubicacion en el dom.
+        */
         function filtrarDatos(array1, doc) {
-            //equipo,partido,set
-            // Recogemos el filtro pedido por input
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -429,7 +431,6 @@
                         } else {
                             alert("Introduce un filtro válido")
                         }
-                        console.log(req.responseText)
                     }
                 }
             }
@@ -437,17 +438,20 @@
             req.open("GET", "../server/servidor.php?filtrodirecto1=" + JSON.stringify(array1));
             req.send()
         }
+        /**
+         * Esta funcion sirve para crear una tabla.
+         * @param datos
+         * @param doc
+         * Los parametros utilizados son datos que es un array con jugadores y doc que es la ubicacion en dom.
+        */
         function imprimirTabla(datos, doc) {
-
             doc.innerHTML = ''
 
-            // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
             tabla.setAttribute("class", "index")
 
-            //Creo la fila de titulos
             var fila = document.createElement("tr");
 
             titulos = ["ID", "NOMBRE", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
@@ -461,8 +465,6 @@
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
 
-
-            //CREO EL RESTO DE FILAS
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
                 for (var j = 0; j < 15; j++) {
@@ -476,15 +478,17 @@
         }
 
         let bt_pr = document.getElementById("puntoReset")
+        /**
+         * Lo que hace este evento es que al ser pulsado,
+         * reestablece el dom como si empezara de nuevo.
+        */
         bt_pr.addEventListener('click', function () {
-            /* PARTE MARTA */
             jug1.innerHTML = '';
             jug2.innerHTML = '';
             jug3.innerHTML = '';
             jug4.innerHTML = '';
             jug5.innerHTML = '';
             jug6.innerHTML = '';
-            //***************************ULTIMA PARTE MARTA*****************************************************************
             jug7.innerHTML = '';
             document.getElementById("campo").childNodes.forEach(element => {
                 if (element.nodeName == "DIV") {
@@ -498,7 +502,6 @@
             jug42.innerHTML = '';
             jug52.innerHTML = '';
             jug62.innerHTML = '';
-            //***************************ULTIMA PARTE MARTA*****************************************************************
             jug72.innerHTML = '';
 
             document.getElementById("campo2").childNodes.forEach(element => {
@@ -507,8 +510,6 @@
                     element.addEventListener("click", jugadorBase)
                 }
             })
-
-            //COLORES******************************************
             document.getElementById("puntoR").style.backgroundColor = ""
             document.getElementById("punto").style.backgroundColor = ""
             document.getElementById("puntoR2").style.backgroundColor = ""
@@ -525,7 +526,6 @@
             document.getElementById("puntos").setAttribute("value", puntos.toString())
             set_juego = 'F';
 
-            //****************************************************************************
             let puntos2 = 0
             document.getElementById("puntos2").setAttribute("value", puntos2.toString())
             let doc1 = document.getElementById('infoequipo1')
@@ -537,19 +537,17 @@
             let array2 = [parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"]), num_partido, num_set];
             filtrarDatos(array1, doc1);
             filtrarDatos(array2, doc2);
-            //CAMBIAMOS AQUI EL VALOR DEL LOCALSTORAGE******************************************************************NUEVO MARTA
-            console.log("-----------------------------------------------" + num_set)
             var adios = parseInt(num_set) + 1;
-            console.log("ADIOS1--------------------------------" + adios)
             localStorage.setItem("set", adios);
             let num_setx = localStorage.getItem("set");
-            console.log("-----------------------------------------------" + num_setx)
         });
-        //***********************************BEA********************************************
+
         let bt_p2 = document.getElementById("punto2")
         bt_p2.addEventListener('click', resultadoPartido3)
+        /**
+         * Esta funcion lo que hace es sumar un punto al equipo del lado derecho.
+        */
         function resultadoPartido3() {
-            //COLORES
             document.getElementById("puntoR").style.backgroundColor = ""
             document.getElementById("puntoReset").style.backgroundColor = ""
             document.getElementById("puntoR2").style.backgroundColor = ""
@@ -568,7 +566,6 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        console.log(req.responseText)
                     }
                 }
             }
@@ -577,9 +574,10 @@
         }
         let bt_pRest2 = document.getElementById("puntoR2")
         bt_pRest2.addEventListener('click', resultadoPartido4)
-
+        /**
+         * Esta funcion lo que hace es restar un punto al equipo izquierdo.
+        */
         function resultadoPartido4() {
-            //COLORES*************************************
             document.getElementById("puntoR").style.backgroundColor = ""
             document.getElementById("puntoReset").style.backgroundColor = ""
             document.getElementById("punto").style.backgroundColor = ""
@@ -597,7 +595,6 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        console.log(req.responseText)
                     }
                 }
             }
@@ -605,14 +602,13 @@
             req.send()
         }
         /**
-         * LO DE LAS TECLAS
-         * */
+         * Se añaden shortcuts para que se pueda utilizar la pagina de manera mas rapida 
+         * por teclado.
+        */
         document.addEventListener('keydown', event => {
-            //LAS TELCAS DE LAS ACCIONES
             if (event.keyCode === 81) { //Q
                 document.getElementById('acc-C').style.backgroundColor = "red";
                 document.getElementById('acc-C').click();
-
             } else if (event.keyCode === 87) { //W
                 document.getElementById('acc-R').style.backgroundColor = "red";
                 document.getElementById('acc-R').click();
@@ -649,7 +645,6 @@
                 document.getElementById('va-4').click();
                 document.getElementById('enviard').click();
             }
-            //LAS TELCAS DE LOS PUNTOS
             else if (event.keyCode === 65) {//A
                 document.getElementById('punto').style.backgroundColor = "red";
                 document.getElementById('punto').click();
@@ -668,13 +663,11 @@
             }
         }, false)
 
-
-
-
-
-        //NUEVO MARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         let bt_fp = document.getElementById("finpartido")
         bt_fp.addEventListener('click', findepartido)
+        /**
+         * Esta funcion lo que hace es finalizar el partido.
+        */
         function findepartido() {
             var arrayfp = [num_partido, parseInt(JSON.parse(localStorage.getItem("partido"))["local"]), parseInt(JSON.parse(localStorage.getItem("partido"))["visitante"])]
             let req
@@ -686,7 +679,6 @@
             req.onreadystatechange = function () {
                 if (req.readyState == 4) {
                     if (req.status == 200) {
-                        console.log(req.responseText)
                     }
                 }
             }

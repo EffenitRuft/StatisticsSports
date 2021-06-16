@@ -1,3 +1,6 @@
+<!--
+    Este archivo lo que hace es mostrar las estadistica de un partido entre dos equipos
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -59,8 +62,6 @@
         if (localStorage.getItem("usuario") == null) {
             var botonUsuario = document.getElementById("log");
             botonUsuario.onclick = function () {
-                // Se le añade funcionalidad al boton para enviar datos y 
-                // confirmar que exista o no
                 usuario[0] = document.getElementById("usu").value;
                 usuario[1] = document.getElementById("pass").value;
                 localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -105,10 +106,11 @@
         }
 
         /* 
-       *  La funciona lo que hace es dependiendo de los valores,
-       *  busca los equipos que se le pase.
-       *  Devuelve los valores creando una tabla.
-       */
+        *  La funcion lo que hace es dependiendo de sus valores,
+        *  devuelve un partido u otro.
+        *  Por lo que enseña todos los jugadores y devuelve los 
+        *  valores creando una tabla.
+        */
 
         function filtrarDatos(filtro, doc) {
             let req
@@ -134,22 +136,21 @@
             req.open("GET", "../server/servidor.php?filtropartidoestadistica=" + JSON.stringify(filtro));
             req.send()
         }
-
         /*
-        *  Constructor de las tablas.
+        *  Esta funcion crea las tablas.
+        *  @param datos
+        *  @param doc
+        *  Toma como parametros un array de datos que incluye, el id,nombre,equipo,puesto, colocaciones y las acciones con sus porcentajes.
+        *  Y doc que es el div donde va la tabla.
         */
-
         function imprimirTabla(datos, doc) {
-
             doc.innerHTML = ''
 
-            // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
             tabla.setAttribute("class", "index")
 
-            //Creo la fila de titulos
             var fila = document.createElement("tr");
 
             titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
@@ -163,8 +164,6 @@
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
 
-
-            //CREO EL RESTO DE FILAS
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
                 for (var j = 0; j < 16; j++) {
@@ -177,7 +176,13 @@
             }
         }
 
-        // Para poder identificar a los equipos en la pagina
+        /*
+        * Funcion que crea los nombres para poder identificar los equipos en el dom.
+        * @param tipid
+        * @param idequip
+        * Toma como parametros tipid que es el equipo cual me quiero referir e
+        * idequip que es el nombre del equipo.
+        */
         function crearNombre(tipid, idequip) {
             if (tipid == "id1") {
                 let doc = document.getElementById('divTabla1')
@@ -193,7 +198,9 @@
             }
         }
 
-        // Se recoge los valores pasados por URL
+        /*
+        * Esta funcion recoge en la cabecera los equipos pasados por un GET.
+        */
         function cabeceras() {
             var parts = window.location.search.substr(1).split("&");
             var $_GET = {};
@@ -207,7 +214,10 @@
             return $_GET;
         }
 
-        //  Al cargar pagina se ejectuan todas las funciones anteriores,
+        /*
+        * Al cargar la pagina se ejecutan las funciones y se filtran los datos.
+        * Tambien comprueba si existe el usuario.
+        */
         window.onload = function () {
             let array = cabeceras()
             let opcion1 = 'a';

@@ -1,3 +1,9 @@
+<!--
+    Pagina en referencia a la liga masculina SuperLiga 2 en 
+    clasificacion.
+    Las funciones que tiene son de comprobacion
+    de usuario y de mostrar datos de equipos.
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -60,8 +66,6 @@
             var botonUsuario = document.getElementById("log");
 
             botonUsuario.onclick = function () {
-                // Se le añade funcionalidad al boton para enviar datos y 
-                // confirmar que exista o no
                 usuario[0] = document.getElementById("usu").value;
                 usuario[1] = document.getElementById("pass").value;
                 localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -80,7 +84,7 @@
             }
         }
 
-        // Funcion para buscar en la base de datos al usuario.
+        // Funcion para buscar en la base de datos al usuario y comprobar si son correctos los resultados.
         function enviarDatos() {
             let usuario = document.getElementById("usu").value;
             let contra = document.getElementById("pass").value;
@@ -105,8 +109,8 @@
             req.send("login=" + JSON.stringify(array1))
         }
         /* 
-       *  La funciona lo que hace es dependiendo del valor deseado,
-       *  se muestran unos jugadores u otros.
+       *  La funcion lo que hace es dependiendo del valor,
+       *  se muestran unos equipos u otros.
        *  Devuelve los valores creando una tabla.
        */
         function filtrarDatos() {
@@ -133,8 +137,10 @@
             req.send()
         }
 
-        /*
-        *  Constructor de las tablas.
+       /*
+        *  Esta funcion crea las tablas.
+        *  @param datos
+        *  Toma como parametro un array de datos que incluye, el id,nombre,equipo,puesto, colocaciones y las acciones con sus porcentajes.
         */
 
         function imprimirTabla(datos) {
@@ -142,13 +148,11 @@
             let doc = document.getElementById('divTabla')
             doc.innerHTML = ''
 
-            // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("class", "clasificacion")
             tabla.setAttribute("id", "tabla")
 
-            //Crea la fila de titulos
             var fila = document.createElement("tr");
             titulos = ["EQUIPO", "PUNTOS", "PUNTOS CONTRA", "PUNTOS FAVOR", "SETS CONTRA", "SETS FAVOR", "JUGADOS", "G3", "G2", "P1", "P0"]
             for (var j = 0; j < 11; j++) {
@@ -161,8 +165,6 @@
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
 
-
-            //Crea el resto de filas
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
                 for (var j = 0; j < 11; j++) {
@@ -176,7 +178,7 @@
         }
 
         /*
-        *  Constructor de inicio.
+        *  Este comprobador lo que hace es inicializar la pagina
         *  Al iniciar pagina se muestran tablas y
         *  si no estas logeado se añade el formulario.
         */

@@ -1,11 +1,14 @@
 /*
-* Constructor de jugadores. Sirve para poder asignar jugadores
-* y poder cambiar el jugador de cada equipo.
+ *  Este archivo sirve para asignar los jugadores de manera visual y en la base de datos. 
+ */
+
+/*
+*  Esta funcion lo que hace es buscar en la base de datos los jugadores 
+*  y los pasa por otra funcion.
 */
 function jugadorBase() {
     let clicked = this.getAttribute("id")
     let idequip
-    // Parte de cambiar de jugador
     if (clicked.includes("bt-editar-") === true) {
         document.getElementById("d-accion").remove()
         clicked = "jug-" + clicked.split("-")[2].toString()
@@ -16,12 +19,12 @@ function jugadorBase() {
             idequip = JSON.parse(localStorage.getItem("partido"))["visitante"]
         }
     }
-    // Separador para saber a que equipo pertenece.
     if (this.parentNode.getAttribute("id") == "campo") {
         idequip = JSON.parse(localStorage.getItem("partido"))["local"]
     } else if (this.parentNode.getAttribute("id") == "campo2") {
         idequip = JSON.parse(localStorage.getItem("partido"))["visitante"]
     }
+
     var req
     if (window.XMLHttpRequest) {
         req = new XMLHttpRequest();
@@ -39,7 +42,15 @@ function jugadorBase() {
     req.send()
 }
 
-// Constructor para elegir jugadores cuando salga la ventana.
+/*
+ * Esta funcion lo que hace es crear un select con jugadores.
+ * @param equipo 
+ * @param clicked 
+ * @param idequip 
+ * Toma como parametros equipo que es un array de jugadores,
+ * clicked que es el div clickeado y idequip que es el id del equipo al
+ * que pertenece
+ */
 
 function jugadores(equipo, clicked, idequip) {
     const idjug = clicked
@@ -50,15 +61,13 @@ function jugadores(equipo, clicked, idequip) {
 
     const dom_equipo1 = ["jug-1", "jug-2", "jug-3", "jug-4", "jug-5", "jug-6", "jug-7"]
     const dom_equipo2 = ["jug-12", "jug-22", "jug-32", "jug-42", "jug-52", "jug-62", "jug-72"]
-    //RECOGE EQUIPO
+
     let opts = equipo
-    // Comprobador para que no se repitan jugadores
     if (dom_equipo1.includes(clicked)) {
         let dom_campo1 = document.getElementById("campo").children
         let dentro = []
         for (let a = 0; a < dom_campo1.length; a++) {
             if (dom_campo1[a].hasChildNodes()) {
-                //SI TIENE HIJO MIRA CUAL ES Y LO METE A JUGANDO
                 dentro.push(dom_campo1[a].firstChild.innerHTML)
             }
         }
@@ -80,7 +89,6 @@ function jugadores(equipo, clicked, idequip) {
         let dentro = []
         for (let a = 0; a < dom_campo2.length; a++) {
             if (dom_campo2[a].hasChildNodes()) {
-                //SI TIENE HIJO MIRA CUAL ES Y LO METE A JUGANDO
                 dentro.push(dom_campo2[a].firstChild.innerHTML)
             }
         }
@@ -101,14 +109,16 @@ function jugadores(equipo, clicked, idequip) {
     let bt_asignar = document.createElement("button")
     bt_asignar.setAttribute('id', "bt-asignar")
     bt_asignar.innerHTML = "ASIGNAR JUGADOR"
-
     div.appendChild(select)
     div.appendChild(bt_asignar)
+    
     document.getElementById('main').appendChild(div)
-
     document.getElementById(idjug).removeEventListener('click', jugadorBase)
 
-    // Evento para añadir el numero del jugador al DOM
+    /*
+     *  Este evento lo que hace es al clickear se pone el numero del jugador,
+     *  añade a la base de datos un jugador por partido y set.
+     */
     bt_asignar.addEventListener('click', function (e) {
         let num_jugador = 0;
         e.preventDefault()
@@ -123,13 +133,6 @@ function jugadores(equipo, clicked, idequip) {
             jug.appendChild(p)
             num_jugador = p.innerHTML;
         }
-        /*
-        *  Se añade jugador a la base de datos 
-        *  por partido y set, por lo que puede existir
-        *  el mismo jugador en el mismo partido pero
-        *  jugando diferentes sets.
-        */
-
         let num_set = localStorage.getItem("set")
         let arrayJ = [parseInt(num_jugador), parseInt(idequip), num_partido, parseInt(num_set)]
         addJugador(arrayJ)
@@ -139,7 +142,11 @@ function jugadores(equipo, clicked, idequip) {
     })
 }
 
-// Añade jugador a la base de datos.
+/*
+ *  Esta funcion lo que hace es añadir a la base de datos el jugador.
+ *  @param array 
+ *  Toma como parametro un array con el numero de jugador, id del equipo, partido y set.
+ */
 function addJugador(array) {
     var req
     if (window.XMLHttpRequest) {
@@ -158,8 +165,10 @@ function addJugador(array) {
 }
 
 /*
-*  Al seleccionar equipo aparece en la pagina para identificar los campos 
-*/
+ *  Esta funcion lo que hace buscar en la base de datos el equipo
+ *  @param {*} id 
+ *  Toma como parametro el id del equipo
+ */
 function darEquipo(id) {
     var req
     if (window.XMLHttpRequest) {

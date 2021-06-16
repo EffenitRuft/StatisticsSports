@@ -1,3 +1,8 @@
+<!--
+    Pagina de inicio al entrar a la pagina web.
+    Las funciones que tiene son de comprobacion
+    de usuario y de mostrar datos de jugadores.
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -84,8 +89,6 @@
 
         if (localStorage.getItem("usuario") == null) {
             var botonUsuario = document.getElementById("log");
-            // Se le añade funcionalidad al boton para enviar datos y 
-            // confirmar que exista o no
             botonUsuario.onclick = function () {
                 usuario[0] = document.getElementById("usu").value;
                 usuario[1] = document.getElementById("pass").value;
@@ -105,7 +108,7 @@
             }
         }
 
-        // Funcion para buscar en la base de datos al usuario.
+        // Funcion para buscar en la base de datos al usuario y comprobar si son correctos los resultados.
         function enviarDatos() {
             let usuario = document.getElementById("usu").value;
             let contra = document.getElementById("pass").value;
@@ -202,11 +205,13 @@
 
         let bt_puesto = document.getElementById("bt-filtrarPUESTO")
         bt_puesto.addEventListener('click', filtrarDatosPUESTO)
+
         /*
         *  Filtro por puesto recoge el valor del option y 
         *  los valores anteriores. Hace una busqueda a la base de datos y 
         *  devuelve los valores creando una tabla.
         */
+
         function filtrarDatosPUESTO() {
             let liga = document.getElementById("in-p").value
             let filtro = document.getElementById("in-EQ").value
@@ -232,25 +237,19 @@
             req.open("GET", "../server/servidor.php?filtroEquipo=" + filtro + "&filtro=" + liga + "&filtroPuesto=" + puesto);
             req.send()
         }
-
         /*
-        *  Constructor de las tablas.
+        *  Esta funcion crea las tablas.
+        *  @param datos
+        *  Toma como parametro un array de datos que incluye, el id,nombre,equipo,puesto, colocaciones y las acciones con sus porcentajes.
         */
-
         function imprimirTabla(datos) {
-
             let doc = document.getElementById('divTabla')
             doc.innerHTML = ''
-
-            // Crea un elemento <table> y un elemento <tbody>
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
             tabla.setAttribute("id", "tabla")
             tabla.setAttribute("class", "index")
-
-            //Crea la fila de titulos
             var fila = document.createElement("tr");
-
             titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
             for (var j = 0; j < 16; j++) {
                 var celda = document.createElement("td");
@@ -262,8 +261,6 @@
             tabla.appendChild(tblBody);
             doc.appendChild(tabla);
 
-
-            //Crea el resto de filas
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
                 for (var j = 0; j < 16; j++) {
@@ -277,10 +274,10 @@
         }
 
         /*
-       *  Constructor de inicio.
-       *  Al iniciar pagina se muestran tablas y
-       *  si no estas logeado se añade el formulario.
-       */
+        *  Este comprobador lo que hace es inicializar la pagina
+        *  Al iniciar pagina se muestran tablas y
+        *  si no estas logeado se añade el formulario.
+        */
 
         if (localStorage.getItem("usuario") == null) {
             window.onload = function () {
@@ -298,8 +295,9 @@
         }
 
         /*
-        *  Para dar valor a los select se utilizan estas dos funciones,
-        *  para buscar en la base de datos y para crear el select.
+        *  Esta funcion lo que hace es buscar en la base de datos y pasar por otra funcion.
+        *  @param liga
+        *  Recoge un parametro que es el valor de liga.
         */
         function cogerequipos(liga) {
             $liga = liga;
@@ -322,6 +320,12 @@
             req.open("GET", "../server/servidor.php?equipoLiga=" + liga);
             req.send()
         }
+
+        /*
+        *  Esta funcion lo que hace es dar los valores al select y añadirlos al dom.
+        *  @param equipos
+        *  Recoge un parametro que es un array de equipos.
+        */
 
         function darvalorLista(equipos) {
             selectpadre = document.getElementById("in-EQ")

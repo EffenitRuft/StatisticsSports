@@ -1,10 +1,14 @@
+/**
+ * Este archivo sirve para el inicio de directo donde se creara el equipo
+ * y dar valores visuales para el reconocimiento.
+ */
 seleccionarPartido()
 /**
- * Constructor de selector de partidos.
+ * Esta funcion sirve para la creacion de partidos
  * Este crea el formulario y los selects con opciones correspondientes.
  */
 function seleccionarPartido() {
-    // Formulario para insertar datos de partido
+
     const di_padre = document.getElementById("directo")
     const di_form = document.createElement("div")
     di_form.setAttribute("id", "form")
@@ -17,21 +21,21 @@ function seleccionarPartido() {
     inp1.setAttribute("id", "npartido")
     inp1.setAttribute("name", "npartido")
     inp1.setAttribute("required", "")
-    // EQUIPO LOCAL
+
     const l2 = document.createElement("label")
     l2.setAttribute("for", "local")
     l2.innerHTML = "EQUIPO LOCAL"
     const inp2 = document.createElement("select")
     inp2.setAttribute("id", "local")
     inp2.setAttribute("name", "local")
-    // EQUIPO VISITANTE
+
     const l3 = document.createElement("label")
     l3.setAttribute("for", "visitante")
     l3.innerHTML = "EQUIPO VISITANTE"
     const inp3 = document.createElement("select")
     inp3.setAttribute("id", "visitante")
     inp3.setAttribute("name", "visitante")
-    // SELECCIONAR LIGA
+
     const l4 = document.createElement("label")
     l4.setAttribute("for", "id_liga")
     l4.innerHTML = "SELECCIONA LIGA"
@@ -78,10 +82,11 @@ function seleccionarPartido() {
     di_form.appendChild(formu)
     di_padre.appendChild(di_form)
 
-    // Por defecto se seleccionara los valores de MASCULINO SUPERLIGA 1
     damEquipos(sel1.value, inp2, inp3)
-
-    // Cuando se pulsa, este recoge los valores y crea el partido
+    /**
+     * Este evento lo que hace es que al clickear recoge los valores
+     * y crea el partido en la base de datos.
+     */
     bt.addEventListener("click", function (e) {
         e.preventDefault()
         const dat1 = document.getElementById("npartido").value
@@ -93,7 +98,6 @@ function seleccionarPartido() {
 
         localStorage.setItem("set", 1)
 
-        // Identifica los equipos
         const partido = JSON.parse(localStorage.getItem("partido"))
 
         buscarEquipo(partido["local"])
@@ -101,27 +105,28 @@ function seleccionarPartido() {
         num_partido = parseInt(JSON.parse(localStorage.getItem("partido"))["npartido"])
         let arrayP = [parseInt(dat2), parseInt(dat3), parseInt(dat1), dat4]
         
-        // Se crea el partido en la base de datos.
         addPartido(arrayP)
         di_form.remove()
     })
 
+    /**
+     * Este evento lo que hace es que al haber un cambio se cambien los equipos 
+     */
     sel1.addEventListener("change", function () {
-        // CADA VEZ QUE HAYA UN CAMBIO LE PIDO EQUIPOS AL SERVIDOR
         damEquipos(sel1.value, inp2, inp3)
     })
 }
-
-//CONSTRUCTOR DE EQUIPOS
+/**
+ * Esta funcion lo que hace es crear las opciones del select con equipos
+ * @param eqs 
+ * @param domeqs 
+ * Toma como parametros eqs que es un array de equipos y domeqs que es el select a crear.
+ */
 function selectEquipos(eqs, domeqs) {
-    //SPLITEO LOS RESULTADO
     equipos = eqs.split(":")
-    //SACO EL ULTIMO
     equipos.pop()
-    //RECORRO LOS DOS SELECTS
     for (let a = 0; a < domeqs.length; a++) {
         domeqs[a].innerHTML = ""
-        //ASIGNO LAS OPCIONES PARA LOS DOS EQUIPOS
         for (let i = 0; i < equipos.length; i++) {
             let opcion = document.createElement("option")
             opcion.setAttribute("value", equipos[i].split("-")[0])
@@ -130,8 +135,13 @@ function selectEquipos(eqs, domeqs) {
         }
     }
 }
-
-// SE BUSCAN LOS VALORES EN LA BASE DE DATOS
+/**
+ * Esta funcion lo que hace es buscar en la base de datos los equipos.
+ * @param valor 
+ * @param inp2 
+ * @param inp3 
+ * Toma como parametro valor que es la liga, inp2 que es un select y inp3 que es otro select
+ */
 function damEquipos(valor, inp2, inp3) {
     var req
     if (window.XMLHttpRequest) {
@@ -149,9 +159,11 @@ function damEquipos(valor, inp2, inp3) {
     req.open("GET", "./basedatos.php?equipoLiga=" + valor);
     req.send()
 }
-
-
-//AÑADIR PARTIDO EN LA BASE DE DATOS
+/**
+ * Esta funcion lo que hace es añadir un partido a la base de datos.
+ * @param array 
+ * Toma como parametro array que dentro lleva el id del partido, equipo local, equipo visitante y liga.
+ */
 function addPartido(array) {
     var req
     if (window.XMLHttpRequest) {
@@ -168,11 +180,11 @@ function addPartido(array) {
     req.open("GET", "../server/servidor.php?addPartido=" + JSON.stringify(array));
     req.send()
 }
-
-/*
-*  SE BUSCA EL PARTIDO EN LA BASE DE DATOS
-*  Y SE AÑADE EL NOMBRE DEL EQUIPO PARA IDENTIFICAR
-*/
+/**
+ * Lo que hace esta funcion es buscar el partido en la base de datos y añadir el nombre para identifcar en el dom.
+ * @param {*} id 
+ * Toma como parametro el id del partido.
+ */
 function buscarEquipo(id) {
     var req
     if (window.XMLHttpRequest) {

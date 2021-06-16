@@ -1,3 +1,6 @@
+<!--
+    Este archivo lo que hace enseñar los partidos que se han jugado con sus estadisticas.
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -83,15 +86,13 @@
         var botonUsuario = document.getElementById("log");
 
         botonUsuario.onclick = function () {
-            // Se le añade funcionalidad al boton para enviar datos y 
-            // confirmar que exista o no
+
             usuario[0] = document.getElementById("usu").value;
             usuario[1] = document.getElementById("pass").value;
             localStorage.setItem("usuario", JSON.stringify(usuario));
             var arrayCodificado = localStorage.getItem("usuario");
             if (arrayCodificado != null) {
                 usuario = JSON.parse(arrayCodificado);
-                console.log(usuario);
             }
         }
     }
@@ -100,7 +101,7 @@
         var arrayCodificado = localStorage.getItem("usuario");
         if (arrayCodificado != null) {
             usuario = JSON.parse(arrayCodificado);
-            console.log(usuario);
+
         }
     }
 
@@ -167,8 +168,9 @@
     }
 
     /*
-    *  Para dar valor a los select se utilizan estas dos funciones,
-    *  para buscar en la base de datos y para crear el select.
+    *  Esta funcion lo que hace es buscar los equipos en la base de datos por liga.
+    *  @param liga
+    *  Toma como parametro liga que es el nombre de la liga.
     */
     function cogerequipos(liga) {
         $liga = liga;
@@ -192,7 +194,11 @@
         req.send()
     }
 
-    
+    /*
+    *  Esta funcion lo que hace es crear el select con los partidos por liga.
+    *  @param equipos
+    *  Toma como parametro equipos que son es un array de equipos.
+    */
     function darvalorLista(equipos) {
         selectpadre = document.getElementById("in-EQ")
         while (selectpadre.firstChild) {
@@ -230,9 +236,7 @@
         req.onreadystatechange = function () {
             if (req.readyState == 4) {
                 if (req.status == 200) {
-                    console.log(req.responseText)
                     let id = JSON.parse(req.responseText)
-                    console.log(JSON.parse(req.responseText))
                     if (id[0] != "") {
                         imprimirTabla(id)
                     } else {
@@ -244,10 +248,10 @@
         req.open("GET", "../server/servidor.php?filtroEquipopartido=" + filtro + "&filtro=" + liga);
         req.send()
     }
-
-
     /*
-    *  Constructor de tablas para partidos.
+    *  Esta funcion crea las tablas.
+    *  @param datos
+    *  Toma como parametro un array de datos.
     */
     function imprimirTabla(datos) {
         let doc = document.getElementById('divTabla')
@@ -335,10 +339,10 @@
     }
 
     /*
-        *  Constructor de inicio.
-        *  Al iniciar pagina se muestran tablas y
-        *  si no estas logeado se añade el formulario.
-        */
+    *  Este comprobador lo que hace es inicializar la pagina
+    *  Al iniciar pagina se muestran tablas y
+    *  si no estas logeado se añade el formulario.
+    */
 
     if (localStorage.getItem("usuario") == null) {
         window.onload = function () {
