@@ -1,7 +1,8 @@
 <!--
-    Pagina de inicio al entrar a la pagina web.
+    Pagina en referencia a la liga masculina SuperLiga 2 en 
+    clasificacion.
     Las funciones que tiene son de comprobacion
-    de usuario y de mostrar datos de jugadores.
+    de usuario y de mostrar datos de equipos.
 -->
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +14,7 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://kit.fontawesome.com/23b8b8f3dd.js" crossorigin="anonymous"></script>
-    <title>Inicio - StatisticSports</title>
+    <title>Superliga2 Masculina - StatisticSports</title>
 </head>
 
 <body>
@@ -47,37 +48,11 @@
             </ul>
         </nav>
     </header>
-    <div id="directo">
-        <select name="in-p" id="in-p">
-            <option value="todo">TODO</option>
-            <option value="SM">SM</option>
-            <option value="SF">SF</option>
-            <option value="SM2">SM2</option>
-            <option value="SF2">SF2</option>
-        </select>
-        <button id="bt-filtrar">FILTRAR POR LIGA</button>
-        <br><br>
-        <select name="in-EQ" id="in-EQ">
-        </select>
-        <button id="bt-filtrarEQ">FILTRAR POR EQUIPO</button>
-        <br><br>
-
-        <select name="in-PUESTO" id="in-PUESTO">
-            <option value="TODO">TODO</option>
-            <option value="receptor">Receptor</option>
-            <option value="opuesto">Opuesto</option>
-            <option value="central">Central</option>
-            <option value="colocador">Colocador</option>
-            <option value="libero">Libero</option>
-        </select>
-        <button id="bt-filtrarPUESTO">FILTRAR POR PUESTO</button>
-        <br><br>
-    </div>
+    <script src="./login.js"></script>
     <div id="divTabla"></div>
     <footer>
         <p>Web creada por Bea, Alexandru y Marta</p>
     </footer>
-    <script src="./login.js"></script>
     <script>
         /*
         * Control para incio de sesion, se recoge el usuario de localstorage
@@ -89,6 +64,7 @@
 
         if (localStorage.getItem("usuario") == null) {
             var botonUsuario = document.getElementById("log");
+
             botonUsuario.onclick = function () {
                 usuario[0] = document.getElementById("usu").value;
                 usuario[1] = document.getElementById("pass").value;
@@ -132,55 +108,13 @@
             req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             req.send("login=" + JSON.stringify(array1))
         }
-
-        let bt_p = document.getElementById("bt-filtrar")
-        bt_p.addEventListener('click', filtrarDatos)
-
         /* 
-        *  La funcion lo que hace es recoger el valor de filtro 
-        *  dependiendo del valor va cambiando y por defecto es vacio.
-        *  Por lo que enseña todos los jugadores y devuelve los 
-        *  valores creando una tabla.
-        */
+       *  La funcion lo que hace es dependiendo del valor,
+       *  se muestran unos equipos u otros.
+       *  Devuelve los valores creando una tabla.
+       */
         function filtrarDatos() {
-            let filtro = document.getElementById("in-p").value
-            if (filtro === "") {
-                filtro = "todo";
-            }
-            let req
-            if (window.XMLHttpRequest) {
-                req = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                req = ActiveXObject("Microsoft.XMLHTTP");
-            }
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        let id = JSON.parse(req.responseText)
-                        cogerequipos(filtro)
-                        if (id[0] != "") {
-                            imprimirTabla(id)
-                        } else {
-                            alert("Introduce un filtro válido")
-                        }
-                    }
-                }
-            }
-            req.open("GET", "../server/servidor.php?filtro=" + filtro);
-            req.send()
-        }
-
-        let bt_pe = document.getElementById("bt-filtrarEQ")
-        bt_pe.addEventListener('click', filtrarDatosEQ)
-
-        /* 
-        *  Filtro por liga recoge el valor de la liga y
-        *  equipo. Hace una busqueda a la base de datos y
-        *  devuelve los valores creando una tabla. 
-        */
-        function filtrarDatosEQ() {
-            let liga = document.getElementById("in-p").value
-            let filtro = document.getElementById("in-EQ").value
+            let filtro = "SM2"
             let req
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
@@ -199,59 +133,29 @@
                     }
                 }
             }
-            req.open("GET", "../server/servidor.php?filtroEquipo=" + filtro + "&filtro=" + liga);
+            req.open("GET", "../server/servidor.php?clasificacion=" + filtro);
             req.send()
         }
 
-        let bt_puesto = document.getElementById("bt-filtrarPUESTO")
-        bt_puesto.addEventListener('click', filtrarDatosPUESTO)
-
-        /*
-        *  Filtro por puesto recoge el valor del option y 
-        *  los valores anteriores. Hace una busqueda a la base de datos y 
-        *  devuelve los valores creando una tabla.
-        */
-
-        function filtrarDatosPUESTO() {
-            let liga = document.getElementById("in-p").value
-            let filtro = document.getElementById("in-EQ").value
-            let puesto = document.getElementById("in-PUESTO").value
-            let req
-            if (window.XMLHttpRequest) {
-                req = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                req = ActiveXObject("Microsoft.XMLHTTP");
-            }
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        let id = JSON.parse(req.responseText)
-                        if (id[0] != "") {
-                            imprimirTabla(id)
-                        } else {
-                            alert("Introduce un filtro válido")
-                        }
-                    }
-                }
-            }
-            req.open("GET", "../server/servidor.php?filtroEquipo=" + filtro + "&filtro=" + liga + "&filtroPuesto=" + puesto);
-            req.send()
-        }
-        /*
+       /*
         *  Esta funcion crea las tablas.
         *  @param datos
         *  Toma como parametro un array de datos que incluye, el id,nombre,equipo,puesto, colocaciones y las acciones con sus porcentajes.
         */
+
         function imprimirTabla(datos) {
+
             let doc = document.getElementById('divTabla')
             doc.innerHTML = ''
+
             var tabla = document.createElement("table");
             var tblBody = document.createElement("tbody");
+            tabla.setAttribute("class", "clasificacion")
             tabla.setAttribute("id", "tabla")
-            tabla.setAttribute("class", "index")
+
             var fila = document.createElement("tr");
-            titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
-            for (var j = 0; j < 16; j++) {
+            titulos = ["EQUIPO", "PUNTOS", "PUNTOS CONTRA", "PUNTOS FAVOR", "SETS CONTRA", "SETS FAVOR", "JUGADOS", "G3", "G2", "P1", "P0"]
+            for (var j = 0; j < 11; j++) {
                 var celda = document.createElement("td");
                 var textoCelda = document.createTextNode(titulos[j]);
                 celda.appendChild(textoCelda);
@@ -263,7 +167,7 @@
 
             for (var i = 0; i < datos.length; i++) {
                 var fila = document.createElement("tr");
-                for (var j = 0; j < 16; j++) {
+                for (var j = 0; j < 11; j++) {
                     var celda = document.createElement("td");
                     var textoCelda = document.createTextNode(datos[i][j]);
                     celda.appendChild(textoCelda);
@@ -294,55 +198,6 @@
             }
         }
 
-        /*
-        *  Esta funcion lo que hace es buscar en la base de datos y pasar por otra funcion.
-        *  @param liga
-        *  Recoge un parametro que es el valor de liga.
-        */
-        function cogerequipos(liga) {
-            $liga = liga;
-            var req
-            if (window.XMLHttpRequest) {
-                req = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                req = ActiveXObject("Microsoft.XMLHTTP");
-            }
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        let arrayequiposliga = JSON.parse(req.responseText);
-                        if (arrayequiposliga != null) {
-                            darvalorLista(arrayequiposliga)
-                        }
-                    }
-                }
-            }
-            req.open("GET", "../server/servidor.php?equipoLiga=" + liga);
-            req.send()
-        }
-
-        /*
-        *  Esta funcion lo que hace es dar los valores al select y añadirlos al dom.
-        *  @param equipos
-        *  Recoge un parametro que es un array de equipos.
-        */
-
-        function darvalorLista(equipos) {
-            selectpadre = document.getElementById("in-EQ")
-            while (selectpadre.firstChild) {
-                selectpadre.removeChild(selectpadre.firstChild);
-            };
-            let opt = document.createElement("option")
-            opt.setAttribute('value', "TODO")
-            opt.innerHTML = "TODO"
-            selectpadre.appendChild(opt)
-            for (let a = 0; a < equipos.length; a++) {
-                let opt = document.createElement("option")
-                opt.setAttribute('value', equipos[a][0])
-                opt.innerHTML = equipos[a][1]
-                selectpadre.appendChild(opt)
-            }
-        }
     </script>
 </body>
 

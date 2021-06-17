@@ -1,0 +1,237 @@
+<!--
+    Este archivo lo que hace es mostrar las estadistica de un partido entre dos equipos
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/23b8b8f3dd.js" crossorigin="anonymous"></script>
+    <title>Partido - StatisticSports</title>
+</head>
+
+<body>
+    <header>
+        <div id="cab">
+            <picture id="img1">
+                <img id="img1" src="./images/favicon.png">
+            </picture>
+            <h1><a href="./index.html">StatisticSports</a></h1>
+        </div>
+        <nav>
+            <ul id="barra-nav" class="nav">
+                <li><a href="./index.html"><i class="fas fa-home"></i> INICIO</a></li>
+                <li><a href="#"><i class="fas fa-chevron-down"></i> CLASIFICACION </a>
+                    <ul>
+                        <li><a href="#">FEMENINO <i class="fas fa-chevron-right"></i></a>
+                            <ul>
+                                <li><a href="./liga_Iberdrola.html">Liga iberdrola</a></li>
+                                <li><a href="./SVF2.html">Superliga 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">MASCULINO <i class="fas fa-chevron-right"></i></a>
+                            <ul>
+                                <li><a href="./SVM.html">Superliga</a></li>
+                                <li><a href="./SVM2.html">Superliga 2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="./muestraPartidos.html"><i class="fas fa-eye"></i> MOSTRAR PARTIDO</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="divTabla1"></div>
+    <div id="divTabla2"></div>
+    <footer>
+        <p>Web creada por Bea, Alexandru y Marta</p>
+    </footer>
+    <script src="./login.js"></script>
+    <script>
+        /*
+        * Control para incio de sesion, se recoge el usuario de localstorage
+        * y se comprueba que este usuario exista haciendo una peticion
+        * al servidor.
+        */
+        miStorage = window.localStorage;
+        var usuario = []
+        if (localStorage.getItem("usuario") == null) {
+            var botonUsuario = document.getElementById("log");
+            botonUsuario.onclick = function () {
+                usuario[0] = document.getElementById("usu").value;
+                usuario[1] = document.getElementById("pass").value;
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                var arrayCodificado = localStorage.getItem("usuario");
+                if (arrayCodificado != null) {
+                    usuario = JSON.parse(arrayCodificado);
+                }
+            }
+        }
+
+        // Funcion para consultar usuario cuando entras en la pagina
+        function consultarUsuario() {
+            var arrayCodificado = localStorage.getItem("usuario");
+            if (arrayCodificado != null) {
+                usuario = JSON.parse(arrayCodificado);
+            }
+        }
+
+        // Funcion para buscar en la base de datos al usuario.
+        function enviarDatos() {
+            let usuario = document.getElementById("usu").value;
+            let contra = document.getElementById("pass").value;
+            let array1 = [usuario, contra];
+            var req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        if (req.response == "ERROR") {
+                        } else if (req.response == "CORRECTO") {
+                        }
+                    }
+                }
+            }
+            req.open("POST", "../server/servidor.php");
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            req.send("login=" + JSON.stringify(array1))
+        }
+
+        /* 
+        *  La funcion lo que hace es dependiendo de sus valores,
+        *  devuelve un partido u otro.
+        *  Por lo que enseña todos los jugadores y devuelve los 
+        *  valores creando una tabla.
+        */
+
+        function filtrarDatos(filtro, doc) {
+            let req
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = ActiveXObject("Microsoft.XMLHTTP");
+            }
+            /*ACABAR*/
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        let id = JSON.parse(req.responseText)
+                        if (id[0] != "") {
+                            imprimirTabla(id, doc)
+                        } else {
+                            alert("Introduce un filtro válido")
+                        }
+
+                    }
+                }
+            }
+            req.open("GET", "../server/servidor.php?filtropartidoestadistica=" + JSON.stringify(filtro));
+            req.send()
+        }
+        /*
+        *  Esta funcion crea las tablas.
+        *  @param datos
+        *  @param doc
+        *  Toma como parametros un array de datos que incluye, el id,nombre,equipo,puesto, colocaciones y las acciones con sus porcentajes.
+        *  Y doc que es el div donde va la tabla.
+        */
+        function imprimirTabla(datos, doc) {
+            doc.innerHTML = ''
+
+            var tabla = document.createElement("table");
+            var tblBody = document.createElement("tbody");
+            tabla.setAttribute("id", "tabla")
+            tabla.setAttribute("class", "index")
+
+            var fila = document.createElement("tr");
+
+            titulos = ["ID", "NOMBRE", "EQUIPO", "PUESTO", "COLOCACIONES", "%", "RECIBIR", "%", "DEFENDER", "%", "ATAQUE", "%", "BLOQUEAR", "%", "SACAR", "%"]
+            for (var j = 0; j < 16; j++) {
+                var celda = document.createElement("td");
+                var textoCelda = document.createTextNode(titulos[j]);
+                celda.appendChild(textoCelda);
+                fila.appendChild(celda);
+            }
+            tblBody.appendChild(fila);
+            tabla.appendChild(tblBody);
+            doc.appendChild(tabla);
+
+            for (var i = 0; i < datos.length; i++) {
+                var fila = document.createElement("tr");
+                for (var j = 0; j < 16; j++) {
+                    var celda = document.createElement("td");
+                    var textoCelda = document.createTextNode(datos[i][j]);
+                    celda.appendChild(textoCelda);
+                    fila.appendChild(celda);
+                }
+                tblBody.appendChild(fila);
+            }
+        }
+
+        /*
+        * Funcion que crea los nombres para poder identificar los equipos en el dom.
+        * @param tipid
+        * @param idequip
+        * Toma como parametros tipid que es el equipo cual me quiero referir e
+        * idequip que es el nombre del equipo.
+        */
+        function crearNombre(tipid, idequip) {
+            if (tipid == "id1") {
+                let doc = document.getElementById('divTabla1')
+                let e = document.createElement("p")
+                e.innerHTML = idequip
+                doc.appendChild(e)
+            }
+            if (tipid == "id2") {
+                let doc = document.getElementById('divTabla2')
+                let e = document.createElement("p")
+                e.innerHTML = idequip
+                doc.appendChild(e)
+            }
+        }
+
+        /*
+        * Esta funcion recoge en la cabecera los equipos pasados por un GET.
+        */
+        function cabeceras() {
+            var parts = window.location.search.substr(1).split("&");
+            var $_GET = {};
+            for (var i = 0; i < parts.length; i++) {
+                var temp = parts[i].split("=");
+                $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+                if (temp[0] == "id1" || temp[0] == "id2") {
+                    crearNombre(temp[0], temp[1])
+                }
+            }
+            return $_GET;
+        }
+
+        /*
+        * Al cargar la pagina se ejecutan las funciones y se filtran los datos.
+        * Tambien comprueba si existe el usuario.
+        */
+        window.onload = function () {
+            let array = cabeceras()
+            let opcion1 = 'a';
+            let opcion2 = 'b';
+            let array1 = [array['id1'], array['liga'], array['id2'], opcion1];
+            let array2 = [array['id2'], array['liga'], array['id1'], opcion2];
+            let doc = document.getElementById('divTabla1')
+            let doc1 = document.getElementById('divTabla2')
+
+            filtrarDatos(array1, doc);
+            filtrarDatos(array2, doc1);
+            consultarUsuario();
+        }
+    </script>
+</body>
+
+</html>

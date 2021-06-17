@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overlock&display=swap');
+:root{
+    --cab-color:rgb(63, 77, 201);
+    --tit-color:rgb(226, 215, 58);
+}
+html ,body{
+    height: 100%;
+    margin: 0;
+} 
+/* CABECERA */
+#cab{
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    background-color: var(--cab-color);
+}
+#img1{
+    width: 120px;
+    height: 120px;
+    opacity: 0.7;
+    border-radius: 50%;
+}
+#cab h1 a{
+    font-size: 3em;
+    font-family: 'Bebas Neue', cursive;
+    color: var(--tit-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+#login h2{
+    margin: 0;
+    font-size: 20px;
+}
+#login form label{
+    display: block;
+}
+#cab button{
+    padding: 20px;
+    background-color: white;
+    border: 1px solid var(--tit-color);
+    border-radius: 5px;
+}
+#cab button:hover{
+    background-color: rgb(226, 58, 58);
+    border: 1px solid rgb(0, 0, 0);
+}
+h1{
+    margin: 0;
+    padding: 0;
+}
+h1:hover{
+    text-shadow: 0 10px 5px rgb(131, 61, 61);
+}
+/* MENU */
+ul {
+    list-style:none;
+    padding: 0;
+    background-color: var(--cab-color);
+    margin: 0;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+    font-family: 'Overlock', cursive;
+}
+
+.nav > li {
+    display:inline-block;
+}
+
+.nav li a {
+    background-color:var(--cab-color);
+    color:#fff;
+    text-decoration:none;
+    padding:10px 12px;
+    display:block;
+}
+
+.nav li a:hover {
+    background-color:var(--tit-color);
+}
+
+.nav li ul {
+    display:none;
+    position:absolute;
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:relative;
+}
+
+.nav li ul li ul {
+    right:-140px;
+    top:0px;
+}
+
+/* MAIN */
+main{
+    min-height: 75vh; /* 1080 */
+}
+
+/* SELECCIONAR PARTIDO */
+#form{
+    position: absolute;
+    background-color: rgb(226, 215, 58);
+    top:18vh;
+    left: 50%;
+    width: 99vw;
+    height: 70vh;
+    border: 5px solid var(--cab-color);
+    transform: translate(-50%);
+    text-align: center;
+    display: table;
+    font-family: 'Overlock';
+}
+#form form{
+    font-size: 20px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+#form form input{
+    width: auto;
+    height: 30px;
+    width: 200px;
+}
+#form form select {
+    font-family: 'Overlock';
+    text-align-last:center;
+    height: 30px;
+    width: 200px;
+}
+#form form select option{
+    font-family: 'Overlock';
+    text-align-last: center;
+    text-align: center;
+    height: 30px;
+    width: 200px;
+}
+#form form button{
+    margin-top: 10px;
+    height: 30px;
+    width: 200px;
+    font-family: 'Overlock';
+    font-size: large;
+}
+/* DIRECTO */
+#d-ficha{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+#d-ficha p{
+    margin: 0;
+}
+#d-valores{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* APARTADO DE DIRECTO */
+#directo{
+    text-align: center;
+}
+.campos{
+    display: flex;
+    justify-content: space-evenly;
+}
+.campos > h2{
+    margin: 0 100px 0 100px;
+}
+#campo, #campo2{
+    margin: 10px;
+    width:300px;
+    height: 300px;
+    border: 1px solid var(--cab-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.jug:last-child{
+    background-color: rgb(73, 7, 160);
+    color: white;
+}
+.jug{
+    background-color: rgb(154, 158, 214);
+    border-radius: 50%;
+    margin: 25px;
+    width: 50px;
+    height: 50px;
+}
+.jug:hover{
+    cursor: pointer;
+}
+.jug p {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 0;
+}
+/* MENU PARTIDO */
+.bts-direc{
+    height: 50px;
+}
+#punto, #punto2{
+    background-color: #19b11e;
+    border: 1px solid green;
+    border-radius: 3px;
+}
+#punto:hover, #punto2:hover{
+    background-color: #1edd24;
+    border: 1px solid rgb(0, 68, 0);
+}
+#puntoR, #puntoR2{
+    background-color: #f84f4f;
+    border: 1px solid rgb(167, 0, 0);
+    border-radius: 3px;
+}
+#puntoR:hover, #puntoR2:hover{
+    background-color: #f73030;
+    border: 1px solid rgb(97, 2, 2);
+}
+/* MARCADOR */
+#puntos:disabled, #puntos2:disabled{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+} 
+/* MENU ACCION DEL JUGADOR*/
+#d-accion{
+    position: absolute;
+    top:25vh;
+    left: 50%;
+    width: 350px;
+    height: 500px;
+    border: 1px solid black;
+    background-color: #fff;
+    transform: translate(-50%);
+    text-align: center;
+    box-shadow: 0 0 25px 10px olive
+}
+#d-accion > p{
+    margin: 20px 0 20px 0;
+}
+#bt-editar-2, #bt-editar-22 {
+    margin: 20px 0 20px 0;
+}
+.bt-acciones{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 2px;
+    height: 50px;
+    width: 50px;
+}
+.bt-valores{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 2px;
+    height: 50px;
+    width: 50px;
+}
+/* MENU ASIGNAR JUGADOR*/
+#d-asignar{
+    position: absolute;
+    top:25vh;
+    left: 50%;
+    width: 300px;
+    height: 150px;
+    border: 1px solid black;
+    background-color: #fff;
+    transform: translate(-50%);
+    text-align: center;
+}
+#d-asignar > select{
+    width: 90%;
+    margin: 10px;
+}
+#d-asignar > button{
+    width: 90%;
+    height: 100px;
+    background-color: rgb(0, 158, 0);
+    border: 1px solid black;
+    border-radius: 2px;
+}
+#d-asignar > button:hover{
+    background-color: rgb(0, 221, 0);
+}
+/* INFO EQUIPO */
+#divTabla{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+}
+#tabla {
+    border-radius: 10px;
+}
+#tabla ,tr{
+    font-family: 'Fira Sans', sans-serif;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#tabla tr:first-child{
+    background-color: var(--cab-color);
+    font-weight: bold;
+}
+#tabla tr:nth-child(even){
+    background-color: var(--tit-color);
+}
+#tabla td{
+    padding: 5px;
+}
+table tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+}
+table tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+}
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+.clasificacion tr td:first-child{
+    font-weight:bold;
+}
+.index tr td:nth-child(2){
+    font-weight:bold;
+}
+.partido tr td:nth-child(7){
+    font-weight:bold;
+}
+.partido tr td:nth-child(8){
+    font-weight:bold;
+}
+/* INFORMACION PARTIDO */
+#info-equipos{
+    display: flex;
+    flex-direction: column;
+    margin:20px 0 20px 0;
+}
+#info-equipos > div{
+    margin: 10px 0 10px 0;
+}
+/* MOSTRAR PARTIDOS */
+#divTabla1,#divTabla2{
+    margin: 10px;
+}
+#divTabla1 p, #divTabla2 p{
+    text-align: center;
+    font-weight: bolder;
+    font-family: 'Fira Sans', sans-serif;
+}
+/* FOOTER */
+footer{
+    padding: 10px;
+    background-color: var(--cab-color);
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+footer p{
+    margin: 0;
+}
+@media (max-width: 425px) {
+    header{
+        width:100%;
+    }
+    #img1{
+        display: none;
+    }
+    #cab{
+        justify-content: center;
+        flex-direction: column;
+    }
+    #cab h1 a{
+        font-size: 2em;
+    }
+    #login{
+        display: none;
+    }
+    .nav > li {
+        display: block;
+    }
+    .nav li a {
+        background-color: rgba(17, 0, 255, 0);
+    }
+    .nav li ul {
+        border-radius: 0;
+    }
+    .nav li ul li ul {
+        border-radius: 0;
+        box-shadow: 1px 1px 10px black;
+    }
+    #divTabla{
+        overflow-x: auto;
+        margin: 0 0 10px 0;
+    }
+}
